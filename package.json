@@ -1,0 +1,27 @@
+{
+  "name": "google-design-site-header",
+  "version": "0.1.0",
+  "description": "A humble copycat of the Google Design site's header.",
+  "main": "/",
+  "scripts": {
+    "test": "/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youknowznm/google-design-site-header.git"
+  },
+  "author": "EZhang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youknowznm/google-design-site-header/issues"
+  },
+  "homepage": "https://github.com/youknowznm/google-design-site-header#readme",
+  "dependencies": {
+    "babel-preset-es2015": "^6.22.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-livereload": "^3.8.1",
+    "gulp-ruby-sass": "^2.1.1",
+    "gulp-uglify": "^2.0.1"
+  }
+}
