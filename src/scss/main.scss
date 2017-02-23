@@ -1,0 +1,109 @@
+@charset "UTF-8";
+/*
+font
+*/
+@font-face {
+    font-family: 'Roboto Mono';
+    src: url("../static/font/RobotoMono-regular.ttf");
+}
+/*
+colors
+*/
+// $gds-header-colors: (
+//     red: rgb(234, 67, 53),
+//     yellow: rgb(251, 188, 5),
+//     blue: rgb(66, 133, 244),
+//     green: rgb(52, 168, 83),
+//     gray: rgb(60, 90, 100),
+// );
+$gds-header-gen-colors: (
+    rgb(234, 67, 53), //red
+    rgb(251, 188, 5), //yellow
+    rgb(66, 133, 244), //blue
+    rgb(52, 168, 83), //green
+    rgb(60, 90, 100), //gray
+);
+$gds-header-search-color: rgb(241, 243, 244);
+$gen-colors: (
+    white: rgb(255, 255, 255),
+    title-word-suffix: rgba(255, 255, 255, .5),
+);
+/*
+general
+*/
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+a {
+    text-decoration: none;
+}
+ul, ol {
+    list-style: none;
+}
+html,
+body {
+    font-family: "Roboto Mono", "Helvetica Neue",
+                 "PingFang SC", "Microsoft YaHei",
+                 "微软雅黑", Arial, sans-serif;
+    height: 100%;
+    -webkit-font-smoothing: antialiased;
+}
+/*
+google-design-site-header
+*/
+#gds-header {
+    position: relative;
+    // 起始页面 header 为蓝色（五个颜色中的第三个）
+    background-color: nth($gds-header-gen-colors, 3);
+}
+#gds-header-content {
+    // TODO
+    width: 1280px;
+    margin: 0 auto;
+    * {
+        // 除了搜索以外的颜色为白色
+        color: #fff;
+    }
+
+    > nav {
+        width: 100%;
+        height: 64px;
+        line-height: 64px;
+        .current-title {
+            display: inline-block;
+            font-size: 20px;
+            line-height: 30px;
+            .single-word {
+
+                &::after {
+                    content: '·';
+                    // color: map-get($gen-colors, title-word-suffix);
+                    opacity: .4;
+                }
+
+
+            }
+            .single-word(:last-of-type  )::after {
+                content: '¬';
+            }
+
+        }
+    }
+
+    .nav-items {
+        position: relative;
+        float: right;
+        font-size: 14px;
+        // 字符间距
+        letter-spacing: .25px;
+        font-weight: 700;
+    }
+
+    .wave-layer {
+        width: 100%;
+        height: 192px;
+    }
+
+}

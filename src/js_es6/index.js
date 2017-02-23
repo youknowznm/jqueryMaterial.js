@@ -1,1 +1,1 @@
-const fuck = 123;
+const shi = 123;
