@@ -22,12 +22,12 @@ gulp.task('js', () => {
 });
 
 gulp.task('static', () => {
-    return gulp.src('src/static/**/*')
+    return gulp.src('src/static/**/*.*')
         .pipe(gulp.dest('dist/static/'))
         .pipe(livereload());
 })
 
-gulp.task('watch', () => {
+gulp.task('default', ['css', 'js', 'static'], () => {
     livereload.listen();
     gulp
         .watch('src/scss/**/*.scss', ['css'])

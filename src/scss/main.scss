@@ -9,13 +9,6 @@ font
 /*
 colors
 */
-// $gds-header-colors: (
-//     red: rgb(234, 67, 53),
-//     yellow: rgb(251, 188, 5),
-//     blue: rgb(66, 133, 244),
-//     green: rgb(52, 168, 83),
-//     gray: rgb(60, 90, 100),
-// );
 $gds-header-gen-colors: (
     rgb(234, 67, 53), //red
     rgb(251, 188, 5), //yellow
@@ -26,7 +19,7 @@ $gds-header-gen-colors: (
 $gds-header-search-color: rgb(241, 243, 244);
 $gen-colors: (
     white: rgb(255, 255, 255),
-    title-word-suffix: rgba(255, 255, 255, .5),
+    translucent: rgba(255, 255, 255, .4),
 );
 /*
 general
@@ -57,6 +50,7 @@ google-design-site-header
     position: relative;
     // 起始页面 header 为蓝色（五个颜色中的第三个）
     background-color: nth($gds-header-gen-colors, 3);
+    // box-shadow: 10px 10px 0 0 map-get($gen-colors, translucent);
 }
 #gds-header-content {
     // TODO
@@ -73,22 +67,19 @@ google-design-site-header
         line-height: 64px;
         .current-title {
             display: inline-block;
+            padding: 20px;
             font-size: 20px;
-            line-height: 30px;
+            line-height: 20px;
             .single-word {
-
+                float: left;
                 &::after {
                     content: '·';
-                    // color: map-get($gen-colors, title-word-suffix);
                     opacity: .4;
                 }
-
-
+                &:last-of-type:after {
+                    content: '¬';
+                }
             }
-            .single-word(:last-of-type  )::after {
-                content: '¬';
-            }
-
         }
     }
 
@@ -99,11 +90,40 @@ google-design-site-header
         // 字符间距
         letter-spacing: .25px;
         font-weight: 700;
+        > li {
+            display: inline-block;
+        }
+        .nav-anchor {
+            padding: 20px 12px 21px;
+            line-height: 1;
+            border-bottom: 2px solid transparent;
+            transition: all .2s;
+            &:hover {
+                border-color: map-get($gen-colors, white);
+            }
+        }
     }
 
     .wave-layer {
         width: 100%;
         height: 192px;
     }
+
+    .ripple {
+        position: absolute;
+        border-radius: 50%;
+        background-color: map-get($gen-colors, translucent);
+        transition: 1s ease-out;
+        overflow: hidden;
+        &.min {
+            width: 0;
+            height: 0;
+        }
+        &.max {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
 
 }
