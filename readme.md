@@ -14,6 +14,6 @@
 
 这里有个小坑，就是 mouseup 事件的目标必然会是波纹元素，不可能是任何别的。这导致我 debug 了半天，还怀疑 mouseup 事件是不是不冒泡，蠢死了。
 
-这样一搞，mousedown -> mouseup -> click 这个过程有种明显的段落感，很舒服
+这样一搞，mousedown -> mouseup -> click 这个过程有种明显的段落感，很舒服。Google Design 这里的处理似乎更复杂，是在新标签页渲染完毕之后触发 mouseup 的动画。
 
 <!-- $('#header').on('mousedown', '.nav-anchor', function(){}) -->
