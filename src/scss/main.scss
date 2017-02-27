@@ -9,17 +9,34 @@ font
 /*
 colors
 */
-$gds-header-gen-colors: (
+$gds-header-colors: (
     rgb(234, 67, 53), //red
     rgb(251, 188, 5), //yellow
     rgb(66, 133, 244), //blue
     rgb(52, 168, 83), //green
     rgb(60, 90, 100), //gray
+    rgb(241, 243, 244), //silver
 );
-$gds-header-search-color: rgb(241, 243, 244);
 $gen-colors: (
+    translucent: rgba(#fff, .4),
+    // element ui
+    dark-blue: #1D8CE0,
+    light-blue: #58B7FF,
+    blue: #20A0FF,
+    green: #13CE66,
+    yellow: #F7BA2A,
+    red: #FF4949,
+    black: #1F2D3D,
+    light-black: #324057,
+    extra-light-black: #475669,
+    silver: #8492A6,
+    light-silver: #99A9BF,
+    extra-light-silver: #C0CCDA,
+    gray: #D3DCE6,
+    light-gray: #E5E9F2,
+    extra-light-gray: #EFF2F7,
     white: rgb(255, 255, 255),
-    translucent: rgba(255, 255, 255, .4),
+    dark-white: #F9FAFC,
 );
 /*
 general
@@ -49,18 +66,18 @@ google-design-site-header
 #gds-header {
     position: relative;
     // 起始页面 header 为蓝色（五个颜色中的第三个）
-    background-color: nth($gds-header-gen-colors, 3);
-    // box-shadow: 10px 10px 0 0 map-get($gen-colors, translucent);
+    background-color: nth($gds-header-colors, 3);
+    overflow: hidden;
 }
+
 #gds-header-content {
     // TODO
     width: 1280px;
     margin: 0 auto;
+    overflow: hidden;
     * {
-        // 除了搜索以外的颜色为白色
-        color: #fff;
+        color: map-get($gen-colors, white);
     }
-
     > nav {
         width: 100%;
         height: 64px;
@@ -82,7 +99,6 @@ google-design-site-header
             }
         }
     }
-
     .nav-items {
         position: relative;
         float: right;
@@ -92,38 +108,63 @@ google-design-site-header
         font-weight: 700;
         > li {
             display: inline-block;
+            float: left;
         }
         .nav-anchor {
             padding: 20px 12px 21px;
             line-height: 1;
             border-bottom: 2px solid transparent;
             transition: all .2s;
+            &.active,
             &:hover {
                 border-color: map-get($gen-colors, white);
             }
         }
     }
-
     .wave-layer {
         width: 100%;
         height: 192px;
     }
+}
 
-    .ripple {
-        position: absolute;
-        border-radius: 50%;
-        background-color: map-get($gen-colors, translucent);
-        transition: 1s ease-out;
-        overflow: hidden;
-        &.min {
-            width: 0;
-            height: 0;
-        }
-        &.max {
-            width: 100px;
-            height: 100px;
-        }
+#ripple {
+    position: absolute;
+    display: none;
+    width: 100px;
+    height: 100px;
+    top: 0;
+    left: 0;
+    background-color: map-get($gen-colors, translucent);
+    border-radius: 50%;
+    &.noneToCircle {
+        display: block;
+        animation: noneToCircle .7s ease-out;
     }
+    &.circleToFullscreen {
+        display: block;
+        animation: circleToFullscreen .5s ease-out;
+    }
+}
 
+@keyframes noneToCircle {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
 
+@keyframes circleToFullscreen {
+    to {
+        transform: scale(20);
+        opacity: 0;
+    }
+}
+
+#gds-header-fake-shadow {
+    width: 100%;
+    height: 12px;
+    background: url('../static/image/shadow.png') repeat-x;
+    background-size: 1px 12px;
 }

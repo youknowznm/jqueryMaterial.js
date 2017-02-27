@@ -2,6 +2,7 @@ const gulp = require('gulp'),
     sass = require('gulp-ruby-sass'),
     cleanCSS = require('gulp-clean-css'),
     babel = require('gulp-babel'),
+    sourcemaps = require('gulp-sourcemaps'),
     uglify = require('gulp-uglify'),
     livereload = require('gulp-livereload');
 
@@ -13,12 +14,16 @@ gulp.task('css', () => {
         .pipe(livereload());
 });
 
-gulp.task('js', () => {
-    return gulp.src('src/js_es6/**/*.js')
-        .pipe(babel({presets: ['es2015']}))
+gulp.task('js', function() {
+	return gulp
+		.src('src/js_es6/**/*.js')
+		.pipe(sourcemaps.init()) // entry file
+		.pipe(babel({
+			presets: ['es2015']
+		}))
         .pipe(uglify())
+		.pipe(sourcemaps.write('/maps'))
         .pipe(gulp.dest('dist/script/'))
-        .pipe(livereload());
 });
 
 gulp.task('static', () => {
