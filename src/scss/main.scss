@@ -1,73 +1,17 @@
-@charset "UTF-8";
-/*
-font
-*/
-@font-face {
-    font-family: 'Roboto Mono';
-    src: url("../static/font/RobotoMono-regular.ttf");
-}
-/*
-colors
-*/
-$gds-header-colors: (
-    rgb(234, 67, 53), //red
-    rgb(251, 188, 5), //yellow
-    rgb(66, 133, 244), //blue
-    rgb(52, 168, 83), //green
-    rgb(60, 90, 100), //gray
-    rgb(241, 243, 244), //silver
-);
-$gen-colors: (
-    translucent: rgba(#fff, .4),
-    // element ui
-    dark-blue: #1D8CE0,
-    light-blue: #58B7FF,
-    blue: #20A0FF,
-    green: #13CE66,
-    yellow: #F7BA2A,
-    red: #FF4949,
-    black: #1F2D3D,
-    light-black: #324057,
-    extra-light-black: #475669,
-    silver: #8492A6,
-    light-silver: #99A9BF,
-    extra-light-silver: #C0CCDA,
-    gray: #D3DCE6,
-    light-gray: #E5E9F2,
-    extra-light-gray: #EFF2F7,
-    white: rgb(255, 255, 255),
-    dark-white: #F9FAFC,
-);
-/*
-general
-*/
-* {
-    margin: 0;
-    padding: 0;
-    outline: 0;
-}
-a {
-    text-decoration: none;
-}
-ul, ol {
-    list-style: none;
-}
-html,
-body {
-    font-family: "Roboto Mono", "Helvetica Neue",
-                 "PingFang SC", "Microsoft YaHei",
-                 "微软雅黑", Arial, sans-serif;
-    height: 100%;
-    -webkit-font-smoothing: antialiased;
-}
-/*
-google-design-site-header
-*/
+@import "./_general";
+@import "./_ripple";
+@import "./_indicator";
+
+// z-index #ripple 2; #gds-header-content 1;
+
 #gds-header {
-    position: relative;
+    position: fixed;
+    width: 100%;
+    top: 0;
     // 起始页面 header 为蓝色（五个颜色中的第三个）
     background-color: nth($gds-header-colors, 3);
     overflow: hidden;
+    box-shadow: 0 0 6px 6px map-get($gen-colors, light-silver);
 }
 
 #gds-header-content {
@@ -75,10 +19,12 @@ google-design-site-header
     width: 1280px;
     margin: 0 auto;
     overflow: hidden;
+    z-index: 1;
     * {
         color: map-get($gen-colors, white);
     }
     > nav {
+        position: relative;
         width: 100%;
         height: 64px;
         line-height: 64px;
@@ -115,56 +61,17 @@ google-design-site-header
             line-height: 1;
             border-bottom: 2px solid transparent;
             transition: all .2s;
-            &.active,
-            &:hover {
+            text-transform: capitalize;
+            &.active {
                 border-color: map-get($gen-colors, white);
+            }
+            &:not(.active):hover {
+                border-color: map-get($gen-colors, translucent);
             }
         }
     }
-    .wave-layer {
+    .ripple-layer {
         width: 100%;
         height: 192px;
     }
-}
-
-#ripple {
-    position: absolute;
-    display: none;
-    width: 100px;
-    height: 100px;
-    top: 0;
-    left: 0;
-    background-color: map-get($gen-colors, translucent);
-    border-radius: 50%;
-    &.noneToCircle {
-        display: block;
-        animation: noneToCircle .7s ease-out;
-    }
-    &.circleToFullscreen {
-        display: block;
-        animation: circleToFullscreen .5s ease-out;
-    }
-}
-
-@keyframes noneToCircle {
-    from {
-        transform: scale(0);
-    }
-    to {
-        transform: scale(1);
-    }
-}
-
-@keyframes circleToFullscreen {
-    to {
-        transform: scale(20);
-        opacity: 0;
-    }
-}
-
-#gds-header-fake-shadow {
-    width: 100%;
-    height: 12px;
-    background: url('../static/image/shadow.png') repeat-x;
-    background-size: 1px 12px;
 }
