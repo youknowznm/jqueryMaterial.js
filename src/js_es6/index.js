@@ -3,6 +3,7 @@ let $window = $(window),
     $header = $('#gds-header'),
     $ripple = $header.children('#ripple'),
     $navButtons = $header.find('.nav-anchor'),
+    $navIndicator = $header.find('#nav-indicator'),
     $rippleLayer = $header.find('.ripple-layer');
 
 let $navButtonClicked = null;
@@ -16,11 +17,38 @@ $header
                 top: evt.pageY - 50 - document.body.scrollTop,
             })
             .addClass('noneToCircle');
-        $navButtonClicked = $(this);
+        $navButtonClicked = $(this).addClass('hovering');
     })
     .on('click', '.nav-anchor', function(evt) {
-        $navButtons.removeClass('active');
-        $(this).addClass('active');
+        let $this = $(this);
+        if (!$this.hasClass('active')) {
+
+            /*
+            按钮下划线动画
+            */
+            let startX,
+                endX,
+                $activeBtn = $navButtons.filter('.active');
+            // 比较目标按钮和当前活动按钮的先后位置，计算下划线的起止位置
+            if ($navButtons.index($activeBtn) > $navButtons.index($this)) {
+                startX = $this.offset().left;
+                endX = $activeBtn.offset().left + $activeBtn.width();
+            } else {
+                startX = $activeBtn.offset().left;
+                endX = $this.offset().left + $this.width();
+            }
+            console.log(startX, endX);
+            $navIndicator.css({
+                left: startX - 40,
+                right: endX,
+                width: endX - startX + 22,
+            });
+
+            // $navIndicator.animate({width: 0});
+
+            $navButtons.removeClass('active hovering');
+            $this.addClass('active');
+        }
     });
 
 $body
@@ -28,7 +56,9 @@ $body
         // 根据事件目标的话，智能判断 mousedown，无法判断 mouseup，因为后者的目标永远是波纹元素。
         // 所以以波纹元素是否已有动画类为标准，决定如何处理
         if ($ripple.hasClass('noneToCircle')) {
-            // 先将窗口的 scrollTop 渐变至 0
+            /*
+            波纹元素的扩大
+            */
             $body.animate({scrollTop: 0}, 200, function() {
                 $ripple
                     .css({
@@ -48,6 +78,7 @@ $body
                     }
                 }, 300);
             });
+
         }
     });
 
