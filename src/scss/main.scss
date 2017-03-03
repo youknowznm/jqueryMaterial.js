@@ -58,7 +58,7 @@ z-index
         // 字符间距
         letter-spacing: .25px;
         font-weight: 700;
-        > li {
+        .nav-item {
             display: inline-block;
             float: left;
             z-index: 2;

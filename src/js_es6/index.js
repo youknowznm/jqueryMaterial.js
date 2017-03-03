@@ -29,25 +29,35 @@ $header
             let startX,
                 endX,
                 $activeBtn = $navButtons.filter('.active');
-            // 比较目标按钮和当前活动按钮的先后位置，计算下划线的起止位置
-            if ($navButtons.index($activeBtn) > $navButtons.index($this)) {
-                startX = $this.offset().left;
-                endX = $activeBtn.offset().left + $activeBtn.width();
+            // 判断被点击的按钮在当前按钮的右侧还是左侧
+            let targetIsAtRight =
+                ($navButtons.index($activeBtn) > $navButtons.index($this))
+                ? false
+                : true;
+                console.log('st',$activeBtn.parents('.nav-item').index());
+                console.log('ed',$this.parents('.nav-item').index());
+                // 计算下划线的起止位置
+            if (targetIsAtRight) {
+                startX = $activeBtn.parents('.nav-item')[0].offsetLeft;
+                endX = $this.parents('.nav-item')[0].offsetLeft;
             } else {
-                startX = $activeBtn.offset().left;
-                endX = $this.offset().left + $this.width();
+                startX = $this.parents('.nav-item')[0].offsetLeft;
+                endX = $activeBtn.parents('.nav-item')[0].offsetLeft;
             }
-            console.log(startX, endX);
             $navIndicator.css({
-                left: startX - 40,
+                left: startX,
                 right: endX,
-                width: endX - startX + 22,
+                width: endX - startX,
             });
-
-            // $navIndicator.animate({width: 0});
+            // 判断缩短动画的方向
+            targetIsAtRight
+                ? $navIndicator.addClass('slideToRight')
+                : $navIndicator.addClass('slideToLeft');
 
             $navButtons.removeClass('active hovering');
             $this.addClass('active');
+
+
         }
     });
 

@@ -5,4 +5,39 @@
     background-color: map-get($gen-colors, white);
     z-index: 3;
     transition: all .3s;
+    &.default {
+        width: 0;
+        left: 0;
+        right: auto;
+    }
+    &.slideToLeft {
+        animation: slideToLeft .3s;
+    }
+    &.slideToRight {
+        animation: slideToRight .3s;
+    }
+    @keyframes slideToLeft {
+        0% {
+            left: auto;
+        }
+        99% {
+            left: auto;
+            width: 0;
+        }
+        100% {
+            left: 0;
+        }
+    }
+    @keyframes slideToRight {
+        0% {
+            right: auto;
+        }
+        99% {
+            right: auto;
+            width: 0;
+        }
+        100% {
+            right: 0;
+        }
+    }
 }
