@@ -62,13 +62,12 @@ z-index
             display: inline-block;
             float: left;
             z-index: 2;
-        }
-        .nav-anchor {
             padding: 20px 12px 21px;
             line-height: 1;
             border-bottom: 2px solid transparent;
             transition: all .2s;
-            text-transform: capitalize;
+            cursor: pointer;
+            text-transform: uppercase;
             &.active {
                 border-color: map-get($gen-colors, white);
             }

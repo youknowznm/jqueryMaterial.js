@@ -2,14 +2,14 @@ let $window = $(window),
     $body = $('body'),
     $header = $('#gds-header'),
     $ripple = $header.children('#ripple'),
-    $navButtons = $header.find('.nav-anchor'),
+    $navButtons = $header.find('.nav-item'),
     $navIndicator = $header.find('#nav-indicator'),
     $rippleLayer = $header.find('.ripple-layer');
 
 let $navButtonClicked = null;
 
 $header
-    .on('mousedown', '.nav-anchor', function(evt) {
+    .on('mousedown', '.nav-item', function(evt) {
         $ripple
             .css({
                 left: evt.pageX - 50,
@@ -19,43 +19,60 @@ $header
             .addClass('noneToCircle');
         $navButtonClicked = $(this).addClass('hovering');
     })
-    .on('click', '.nav-anchor', function(evt) {
+    .on('click', '.nav-item', function(evt) {
         let $this = $(this);
         if (!$this.hasClass('active')) {
 
             /*
             按钮下划线动画
             */
-            let startX,
-                endX,
-                $activeBtn = $navButtons.filter('.active');
-            // 判断被点击的按钮在当前按钮的右侧还是左侧
+            let $activeBtn = $navButtons.filter('.active'),
+                activeBtnOffsetParent = $activeBtn.closest('.nav-item')[0],
+                $targetBtn = $(this),
+                targetBtnOffsetParent = $targetBtn.closest('.nav-item')[0];
+
             let targetIsAtRight =
-                ($navButtons.index($activeBtn) > $navButtons.index($this))
-                ? false
-                : true;
-                console.log('st',$activeBtn.parents('.nav-item').index());
-                console.log('ed',$this.parents('.nav-item').index());
-                // 计算下划线的起止位置
+                $navButtons.indexOf($targetBtn) > $navButtons.indexOf($activeBtn)
+                ? true
+                : false;
+
+                let startX, endX;
+
+            // 取得目标按钮和当前按钮的起始、结束共四个坐标中的最大和最小值，分别作为下划线的起点和终点
+            let coors = [
+                activeBtnOffsetParent.offsetLeft,
+                activeBtnOffsetParent.offsetLeft + $activeBtn.innerWidth(),
+                targetBtnOffsetParent.offsetLeft,
+                targetBtnOffsetParent.offsetLeft + $targetBtn.innerWidth(),
+            ];
+
             if (targetIsAtRight) {
-                startX = $activeBtn.parents('.nav-item')[0].offsetLeft;
-                endX = $this.parents('.nav-item')[0].offsetLeft;
-            } else {
-                startX = $this.parents('.nav-item')[0].offsetLeft;
-                endX = $activeBtn.parents('.nav-item')[0].offsetLeft;
+                startX = $activeBtn.closest
             }
+
+            let startX = Math.min.apply(null, coors);
+            let endX = Math.max.apply(null, coors);
+            // console.log(startX-endX);
             $navIndicator.css({
                 left: startX,
                 right: endX,
                 width: endX - startX,
             });
-            // 判断缩短动画的方向
-            targetIsAtRight
-                ? $navIndicator.addClass('slideToRight')
-                : $navIndicator.addClass('slideToLeft');
 
-            $navButtons.removeClass('active hovering');
-            $this.addClass('active');
+            $navIndicator.css('right','auto').animate({
+                width: 0
+            }, 1000, function() {
+                $navButtons.removeClass('active hovering');
+                $this.addClass('active');
+                $navIndicator.css({
+                    left: 0,
+                    right: 'auto',
+                    width: 0,
+                })
+            })
+
+            // $navButtons.removeClass('active hovering');
+            // $this.addClass('active');
 
 
         }
