@@ -4,5 +4,5 @@
     bottom: 0;
     background-color: map-get($gen-colors, white);
     z-index: 3;
-    // transition: all 1s;
+    transition: color .3s;
 }
