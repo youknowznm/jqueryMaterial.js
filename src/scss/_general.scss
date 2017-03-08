@@ -18,26 +18,11 @@ $gds-header-colors: (
     rgb(241, 243, 244), //silver
 );
 $gen-colors: (
-    translucent-4: rgba(#fff, .4),
-    translucent: rgba(#fff, .5),
-    // element ui
-    dark-blue: #1D8CE0,
-    light-blue: #58B7FF,
-    blue: #20A0FF,
-    green: #13CE66,
-    yellow: #F7BA2A,
-    red: #FF4949,
-    black: #1F2D3D,
-    light-black: #324057,
-    extra-light-black: #475669,
-    silver: #8492A6,
+    translucent-black: rgba(#000, .3),
+    translucent-white: rgba(#fff, .5),
+    black: rgba(#000, .7),
+    white: #fff,
     light-silver: #99A9BF,
-    extra-light-silver: #C0CCDA,
-    gray: #D3DCE6,
-    light-gray: #E5E9F2,
-    extra-light-gray: #EFF2F7,
-    white: rgb(255, 255, 255),
-    dark-white: #F9FAFC,
 );
 /*
 general

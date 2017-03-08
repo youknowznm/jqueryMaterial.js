@@ -11,14 +11,17 @@ let $navButtonClicked = null;
 
 $header
     .on('mousedown', '.nav-item', function(evt) {
-        $ripple
-            .css({
-                left: evt.pageX - 50,
-                // top 值要减掉窗口的垂直滚动偏移
-                top: evt.pageY - 50 - document.body.scrollTop,
-            })
-            .addClass('noneToCircle');
-        $navButtonClicked = $(this).addClass('clicking');
+        let $targetBtn = $(this);
+        if (!$targetBtn.hasClass('active')) {
+            $ripple
+                .css({
+                    left: evt.pageX - 50,
+                    // top 值要减掉窗口的垂直滚动偏移
+                    top: evt.pageY - 50 - document.body.scrollTop,
+                })
+                .addClass('noneToCircle');
+            $navButtonClicked = $targetBtn.addClass('clicking');
+        }
     })
     .on('click', '.nav-item', function(evt) {
         let $targetBtn = $(this);
@@ -35,6 +38,7 @@ $header
 
             let startX, endX;
 
+            // 根据目标按钮和当前活动按钮的相对位置，求得提示条的目标起始点坐标
             if (targetIsAtRight) {
                 startX = $currentBtn.position().left;
                 endX = $targetBtn.position().left + $targetBtn.innerWidth();
@@ -51,6 +55,7 @@ $header
 
             $targetBtn.removeClass('clicking').addClass('active');
 
+            // 动画结束时如果目标按钮在右侧，则left为终点坐标，反之为起点坐标
             $navIndicator.animate(
                 {
                     width: 0,
@@ -64,6 +69,8 @@ $header
                     });
                 }
             );
+
+            changeColorTheme($targetBtn)
 
         }
     });
@@ -105,3 +112,20 @@ $window
         (layerHeight < 0) && (layerHeight = 0);
         $rippleLayer.height(layerHeight);
     });
+
+function changeColorTheme($ele) {
+    let colorIndex = $navButtons.index($ele) % 5;
+    let pallete = [
+        'red',
+        'yellow',
+        'blue',
+        'green',
+        'gray',
+        'silver',
+    ];
+    // 搜索按钮为特殊配色，其它按以上值循环配色
+    $ele.hasClass('search')
+        ? $header.attr('data-theme', pallete[5])
+        : $header.attr('data-theme', pallete[colorIndex]);
+
+}
