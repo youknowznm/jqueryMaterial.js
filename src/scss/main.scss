@@ -15,10 +15,10 @@ z-index
     width: 100%;
     top: 0;
     // 起始页面 header 为蓝色（五个颜色中的第三个）
-    background-color: nth($gds-header-colors, 3);
+    background-color: nth($gds-header-colors, 1);
     overflow: hidden;
     box-shadow: 0 0 6px 6px map-get($gen-colors, light-silver);
-    transition: all .2s;
+    transition: all .3s;
     li, a {
         color: map-get($gen-colors, white);
     }
@@ -44,7 +44,7 @@ z-index
     &[data-theme=blue],
     &[data-theme=green],
     &[data-theme=gray] {
-        li, a {
+        h1, li, a {
             color: map-get($gen-colors, white);
         }
         .nav-item {
@@ -62,7 +62,7 @@ z-index
     }
     &[data-theme=silver],
     &[data-theme=yellow] {
-        li, a {
+        h1, li, a {
             color: map-get($gen-colors, black) !important;
         }
         .nav-item {
@@ -91,7 +91,7 @@ z-index
         width: 100%;
         height: 64px;
         line-height: 64px;
-        .current-title {
+        .site-title {
             display: inline-block;
             padding: 20px;
             font-size: 20px;
@@ -137,5 +137,33 @@ z-index
     .ripple-layer {
         width: 100%;
         height: 192px;
+        .current-title {
+            position: absolute;
+            bottom: 70px;
+            display: block;
+            color: map-get($gen-colors, white);
+            height: 56px;
+            padding-left: 20px;
+            font-size: 56px;
+            font-weight: 300;
+            line-height: 56px;
+            text-transform: capitalize;
+            animation: slidingFadeIn .8s;
+            transition: opacity .2s;
+            &.hidden {
+                opacity: 0;
+            }
+        }
+    }
+}
+
+@keyframes slidingFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

@@ -8,6 +8,7 @@
 3. google 选择的几种配色很舒服，随着背景深/浅色系的切换，字体和边框颜色也有切换
 4. 位于页面顶部时，展示有一定高度的 layer，随着垂直方向的滚动，高度逐渐变为0
 5. 使用了 google 自家漂亮的 Roboto Mono 字体，标题的各词之间用`·`和`¬`点缀
+6. 当前页面的标题在页面顶部滚动大于一定值时渐隐
 
 逐条实现：
 1. 给波纹元素一个固定宽高，相对于 header 绝对定位，初始时隐藏。按钮上触发 mousedown 时，取得事件相对于整个 header 的坐标，分别减掉波纹元素的宽高，设为波纹的位置。此时如果按住鼠标，则波纹扩散至给定的尺寸后不动，这里使用 keyframes 定义 from scale(0) to scale(1) 即可；这个过程中如果放开鼠标，则设置神奇的 animation-play-state 属性为 paused，再定义 keyframes 为 to scale(18) 后恢复 animation-play-state: running 就好了。因为未定义起始帧，该动画会自动从前一个动画结尾的 scale 程度计算。  
@@ -25,4 +26,4 @@
 
 5. 把标题的块元素拆成几个 span，分别在结尾添加'·'和'¬'伪元素即可。
 
-<!-- $('#header').on('mousedown', '.nav-anchor', function(){}) -->
+6. 在 scrollTop 符合条件时给标题元素一个透明度和 transformY 渐变的动画类即可。
