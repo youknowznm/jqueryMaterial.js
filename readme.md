@@ -27,5 +27,5 @@
 
 6. 在 scrollTop 符合条件时给标题元素一个透明度和 transformY 渐变的动画类即可。
 
-成品效果大概如下。最近会重构一下博客，到时候再实际用这个头部。
-[效果]
+成品效果大概如下。最近准备重构一下博客，到时候会用这个头部。
+![gds-header](https://github.com/youknowznm/google-design-site-header/blob/master/gds-header.gif)
