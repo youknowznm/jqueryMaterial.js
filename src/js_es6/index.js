@@ -1,5 +1,10 @@
 $(function() {
 
+    if (/Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent)) {
+        document.body.innerHTML = '<h1>暂不支持移动端的浏览器。</h1>';
+        return;
+    }
+
     let $window = $(window).scrollTop(0),
         $body = $('body'),
         $header = $('#gds-header'),
@@ -82,7 +87,7 @@ $(function() {
 
     $body
         .on('mouseup', function(evt) {
-            // 根据事件目标的话，智能判断 mousedown，无法判断 mouseup，因为后者的目标永远是波纹元素。
+            // 根据事件目标的话，只能判断 mousedown，无法判断 mouseup，因为后者的目标永远是波纹元素。
             // 所以以波纹元素是否已有动画类为标准，决定如何处理
             if ($ripple.hasClass('noneToCircle')) {
                 /*
@@ -139,7 +144,6 @@ $(function() {
         $ele.hasClass('search')
             ? $header.attr('data-theme', pallete[5])
             : $header.attr('data-theme', pallete[colorIndex]);
-
     }
 
 })
