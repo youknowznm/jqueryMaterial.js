@@ -1,4 +1,4 @@
-#ripple {
+.ripple {
     position: absolute;
     display: none;
     width: 100px;
@@ -14,7 +14,7 @@
     }
     &.circleToFullscreen {
         display: block;
-        animation: circleToFullscreen .4s ease-out;
+        animation: circleToFullscreen .7s ease-out;
     }
 }
 

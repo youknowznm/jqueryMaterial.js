@@ -1,0 +1,58 @@
+.gds-header {
+    &[data-theme=red] {
+        background-color: nth($gds-header-colors, 1);
+    }
+    &[data-theme=yellow] {
+        background-color: nth($gds-header-colors, 2);
+    }
+    &[data-theme=blue] {
+        background-color: nth($gds-header-colors, 3);
+    }
+    &[data-theme=green] {
+        background-color: nth($gds-header-colors, 4);
+    }
+    &[data-theme=gray] {
+        background-color: nth($gds-header-colors, 5);
+    }
+    &[data-theme=silver] {
+        background-color: nth($gds-header-colors, 6);
+    }
+    &[data-theme=red],
+    &[data-theme=blue],
+    &[data-theme=green],
+    &[data-theme=gray] {
+        h1, li, a {
+            color: map-get($gen-colors, white);
+        }
+        .nav-item {
+            &.active {
+                border-color: map-get($gen-colors, white);
+            }
+            &.clicking,
+            &:not(.active):hover {
+                border-color: map-get($gen-colors, translucent-white);
+            }
+        }
+        .nav-indicator {
+            background-color: map-get($gen-colors, white);
+        }
+    }
+    &[data-theme=silver],
+    &[data-theme=yellow] {
+        h1, li, a {
+            color: map-get($gen-colors, black) !important;
+        }
+        .nav-item {
+            &.active {
+                border-color: map-get($gen-colors, black) !important;
+            }
+            &.clicking,
+            &:not(.active):hover {
+                border-color: map-get($gen-colors, translucent-black) !important;
+            }
+        }
+        .nav-indicator {
+            background-color: map-get($gen-colors, black) !important;
+        }
+    }
+}

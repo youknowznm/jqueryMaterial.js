@@ -1,30 +1,44 @@
 $(function() {
 
-    if (/Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent)) {
-        document.body.innerHTML = '<h1>暂不支持移动端的浏览器。</h1>';
-        return;
-    }
-
     let $window = $(window).scrollTop(0),
         $body = $('body'),
-        $header = $('#gds-header'),
-        $ripple = $header.children('#ripple'),
+        $header = $('.gds-header'),
+        $ripple = $header.children('.ripple'),
+        $navButtonsContainer = $header.find('.nav-items'),
         $navButtons = $header.find('.nav-item'),
-        $navIndicator = $header.find('#nav-indicator'),
+        $navIndicator = $header.find('.nav-indicator'),
         $rippleLayer = $header.find('.ripple-layer'),
         $currentTitle = $rippleLayer.children('.current-title');
+
+    // 判断是否移动端
+    let isMobile = /Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent),
+        tapStartEvt = 'mousedown',
+        tapEndEvt = 'mouseup';
+    if (isMobile) {
+        $('body').addClass('mobile');
+        tapStartEvt = 'touchstart';
+        tapEndEvt = 'touchend';
+    }
+
+    // 修正.nav-items的宽度
+    let w = 0;
+    $navButtons.each(function(index, ele) {
+        w += $(this).innerWidth();
+    });
+    $navButtonsContainer.width(w);
 
     let $navButtonClicked = null;
 
     $header
-        .on('mousedown', '.nav-item', function(evt) {
+        .on(tapStartEvt, '.nav-item', function(evt) {
             let $targetBtn = $(this);
             if (!$targetBtn.hasClass('active')) {
                 $ripple
                     .css({
-                        left: evt.pageX - 50,
+                        // 根据点击动作事件名称的不同，从不同对象中取得相对于页面的坐标
+                        left: (evt.pageX || evt.changedTouches[0].pageX) - 50,
                         // top 值要减掉窗口的垂直滚动偏移
-                        top: evt.pageY - 50 - document.body.scrollTop,
+                        top: (evt.pageY || evt.changedTouches[0].pageY) - 50 - document.body.scrollTop,
                     })
                     .addClass('noneToCircle');
                 $navButtonClicked = $targetBtn.addClass('clicking');
@@ -86,7 +100,7 @@ $(function() {
         });
 
     $body
-        .on('mouseup', function(evt) {
+        .on(tapEndEvt, function(evt) {
             // 根据事件目标的话，只能判断 mousedown，无法判断 mouseup，因为后者的目标永远是波纹元素。
             // 所以以波纹元素是否已有动画类为标准，决定如何处理
             if ($ripple.hasClass('noneToCircle')) {
@@ -106,8 +120,7 @@ $(function() {
                     setTimeout(function() {
                         // 移除波纹元素的动画类
                         $ripple.removeClass('noneToCircle circleToFullscreen');
-
-                    }, 350);
+                    }, 650);
                 });
                 //  如果 $navButtonClicked 不为 null，则在它上面触发 click 事件
                 if ($navButtonClicked !== null) {

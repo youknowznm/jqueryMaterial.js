@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8" />
     <title>Google Design Site Header</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <link rel="stylesheet" href="dist/style/main.css" />
 </head>
 <body>
-    <header id="gds-header">
-        <div id="gds-header-content">
+    <header class="gds-header">
+        <div class="gds-header-content">
             <nav>
                 <a class="site-title" href="javacript:;">
                     <span class="single-word">Google</span>
@@ -19,15 +20,17 @@
                     <li class="nav-item">events</li>
                     <li class="nav-item">jobs</li>
                     <li class="nav-item">news</li>
-                    <li class="nav-item search">SR</li>
-                    <li id="nav-indicator"></li>
+                    <li class="nav-item">appended-1</li>
+                    <li class="nav-item">appended-2</li>
+                    <li class="nav-item search">search</li>
+                    <li class="nav-indicator"></li>
                 </ul>
             </nav>
             <div class="ripple-layer">
                 <h1 class="current-title">articles</h1>
             </div>
         </div>
-        <div id="ripple"></div>
+        <div class="ripple"></div>
     </header>
     <script src="https://cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js"></script>
     <script src="dist/script/index.js"></script>
