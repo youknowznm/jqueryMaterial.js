@@ -16,6 +16,9 @@ $(function() {
         $('body').addClass('mobile');
     }
 
+    // 波纹扩散标识
+    let rippling = false;
+
     // 修正.nav-items的宽度
     let w = 0;
     $navButtons.each(function(index, ele) {
@@ -42,7 +45,9 @@ $(function() {
         })
         .on('click', '.nav-item', function(evt) {
             let $targetBtn = $(this);
-            if (!$targetBtn.hasClass('active')) {
+            if (!$targetBtn.hasClass('active') && !rippling) {
+
+                rippling = true;
 
                 /*
                 按钮下划线动画
@@ -102,16 +107,19 @@ $(function() {
                             left: evt.pageX - 50,
                             top: evt.pageY - 50 - document.body.scrollTop,
                         })
-                        .addClass('toFullscreen');
-                    setTimeout(function(){
-                        $ripple.removeClass('toFullscreen')
-                    }, 350);
+                        .animate(
+                            {
+                                transform: 'scale(18)',
+                            },
+                            700,
+                            function() {
+                                rippling = false;
+                            }
+                        );
+                } else {
+                    rippling = false;
                 }
-
             }
-        })
-        .on('touchend', function(evt) {
-            $(this).removeClass('clicking');
         });
 
     $body
