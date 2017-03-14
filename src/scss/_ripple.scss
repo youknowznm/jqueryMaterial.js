@@ -12,9 +12,9 @@
         display: block;
         animation: noneToCircle .4s ease-out;
     }
-    &.circleToFullscreen {
+    &.toFullscreen {
         display: block;
-        animation: circleToFullscreen .7s ease-out;
+        animation: toFullscreen .7s ease-out;
     }
 }
 
@@ -27,7 +27,7 @@
     }
 }
 
-@keyframes circleToFullscreen {
+@keyframes toFullscreen {
     to {
         transform: scale(18);
         opacity: 0;

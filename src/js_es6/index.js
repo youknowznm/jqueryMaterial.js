@@ -11,13 +11,9 @@ $(function() {
         $currentTitle = $rippleLayer.children('.current-title');
 
     // 判断是否移动端
-    let isMobile = /Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent),
-        tapStartEvt = 'mousedown',
-        tapEndEvt = 'mouseup';
+    let isMobile = /Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent);
     if (isMobile) {
         $('body').addClass('mobile');
-        tapStartEvt = 'touchstart';
-        tapEndEvt = 'touchend';
     }
 
     // 修正.nav-items的宽度
@@ -30,17 +26,32 @@ $(function() {
     let $navButtonClicked = null;
 
     $header
-        .on(tapStartEvt, '.nav-item', function(evt) {
+        .on('mousedown', '.nav-item', function(evt) {
             let $targetBtn = $(this);
             if (!$targetBtn.hasClass('active')) {
                 $ripple
                     .css({
-                        // 根据点击动作事件名称的不同，从不同对象中取得相对于页面的坐标
-                        left: (evt.pageX || evt.changedTouches[0].pageX) - 50,
+                        // 直接从鼠标系事件中取得相对于页面的坐标
+                        left: evt.pageX - 50,
                         // top 值要减掉窗口的垂直滚动偏移
-                        top: (evt.pageY || evt.changedTouches[0].pageY) - 50 - document.body.scrollTop,
+                        top: evt.pageY - 50 - document.body.scrollTop,
                     })
                     .addClass('noneToCircle');
+                $navButtonClicked = $targetBtn.addClass('clicking');
+            }
+        })
+        .on('touchstart', '.nav-item', function(evt) {
+            let $targetBtn = $(this);
+            if (!$targetBtn.hasClass('active')) {
+                $ripple
+                    .css({
+                        // 从触摸系事件的changedTouches属性中取得相对于页面的坐标
+                        left: evt.changedTouches[0].pageX - 50,
+                        // top 值要减掉窗口的垂直滚动偏移
+                        top: evt.changedTouches[0].pageY - 50 - document.body.scrollTop,
+                    });
+                    // 移动端在按下手指时只改变ripple位置，不改样式
+                    // .addClass('noneToCircle')
                 $navButtonClicked = $targetBtn.addClass('clicking');
             }
         })
@@ -74,7 +85,8 @@ $(function() {
                     width: endX - startX,
                 });
 
-                $targetBtn.removeClass('clicking').addClass('active');
+                $navButtons.removeClass('clicking');
+                $targetBtn.addClass('active');
 
                 // 动画结束时如果目标按钮在右侧，则left为终点坐标，反之为起点坐标
                 $navIndicator.animate(
@@ -100,7 +112,7 @@ $(function() {
         });
 
     $body
-        .on(tapEndEvt, function(evt) {
+        .on('mouseup', function(evt) {
             // 根据事件目标的话，只能判断 mousedown，无法判断 mouseup，因为后者的目标永远是波纹元素。
             // 所以以波纹元素是否已有动画类为标准，决定如何处理
             if ($ripple.hasClass('noneToCircle')) {
@@ -113,19 +125,41 @@ $(function() {
                             'animation-play-state': 'paused',
                         })
                         .removeClass('noneToCircle')
-                        .addClass('circleToFullscreen')
+                        .addClass('toFullscreen')
                         .css({
                             'animation-play-state': 'running',
                         });
                     setTimeout(function() {
                         // 移除波纹元素的动画类
-                        $ripple.removeClass('noneToCircle circleToFullscreen');
+                        $ripple.removeClass('noneToCircle toFullscreen');
                     }, 650);
                 });
-                //  如果 $navButtonClicked 不为 null，则在它上面触发 click 事件
-                if ($navButtonClicked !== null) {
-                    $navButtonClicked.click();
-                }
+
+            }
+            //  如果 $navButtonClicked 不为 null，则在它上面触发 click 事件
+            if ($navButtonClicked !== null) {
+                $navButtonClicked.click();
+            }
+        })
+        .on('touchend', function(evt) {
+            if ($ripple.hasClass('noneToCircle')) {
+                $body.animate({scrollTop: 0}, 200, function() {
+                    $ripple
+                        // 触摸和点击结束的唯一区别：后者的波纹直接扩散到全屏
+                        .addClass('toFullscreen')
+                        .css({
+                            'animation-play-state': 'running',
+                        });
+                    setTimeout(function() {
+                        // 移除波纹元素的动画类
+                        $ripple.removeClass('toFullscreen');
+                    }, 650);
+                });
+
+            }
+            //  如果 $navButtonClicked 不为 null，则在它上面触发 click 事件
+            if ($navButtonClicked !== null) {
+                $navButtonClicked.click();
             }
         });
 
