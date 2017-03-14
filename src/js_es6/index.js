@@ -114,6 +114,9 @@ $(function() {
                             700,
                             function() {
                                 rippling = false;
+                                $ripple.css({
+                                    transform: 'scale(0)',
+                                });
                             }
                         );
                 } else {
