@@ -40,21 +40,6 @@ $(function() {
                 $navButtonClicked = $targetBtn.addClass('clicking');
             }
         })
-        .on('touchstart', '.nav-item', function(evt) {
-            let $targetBtn = $(this);
-            if (!$targetBtn.hasClass('active')) {
-                $ripple
-                    .css({
-                        // 从触摸系事件的changedTouches属性中取得相对于页面的坐标
-                        left: evt.changedTouches[0].pageX - 50,
-                        // top 值要减掉窗口的垂直滚动偏移
-                        top: evt.changedTouches[0].pageY - 50 - document.body.scrollTop,
-                    });
-                    // 移动端在按下手指时只改变ripple位置，不改样式
-                    // .addClass('noneToCircle')
-                $navButtonClicked = $targetBtn.addClass('clicking');
-            }
-        })
         .on('click', '.nav-item', function(evt) {
             let $targetBtn = $(this);
             if (!$targetBtn.hasClass('active')) {
@@ -108,7 +93,25 @@ $(function() {
 
                 // 改变标题文字
                 $currentTitle.text($targetBtn.text());
+
+                // 移动端的波纹处理
+                if (isMobile) {
+                    $ripple
+                        .css({
+                            // 从触摸系事件的changedTouches属性中取得相对于页面的坐标
+                            left: evt.pageX - 50,
+                            top: evt.pageY - 50 - document.body.scrollTop,
+                        })
+                        .addClass('toFullscreen');
+                    setTimeout(function(){
+                        $ripple.removeClass('toFullscreen')
+                    }, 350);
+                }
+
             }
+        })
+        .on('touchend', function(evt) {
+            $(this).removeClass('clicking');
         });
 
     $body
@@ -140,28 +143,8 @@ $(function() {
             if ($navButtonClicked !== null) {
                 $navButtonClicked.click();
             }
-        })
-        .on('touchend', function(evt) {
-            if ($ripple.hasClass('noneToCircle')) {
-                $body.animate({scrollTop: 0}, 200, function() {
-                    $ripple
-                        // 触摸和点击结束的唯一区别：后者的波纹直接扩散到全屏
-                        .addClass('toFullscreen')
-                        .css({
-                            'animation-play-state': 'running',
-                        });
-                    setTimeout(function() {
-                        // 移除波纹元素的动画类
-                        $ripple.removeClass('toFullscreen');
-                    }, 650);
-                });
-
-            }
-            //  如果 $navButtonClicked 不为 null，则在它上面触发 click 事件
-            if ($navButtonClicked !== null) {
-                $navButtonClicked.click();
-            }
         });
+
 
     $window
         .on('scroll', function(evt) {
