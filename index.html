@@ -4,10 +4,10 @@
     <meta charset="utf-8" />
     <title>Google Design Site Header</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <link rel="stylesheet" href="dist/style/main.css" />
+    <link rel="stylesheet" href="dist/style/gds-site-header.css" />
 </head>
 <body>
-    <header class="gds-header">
+    <header class="gds-header" data-theme="blue">
         <div class="gds-header-content">
             <nav>
                 <a class="site-title" href="javacript:;">
@@ -19,20 +19,26 @@
                     <li class="nav-item">resources</li>
                     <li class="nav-item">events</li>
                     <li class="nav-item">jobs</li>
-                    <li class="nav-item">news</li>
-                    <li class="nav-item">appended-1</li>
-                    <li class="nav-item">appended-2</li>
-                    <li class="nav-item search">search</li>
+                    <!-- <li class="nav-item search"></li> -->
                     <li class="nav-indicator"></li>
                 </ul>
             </nav>
-            <div class="ripple-layer">
-                <h1 class="current-title">articles</h1>
+            <div class="banner">
+                <h1 class="page-title">Blogs</h1>
             </div>
         </div>
         <div class="ripple"></div>
     </header>
+    <div class="gds-header-shadow"></div>
+
+
+    <div class="main-wrap">
+
+    </div>
     <script src="https://cdn.jsdelivr.net/jquery/3.1.1/jquery.min.js"></script>
-    <script src="dist/script/index.js"></script>
+    <script src="dist/script/gds-site-header.js"></script>
+    <script type="text/javascript">
+        initGDHeader();
+    </script>
 </body>
 </html>

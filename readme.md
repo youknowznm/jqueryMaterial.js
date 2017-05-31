@@ -1,4 +1,4 @@
-### 仿写 Google Design 头部的过程
+## 仿写 Google Design 头部
 
 很早之前就觉得[Google Design](https://design.google.com/)的头部超级漂亮，最近抽时间试着模仿一下，照葫芦画瓢，放自己博客上。
 
@@ -22,6 +22,7 @@
 
 4. header 的底部有个阴影。 google 的做法是在 header 元素后面添加一个 fake-shadow 元素，该元素的背景是横向重复的一张阴影 png。但这样做的话，header 元素必须被放进另一个 fixed 定位的容器元素内。不太明白为什么要这样？我用 box-shadow 实现了类似的，这个属性的兼容性还是不错的。阴影颜色选用了 element 提供的 light-silver(#99A9BF)。  
 然后给 window 的 scroll 事件添加一个监听，同时修改 layer 的高度即可。注意，前面的波纹元素需要修改一下，mouseup 时需要先渐变窗口的 scrollTop 至 0。
+后来还是用非伪元素实现了。原因是 header 需要隐藏溢出内容，与其相对定位为 top: 100% 的伪元素是永远不会显示的。
 
 5. 把标题的块元素拆成几个 span，分别在结尾添加'·'和'¬'伪元素即可。
 

@@ -1,21 +1,22 @@
 @charset "UTF-8";
+@import "./_mixins";
 /*
 font
 */
 @font-face {
     font-family: 'Roboto Mono';
-    src: url("http://youknowznm.github.io/assets/font/RobotoMono-Regular.ttf");
+    src: url("../static/font/RobotoMono-Regular.ttf");
 }
 /*
 colors
 */
 $gds-header-colors: (
-    rgb(234, 67, 53), //red
-    rgb(251, 188, 5), //yellow
     rgb(66, 133, 244), //blue
+    rgb(251, 188, 5), //yellow
     rgb(52, 168, 83), //green
-    rgb(60, 90, 100), //gray
     rgb(241, 243, 244), //silver
+    rgb(234, 67, 53), //red
+    rgb(60, 90, 100), //gray
 );
 $gen-colors: (
     translucent-black: rgba(#000, .3),
@@ -48,5 +49,24 @@ body {
 }
 body {
     position: relative;
-    height: 5000px;
+    height: 2000px;
+}
+.main-wrap {
+    position: relative;
+    min-height: 1000px;
+    margin-top: -12px;
+    background: #eee;
+    z-index: 99;
+    @include gds-responsive-wrap;
+    animation: wrapPopIn .5s;
+}
+@keyframes wrapPopIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transition: translateY(0);
+    }
 }

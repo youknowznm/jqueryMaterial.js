@@ -1,3 +1,12 @@
+@charset "UTF-8";
+
+/**
+模仿 Google Design 好看的头部
+主体宽度参照 bootstrap 栅格容器
+https://github.com/youknowznm/google-design-site-header
+@author youknowznm
+*/
+
 @import "./_general";
 @import "./_reset";
 @import "./_themes";
@@ -7,38 +16,40 @@
 /*
 z-index
 
-1 .gds-header-content;
-2 .ripple;
-3 .nav-indicator;
+100 .gds-header; .gds-header-shadow;
+101 .current-title;
+102 .gds-header-content; nav;
+103 .ripple;
+104 .nav-indicator;
 */
 
 .gds-header {
     position: fixed;
+    overflow: hidden;
     width: 100%;
     top: 0;
     background-color: nth($gds-header-colors, 1);
-    overflow: hidden;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
-    box-shadow: 0 0 6px 6px map-get($gen-colors, light-silver);
+    z-index: 100;
     transition: all .3s;
     li, a {
         color: map-get($gen-colors, white);
     }
 }
-
 .gds-header-content {
-    // TODO
-    width: 1280px;
+    @include gds-responsive-wrap;
     margin: 0 auto;
     overflow: hidden;
-    z-index: 1;
+    z-index: 102;
     > nav {
         position: relative;
         width: 100%;
         height: 64px;
         line-height: 64px;
+        transition: background-color .3s;
+        z-index: 102;
         .site-title {
             display: inline-block;
             font-size: 20px;
@@ -61,12 +72,18 @@ z-index
         position: relative;
         float: right;
         font-size: 14px;
+        white-space: nowrap;
         // 字符间距
         letter-spacing: .25px;
         font-weight: 700;
+        // 限制最大宽高
+        max-height: 64px;
+        max-width: 500px;
+        overflow-y: hidden;
+        animation: fadeIn 1s;
         .nav-item {
             float: left;
-            z-index: 2;
+            z-index: 102;
             padding: 27px 12px 21px;
             line-height: 1;
             border-bottom: 2px solid transparent;
@@ -82,12 +99,12 @@ z-index
             }
         }
     }
-    .ripple-layer {
+    .banner {
         width: 100%;
         height: 192px;
-        .current-title {
+        .page-title {
             position: absolute;
-            bottom: 70px;
+            bottom: 80px;
             display: block;
             color: map-get($gen-colors, white);
             height: 56px;
@@ -96,16 +113,39 @@ z-index
             font-weight: 300;
             line-height: 56px;
             text-transform: capitalize;
-            animation: slidingFadeIn .8s;
-            transition: opacity .2s;
+            animation: popIn .8s;
+            transition: opacity .4s;
+            z-index: 101;
             &.hidden {
                 opacity: 0;
             }
         }
     }
 }
-
-@keyframes slidingFadeIn {
+.gds-header-shadow {
+    position: relative;
+    width: 100%;
+    margin-top: 256px;
+    top: 0;
+    height: 12px;
+    z-index: 100;
+    background: url('../static/image/gds-header-shadow.png') repeat-x;
+    background-size: 1px 12px;
+    &.fixed {
+        position: fixed;
+        top: 64px;
+        margin-top: 0;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+@keyframes popIn {
     from {
         opacity: 0;
         transform: translateY(30px);

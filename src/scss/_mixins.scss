@@ -1,0 +1,23 @@
+@charset "UTF-8";
+/*
+mixins
+*/
+// 参考gds数值的响应式宽度控制
+@mixin gds-responsive-wrap {
+    width: 1680px;
+    margin-left: auto;
+    margin-right: auto;
+    // 小于800单列，否则双列
+    @media (max-width: 1280px) {
+        width: 100%;
+    }
+    @media (min-width: 1280px) and (max-width: 1600px) {
+        width: 1280px;
+    }
+    @media (min-width: 1600px) and (max-width: 1900px) {
+        width: 1440px;
+    }
+    @media (min-width: 1900px) {
+        width: 1680px;
+    }
+}

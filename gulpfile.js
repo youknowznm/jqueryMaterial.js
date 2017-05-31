@@ -10,7 +10,7 @@ const gulp = require('gulp'),
 gulp.task('css', () => {
     return sass('src/scss/**/*.scss')
         .pipe(plumber())
-        .pipe(cleanCSS())
+        // .pipe(cleanCSS())
         .pipe(gulp.dest('dist/style/'))
         .pipe(livereload());
 });
@@ -23,7 +23,7 @@ gulp.task('js', function() {
 		.pipe(babel({
 			presets: ['es2015']
 		}))
-        .pipe(uglify())
+        // .pipe(uglify())
 		.pipe(sourcemaps.write('/maps'))
         .pipe(gulp.dest('dist/script/'))
 });

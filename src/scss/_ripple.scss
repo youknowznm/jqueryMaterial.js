@@ -8,7 +8,7 @@
     background-color: map-get($gen-colors, translucent-white);
     border-radius: 50%;
     cursor: pointer;
-    z-index: 2;
+    z-index: 103;
     &.noneToCircle {
         display: block;
         animation: noneToCircle .4s ease-out;
@@ -18,7 +18,6 @@
         animation: toFullscreen .7s ease-out;
     }
 }
-
 @keyframes noneToCircle {
     from {
         transform: scale(0);
@@ -27,7 +26,6 @@
         transform: scale(1);
     }
 }
-
 @keyframes toFullscreen {
     to {
         transform: scale(18);

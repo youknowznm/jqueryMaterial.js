@@ -1,20 +1,26 @@
 .gds-header {
-    &[data-theme=red] {
+    &[data-theme=blue] nav,
+    &[data-theme=blue] {
         background-color: nth($gds-header-colors, 1);
     }
+    &[data-theme=yellow] nav,
     &[data-theme=yellow] {
         background-color: nth($gds-header-colors, 2);
     }
-    &[data-theme=blue] {
+    &[data-theme=green] nav,
+    &[data-theme=green] {
         background-color: nth($gds-header-colors, 3);
     }
-    &[data-theme=green] {
+    &[data-theme=silver] nav,
+    &[data-theme=silver] {
         background-color: nth($gds-header-colors, 4);
     }
-    &[data-theme=gray] {
+    &[data-theme=red] nav,
+    &[data-theme=red] {
         background-color: nth($gds-header-colors, 5);
     }
-    &[data-theme=silver] {
+    &[data-theme=gray] nav,
+    &[data-theme=gray] {
         background-color: nth($gds-header-colors, 6);
     }
     &[data-theme=red],

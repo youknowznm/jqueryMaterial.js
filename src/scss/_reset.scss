@@ -1,4 +1,4 @@
-body.mobile .gds-header {
+body#mobile {
     .gds-header-content {
         width: auto;
         > nav {
@@ -15,7 +15,7 @@ body.mobile .gds-header {
         padding-left: 16px;
     }
     .nav-items {
-        width: 1000px;
+        // 需在js中手动控制该元素的宽度。因为此元素需水平上可滚动，但此时视口宽度为设备宽度。
         float: left;
         margin-top: 54px;
         margin-left: 5px;

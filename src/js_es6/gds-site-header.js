@@ -1,4 +1,10 @@
-$(function() {
+/**
+* 模仿 Google Design 好看的头部
+* https://github.com/youknowznm/google-design-site-header
+* @author youknowznm
+*/
+
+function initGDHeader() {
 
     let $window = $(window).scrollTop(0),
         $body = $('body'),
@@ -7,13 +13,14 @@ $(function() {
         $navButtonsContainer = $header.find('.nav-items'),
         $navButtons = $header.find('.nav-item'),
         $navIndicator = $header.find('.nav-indicator'),
-        $rippleLayer = $header.find('.ripple-layer'),
-        $currentTitle = $rippleLayer.children('.current-title');
+        $rippleLayer = $header.find('.banner'),
+        $s = $('.gds-header-shadow'),
+        $pageTitle = $rippleLayer.children('.page-title');
 
     // 判断是否移动端
     let isMobile = /Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent);
     if (isMobile) {
-        $('body').addClass('mobile');
+        $('body').attr('id', 'mobile');
     }
 
     // 波纹扩散标识
@@ -21,10 +28,10 @@ $(function() {
 
     // 修正.nav-items的宽度
     let w = 0;
-    $navButtons.each(function(index, ele) {
-        w += $(this).innerWidth();
+    $navButtons.each(function() {
+        w += $(this).outerWidth();
     });
-    $navButtonsContainer.width(w);
+    $navButtonsContainer.width(w + 10);
 
     let $navButtonClicked = null;
 
@@ -52,11 +59,11 @@ $(function() {
                 /*
                 按钮下划线动画
                 */
-                let $currentBtn = $navButtons.filter('.active').removeClass('active clicking');
+                let $currentBtn = $navButtons.filter('.active').removeClass(
+                    'active clicking');
                 let targetIsAtRight =
-                    $navButtons.index($targetBtn) > $navButtons.index($currentBtn)
-                    ? true
-                    : false;
+                    $navButtons.index($targetBtn) > $navButtons.index(
+                        $currentBtn) ? true : false;
 
                 let startX, endX;
 
@@ -79,8 +86,7 @@ $(function() {
                 $targetBtn.addClass('active');
 
                 // 动画结束时如果目标按钮在右侧，则left为终点坐标，反之为起点坐标
-                $navIndicator.animate(
-                    {
+                $navIndicator.animate({
                         width: 0,
                         left: [targetIsAtRight ? endX : startX],
                     },
@@ -97,7 +103,7 @@ $(function() {
                 changeColorTheme($targetBtn);
 
                 // 改变标题文字
-                $currentTitle.text($targetBtn.text());
+                $pageTitle.text($targetBtn.text());
 
                 // 移动端的波纹处理
                 if (isMobile) {
@@ -107,8 +113,7 @@ $(function() {
                             left: evt.pageX - 50,
                             top: evt.pageY - 50 - document.body.scrollTop,
                         })
-                        .animate(
-                            {
+                        .animate({
                                 transform: 'scale(18)',
                             },
                             700,
@@ -133,7 +138,9 @@ $(function() {
                 /*
                 波纹元素的扩大
                 */
-                $body.animate({scrollTop: 0}, 200, function() {
+                $body.animate({
+                    scrollTop: 0
+                }, 200, function() {
                     $ripple
                         .css({
                             'animation-play-state': 'paused',
@@ -145,7 +152,9 @@ $(function() {
                         });
                     setTimeout(function() {
                         // 移除波纹元素的动画类
-                        $ripple.removeClass('noneToCircle toFullscreen');
+                        $ripple.removeClass(
+                            'noneToCircle toFullscreen'
+                        );
                     }, 650);
                 });
 
@@ -165,26 +174,31 @@ $(function() {
             $rippleLayer.height(layerHeight);
             // 大于一定值时渐隐标题
             if (scTp > 30) {
-                $currentTitle.addClass('hidden');
+                $pageTitle.addClass('hidden');
             } else {
-                $currentTitle.removeClass('hidden');
+                $pageTitle.removeClass('hidden');
+            }
+            // 大于一定值时渐隐标题
+            if (scTp > 192) {
+                $s.addClass('fixed');
+            } else {
+                $s.removeClass('fixed');
             }
         });
 
     function changeColorTheme($ele) {
         let colorIndex = $navButtons.index($ele) % 5;
         let pallete = [
-            'red',
-            'yellow',
             'blue',
+            'yellow',
             'green',
-            'gray',
             'silver',
+            'red',
+            'gray',
         ];
         // 搜索按钮为特殊配色，其它按以上值循环配色
-        $ele.hasClass('search')
-            ? $header.attr('data-theme', pallete[5])
-            : $header.attr('data-theme', pallete[colorIndex]);
+        $ele.hasClass('search') ? $header.attr('data-theme', pallete[5]) :
+            $header.attr('data-theme', pallete[colorIndex]);
     }
 
-})
+};
