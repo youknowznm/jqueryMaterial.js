@@ -1,4 +1,6 @@
-## 仿写 Google Design 头部
+# 已过期，等待重写
+
+### 仿写 Google Design 头部
 
 很早之前就觉得[Google Design](https://design.google.com/)的头部超级漂亮，最近抽时间试着模仿一下，照葫芦画瓢，放自己博客上。
 
