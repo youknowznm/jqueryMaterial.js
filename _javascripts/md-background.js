@@ -1,4 +1,4 @@
-import $ from "./jquery"
+import $ from './jquery.js'
 
 // 从MD的调色板内选取搭配浅色字体的背景色若干组，每组含深色和浅色
 // https://material.io/guidelines/style/color.html#color-color-palette

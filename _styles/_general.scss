@@ -6,7 +6,6 @@
 @import "./md-button";
 @import "./md-background";
 @import "./md-modal";
-@import "./login-snackbar";
 @import "./md-radio";
 @import "./md-rte";
 
@@ -15,27 +14,27 @@ fonts - Roboto 和 Roboto Mono 的400、400i和500，共六套字体
 */
 @font-face {
     font-family: "Roboto";
-    src: url("../../_fonts/Roboto/Roboto-400.ttf");
+    src: url("../_fonts/Roboto/Roboto-400.ttf");
 }
 @font-face {
     font-family: "Roboto Italic";
-    src: url("../../_fonts/Roboto/Roboto-400i.ttf");
+    src: url("../_fonts/Roboto/Roboto-400i.ttf");
 }
 @font-face {
     font-family: "Roboto Medium";
-    src: url("../../_fonts/Roboto/Roboto-500.ttf");
+    src: url("../_fonts/Roboto/Roboto-500.ttf");
 }
 @font-face {
     font-family: "Roboto Mono";
-    src: url("../../_fonts/RobotoMono/RobotoMono-400.ttf");
+    src: url("../_fonts/RobotoMono/RobotoMono-400.ttf");
 }
 @font-face {
     font-family: "Roboto Mono Italic";
-    src: url("../../_fonts/RobotoMono/RobotoMono-400i.ttf");
+    src: url("../_fonts/RobotoMono/RobotoMono-400i.ttf");
 }
 @font-face {
     font-family: "Roboto Mono Medium";
-    src: url("../../_fonts/RobotoMono/RobotoMono-500.ttf");
+    src: url("../_fonts/RobotoMono/RobotoMono-500.ttf");
 }
 
 /*
@@ -61,6 +60,7 @@ html {
     min-height: 750px;
 }
 body {
+    background: black;
     position: relative;
     height: 100%;
     font-family: "Roboto Mono", "Helvetica Neue",
@@ -114,19 +114,19 @@ body {
         }
     }
     ._logout .icon {
-        background: url("../../_images/ic_logout.png") no-repeat;
+        background: url("../_images/ic_logout.png") no-repeat;
         filter: drop-shadow(#fff 0 24px);
     }
     ._create-new .icon {
-        background: url("../../_images/ic_create.png") no-repeat;
+        background: url("../_images/ic_create.png") no-repeat;
         filter: drop-shadow(#fff 0 24px);
     }
     ._edit .icon {
-        background: url("../../_images/ic_edit.png") no-repeat;
+        background: url("../_images/ic_edit.png") no-repeat;
         filter: drop-shadow(#fff 0 24px);
     }
     ._to-top .icon {
-        background: url("../../_images/ic_arrow_up.png") no-repeat;
+        background: url("../_images/ic_arrow_up.png") no-repeat;
         filter: drop-shadow(#fff 0 24px);
     }
     @keyframes zoomIn {

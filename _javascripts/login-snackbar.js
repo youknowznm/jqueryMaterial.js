@@ -1,4 +1,4 @@
-import $ from './jquery'
+import $ from './jquery.js'
 import initMdButton from './md-button'
 import initMdInput from './md-input'
 

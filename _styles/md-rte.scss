@@ -73,16 +73,16 @@
                 background: #f6f7f8;
             }
             &[data-action-abbr="b"] .icon {
-                background-image: url("../../_images/rte/ic_format_bold.png");
+                background-image: url("../_images/rte/ic_format_bold.png");
             }
             &[data-action-abbr="i"] .icon {
-                background-image: url("../../_images/rte/ic_format_italic.png");
+                background-image: url("../_images/rte/ic_format_italic.png");
             }
             &[data-action-abbr="u"] .icon {
-                background-image: url("../../_images/rte/ic_format_underlined.png");
+                background-image: url("../_images/rte/ic_format_underlined.png");
             }
             &[data-action-abbr="s"] .icon {
-                background-image: url("../../_images/rte/ic_strikethrough_s.png");
+                background-image: url("../_images/rte/ic_strikethrough_s.png");
             }
             &[data-action-abbr="p"] .icon,
             &[data-action-abbr="h"] .icon {
@@ -93,34 +93,34 @@
                 font-size: 22px;
             }
             &[data-action-abbr="q"] .icon {
-                background-image: url("../../_images/rte/ic_format_quote.png");
+                background-image: url("../_images/rte/ic_format_quote.png");
             }
             &[data-action-abbr="ol"] .icon {
-                background-image: url("../../_images/rte/ic_format_list_bulleted.png");
+                background-image: url("../_images/rte/ic_format_list_bulleted.png");
             }
             &[data-action-abbr="ul"] .icon {
-                background-image: url("../../_images/rte/ic_format_list_numbered.png");
+                background-image: url("../_images/rte/ic_format_list_numbered.png");
             }
             &[data-action-abbr="code"] .icon {
-                background-image: url("../../_images/rte/ic_code.png");
+                background-image: url("../_images/rte/ic_code.png");
             }
             &[data-action-abbr="hr"] .icon {
-                background-image: url("../../_images/rte/ic_remove.png");
+                background-image: url("../_images/rte/ic_remove.png");
             }
             &[data-action-abbr="link"] .icon {
-                background-image: url("../../_images/rte/ic_insert_link.png");
+                background-image: url("../_images/rte/ic_insert_link.png");
             }
             &[data-action-abbr="image"] .icon {
-                background-image: url("../../_images/rte/ic_insert_photo.png");
+                background-image: url("../_images/rte/ic_insert_photo.png");
             }
             &[data-action-abbr="undo"] .icon {
-                background-image: url("../../_images/rte/ic_undo.png");
+                background-image: url("../_images/rte/ic_undo.png");
             }
             &[data-action-abbr="redo"] .icon {
-                background-image: url("../../_images/rte/ic_redo.png");
+                background-image: url("../_images/rte/ic_redo.png");
             }
             &[data-action-abbr="clear"] .icon {
-                background-image: url("../../_images/rte/ic_format_clear.png");
+                background-image: url("../_images/rte/ic_format_clear.png");
             }
         }
         .separator {

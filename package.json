@@ -4,7 +4,9 @@
     "description": "a library based on jQuery following material design",
     "main": "/",
     "scripts": {
-        "test": "/"
+        "server": "nodemon ./bin/www",
+        "webpack": "./node_modules/.bin/webpack --display-error-details",
+        "gulp": "gulp"
     },
     "repository": {
         "type": "git",
