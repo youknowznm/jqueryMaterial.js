@@ -2,17 +2,35 @@ import $ from './jquery.js'
 
 $.fn.extend({
     initHeader() {
-        this.each(function() {
+        this.each(function(options) {
+
+            const COLOR_PALLETE = [
+                'silver',
+                'gray',
+                'yellow',
+                'red',
+                'blue',
+                'green',
+            ]
+
             let $window = $(window).scrollTop(0)
             let $body = $('body')
-            let $header = $(this) // header 元素主体
-            let $ripple = $header.children('.ripple') // 波纹元素
-            let $buttonsContainer = $header.find('.nav-buttons') // 导航按钮容器
-            let $buttons = $header.find('.nav-button') // 所有导航按钮
-            let $buttonIndicator = $header.find('.nav-indicator') // 按钮底部提示条
-            let $banner = $header.find('.banner') // 波纹元素容器
-            let $pageTitle = $banner.children('.page-title') // 页面大标题
-            let $shadow = $('.jm-header-shadow') // header 阴影
+            // header 元素主体
+            let $header = $(this)
+            // 波纹元素
+            let $ripple = $header.children('.ripple')
+             // 所有导航按钮
+            let $buttons = $header.find('.nav-button')
+            // 按钮底部提示条
+            let $buttonIndicator = $header.find('.nav-indicator')
+            // 波纹元素容器
+            let $banner = $header.find('.banner')
+            // 页面大标题
+            let $pageTitle = $banner.children('.page-title')
+            // header 阴影
+            let $shadow = $('.jm-header-shadow')
+
+            // TODO
 
             /*
             波纹动画
@@ -62,15 +80,15 @@ $.fn.extend({
                         changeColorTheme($buttonClicked)
                         // 改变标题文字
                         $pageTitle.text($buttonClicked.text())
-                        //
-                        s($buttonClicked)
+                        // 按钮下划线动画
+                        indicate($buttonClicked)
                     }
                 })
 
             /*
             按钮下划线动画
             */
-            function s($targetBtn) {
+            function indicate($targetBtn) {
                 let $currentBtn = $buttons.filter('.active').removeClass('active clicking')
                 let targetIsAtRight =
                     $buttons.index($targetBtn) > $buttons.index(
@@ -133,20 +151,7 @@ $.fn.extend({
 
             function changeColorTheme($ele) {
                 let colorIndex = $buttons.index($ele) % 5
-                let pallete = [
-                    'silver',
-                    'gray',
-                    'yellow',
-                    'red',
-                    'blue',
-                    'green',
-                ]
-                // 搜索按钮为特殊配色，其它按以上值循环配色
-                if ($ele.hasClass('search')) {
-                    $header.attr('data-theme', pallete[5])
-                } else {
-                    $header.attr('data-theme', pallete[colorIndex])
-                }
+                $header.attr('data-theme', COLOR_PALLETE[colorIndex])
             }
         })
     }

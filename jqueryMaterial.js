@@ -2957,17 +2957,28 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 _jquery2.default.fn.extend({
     initHeader: function initHeader() {
-        this.each(function () {
+        this.each(function (options) {
+
+            var COLOR_PALLETE = ['silver', 'gray', 'yellow', 'red', 'blue', 'green'];
+
             var $window = (0, _jquery2.default)(window).scrollTop(0);
             var $body = (0, _jquery2.default)('body');
-            var $header = (0, _jquery2.default)(this); // header 元素主体
-            var $ripple = $header.children('.ripple'); // 波纹元素
-            var $buttonsContainer = $header.find('.nav-buttons'); // 导航按钮容器
-            var $buttons = $header.find('.nav-button'); // 所有导航按钮
-            var $buttonIndicator = $header.find('.nav-indicator'); // 按钮底部提示条
-            var $banner = $header.find('.banner'); // 波纹元素容器
-            var $pageTitle = $banner.children('.page-title'); // 页面大标题
-            var $shadow = (0, _jquery2.default)('.jm-header-shadow'); // header 阴影
+            // header 元素主体
+            var $header = (0, _jquery2.default)(this);
+            // 波纹元素
+            var $ripple = $header.children('.ripple');
+            // 所有导航按钮
+            var $buttons = $header.find('.nav-button');
+            // 按钮底部提示条
+            var $buttonIndicator = $header.find('.nav-indicator');
+            // 波纹元素容器
+            var $banner = $header.find('.banner');
+            // 页面大标题
+            var $pageTitle = $banner.children('.page-title');
+            // header 阴影
+            var $shadow = (0, _jquery2.default)('.jm-header-shadow');
+
+            // TODO
 
             /*
             波纹动画
@@ -3007,15 +3018,15 @@ _jquery2.default.fn.extend({
                     changeColorTheme($buttonClicked);
                     // 改变标题文字
                     $pageTitle.text($buttonClicked.text());
-                    //
-                    s($buttonClicked);
+                    // 按钮下划线动画
+                    indicate($buttonClicked);
                 }
             });
 
             /*
             按钮下划线动画
             */
-            function s($targetBtn) {
+            function indicate($targetBtn) {
                 var $currentBtn = $buttons.filter('.active').removeClass('active clicking');
                 var targetIsAtRight = $buttons.index($targetBtn) > $buttons.index($currentBtn) ? true : false;
 
@@ -3068,13 +3079,7 @@ _jquery2.default.fn.extend({
 
             function changeColorTheme($ele) {
                 var colorIndex = $buttons.index($ele) % 5;
-                var pallete = ['silver', 'gray', 'yellow', 'red', 'blue', 'green'];
-                // 搜索按钮为特殊配色，其它按以上值循环配色
-                if ($ele.hasClass('search')) {
-                    $header.attr('data-theme', pallete[5]);
-                } else {
-                    $header.attr('data-theme', pallete[colorIndex]);
-                }
+                $header.attr('data-theme', COLOR_PALLETE[colorIndex]);
             }
         });
     }
