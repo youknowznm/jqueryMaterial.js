@@ -1,0 +1,25 @@
+/*
+混合和变量
+*/
+
+// 参考 design.google.com 的响应式宽度控制
+@mixin jm-responsive-wrap {
+    width: 1680px;
+    min-width: 970px;
+    margin-left: auto;
+    margin-right: auto;
+    @media (max-width: 1280px) {
+        width: 970px;
+    }
+    @media (min-width: 1280px) and (max-width: 1600px) {
+        width: 1280px;
+    }
+    @media (min-width: 1600px) and (max-width: 1900px) {
+        width: 1440px;
+    }
+    @media (min-width: 1900px) {
+        width: 1680px;
+    }
+}
+
+$color-main-wrap: #fafafa;

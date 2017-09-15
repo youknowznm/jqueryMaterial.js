@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+/*
+字体 - Roboto 和 Roboto Mono 的400和500，共四套
+*/
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../_fonts/Roboto/Roboto-400.ttf");
+}
+@font-face {
+    font-family: "Roboto Medium";
+    src: url("../_fonts/Roboto/Roboto-500.ttf");
+}
+@font-face {
+    font-family: "Roboto Mono";
+    src: url("../_fonts/RobotoMono/RobotoMono-400.ttf");
+}
+@font-face {
+    font-family: "Roboto Mono Medium";
+    src: url("../_fonts/RobotoMono/RobotoMono-500.ttf");
+}

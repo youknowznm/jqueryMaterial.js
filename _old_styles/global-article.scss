@@ -1,0 +1,67 @@
+// 全局文章样式
+// 用于编辑器和文章详情页
+.md-article {
+    p {
+        color: #212121;
+        font-size: 16px;
+        line-height: 24px;
+        margin: 16px 0;
+    }
+    h1 {
+        font-size: 34px;
+        line-height: 40px;
+        font-weight: 300;
+        color: #757575;
+        margin-bottom: 20px;
+    }
+    h2 {
+        margin: 40px 0 20px;
+        font-size: 24px;
+        line-height: 36px;
+        font-weight: 300;
+        border-bottom: rgb(235, 235, 235) 1px solid;
+    }
+    li {
+        margin: 8px 0;
+        list-style-position: outside;
+    }
+    ul {
+        padding-left: 40px;
+        li {
+            list-style-type: disc;
+        }
+    }
+    ol {
+        padding-left: 40px;
+        li {
+            list-style-type: decimal;
+        }
+    }
+    li ol > li {
+        list-style-type: lower-alpha;
+    }
+    li ul > li {
+        list-style-type: circle;
+    }
+    a {
+        color: #039be5;
+    }
+    code {
+        color: #37474f;
+        font-family: 'Roboto Mono';
+        font-size: 14px;
+        line-height: 14px;
+        background-color: #f7f7f7;
+        padding: 0 4px;
+    }
+    pre {
+        display: block;
+        padding: 8px;
+        margin: 16px 0;
+        background-color: #f7f7f7;
+        overflow-x: auto;
+        code {
+            font-weight: normal;
+        }
+    }
+}

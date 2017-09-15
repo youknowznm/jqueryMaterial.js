@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+}
+a {
+    text-decoration: none;
+    color: #000;
+}
+ul, ol {
+    list-style: none;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+}
+html {
+    height: 100%;
+    min-height: 750px;
+}
+body {
+    background: black;
+    position: relative;
+    height: 100%;
+    // 字体库参考 http://element.eleme.io/#/zh-CN/component/typography 建议的集合
+    font-family: "Roboto Mono", "Helvetica Neue",
+                 "PingFang SC", "Microsoft YaHei",
+                 "微软雅黑", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    &.no-scroll {
+        overflow: hidden;
+    }
+}
+
+.jm-main-wrap {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    margin-top: 256px;
+    background: $color-main-wrap;
+    z-index: 99;
+    animation: wrapPopIn .5s;
+    @keyframes wrapPopIn {
+        from {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        to {
+            opacity: 1;
+            transition: translateY(0);
+        }
+    }
+}
+
+.jm-main {
+    position: relative;
+    @include jm-responsive-wrap;
+    min-height: 100%;
+    z-index: 99;
+}
+
+// md 风格的标题后缀
+.jm-single-word {
+    float: left;
+    &::after {
+        content: '·';
+        opacity: .4;
+    }
+    &:last-of-type:after {
+        content: '¬';
+    }
+}
