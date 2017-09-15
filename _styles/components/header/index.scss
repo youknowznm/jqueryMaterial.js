@@ -20,8 +20,6 @@ z-index 计数
     top: 0;
     background-color: nth($jm-header-colors, 1);
     user-select: none;
-    -moz-user-select: none;
-    -webkit-user-select: none;
     z-index: 100;
     transition: all .3s cubic-bezier(0.25, 0.8, 0.25, 1);
     li, a {
@@ -48,31 +46,33 @@ z-index 计数
             padding-left: 20px;
         }
     }
-    .nav-items {
-        // TODO 桌面端没问题 注意移动端的宽度修改要求
-        position: relative;
-        float: right;
+    .nav-buttons {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
         font-size: 14px;
         white-space: nowrap;
-        // 字符间距
         letter-spacing: .25px;
         font-family: "Roboto Mono Medium";
         // 限制最大宽高
-        max-height: 64px;
-        max-width: 500px;
+        // max-height: 64px;
+        // max-width: 500px;
         overflow-y: hidden;
         animation: fadeIn 1s cubic-bezier(0.25, 0.8, 0.25, 1);
-        .nav-item {
+        .nav-button {
+            position: relative;
+            display: block;
             float: left;
-            z-index: 102;
-            padding: 27px 12px 21px;
-            line-height: 1;
+            box-sizing: border-box;
+            height: 64px;
+            line-height: 64px;
+            padding: 0 12px;
             border-bottom: 2px solid transparent;
             transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
             cursor: pointer;
             text-transform: uppercase;
-            // 透明，初始化时渐显
-            opacity: 0;
+            z-index: 102;
             &.active {
                 border-color: map-get($gen-colors, white);
             }
@@ -81,17 +81,14 @@ z-index 计数
                 border-color: map-get($gen-colors, translucent-white);
             }
         }
-        &.show .nav-item {
-            opacity: 1;
-        }
     }
     .nav-indicator {
         position: absolute;
         height: 2px;
         bottom: 0;
         background-color: map-get($gen-colors, white);
-        z-index: 104;
         transition: color .3s;
+        z-index: 104;
     }
     .banner {
         width: 100%;

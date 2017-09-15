@@ -20,7 +20,7 @@ html {
     min-height: 750px;
 }
 body {
-    background: black;
+    background: #fff;
     position: relative;
     height: 100%;
     // 字体库参考 http://element.eleme.io/#/zh-CN/component/typography 建议的集合
@@ -38,7 +38,7 @@ body {
     width: 100%;
     min-height: 100%;
     margin-top: 256px;
-    background: $color-main-wrap;
+    background-color: #fafafa;
     z-index: 99;
     animation: wrapPopIn .5s;
     @keyframes wrapPopIn {

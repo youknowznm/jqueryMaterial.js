@@ -4,7 +4,7 @@
 配色
 */
 
-$md-header-colors: (
+$jm-header-colors: (
     rgb(241, 243, 244), //silver
     rgb(60, 90, 100), //gray
     rgb(251, 188, 5), //yellow
@@ -19,30 +19,30 @@ $gen-colors: (
     white: #fff,
     light-silver: #99A9BF,
 );
-.md-header {
+.jm-header {
     &[data-theme=silver] nav,
     &[data-theme=silver] {
-        background-color: nth($md-header-colors, 1);
+        background-color: nth($jm-header-colors, 1);
     }
     &[data-theme=gray] nav,
     &[data-theme=gray] {
-        background-color: nth($md-header-colors, 2);
+        background-color: nth($jm-header-colors, 2);
     }
     &[data-theme=yellow] nav,
     &[data-theme=yellow] {
-        background-color: nth($md-header-colors, 3);
+        background-color: nth($jm-header-colors, 3);
     }
     &[data-theme=red] nav,
     &[data-theme=red] {
-        background-color: nth($md-header-colors, 4);
+        background-color: nth($jm-header-colors, 4);
     }
     &[data-theme=blue] nav,
     &[data-theme=blue] {
-        background-color: nth($md-header-colors, 5);
+        background-color: nth($jm-header-colors, 5);
     }
     &[data-theme=green] nav,
     &[data-theme=green] {
-        background-color: nth($md-header-colors, 6);
+        background-color: nth($jm-header-colors, 6);
     }
     &[data-theme=red],
     &[data-theme=blue],
