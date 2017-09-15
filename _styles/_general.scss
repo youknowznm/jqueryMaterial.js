@@ -1,13 +1,13 @@
 @charset "UTF-8";
-@import "./_mixins";
-@import "./md-input";
-@import "./md-tag";
-@import "./md-textarea";
-@import "./md-button";
-@import "./md-background";
-@import "./md-modal";
-@import "./md-radio";
-@import "./md-rte";
+// @import "./_mixins";
+// @import "./md-input";
+// @import "./md-tag";
+// @import "./md-textarea";
+// @import "./md-button";
+// @import "./md-background";
+// @import "./md-modal";
+// @import "./md-radio";
+// @import "./md-rte";
 
 /*
 fonts - Roboto 和 Roboto Mono 的400、400i和500，共六套字体
@@ -17,20 +17,12 @@ fonts - Roboto 和 Roboto Mono 的400、400i和500，共六套字体
     src: url("../_fonts/Roboto/Roboto-400.ttf");
 }
 @font-face {
-    font-family: "Roboto Italic";
-    src: url("../_fonts/Roboto/Roboto-400i.ttf");
-}
-@font-face {
     font-family: "Roboto Medium";
     src: url("../_fonts/Roboto/Roboto-500.ttf");
 }
 @font-face {
     font-family: "Roboto Mono";
     src: url("../_fonts/RobotoMono/RobotoMono-400.ttf");
-}
-@font-face {
-    font-family: "Roboto Mono Italic";
-    src: url("../_fonts/RobotoMono/RobotoMono-400i.ttf");
 }
 @font-face {
     font-family: "Roboto Mono Medium";
@@ -93,7 +85,7 @@ body {
 
 .main {
     position: relative;
-    @include mds-responsive-wrap;
+    // @include mds-responsive-wrap;
     min-height: 100%;
     z-index: 99;
 }
