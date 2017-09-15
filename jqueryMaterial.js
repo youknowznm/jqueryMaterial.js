@@ -2964,7 +2964,7 @@ _jquery2.default.fn.extend({
             var $ripple = $header.children('.ripple'); // 波纹元素
             var $buttonsContainer = $header.find('.nav-buttons'); // 导航按钮容器
             var $buttons = $header.find('.nav-button'); // 所有导航按钮
-            var $navbuttonIndicator = $header.find('.nav-indicator'); // 按钮底部提示条
+            var $buttonIndicator = $header.find('.nav-indicator'); // 按钮底部提示条
             var $banner = $header.find('.banner'); // 波纹元素容器
             var $pageTitle = $banner.children('.page-title'); // 页面大标题
             var $shadow = (0, _jquery2.default)('.jm-header-shadow'); // header 阴影
@@ -2973,54 +2973,42 @@ _jquery2.default.fn.extend({
             波纹动画
             */
             var rippling = false;
-            var $navButtonClicked = null;
-            $body.on('mousedown', '.nav-button:not(.active)', function (evt) {
+            var $buttonClicked = null;
+            $header.on('mousedown', '.nav-button:not(.active)', function (evt) {
+                var $targetBtn = (0, _jquery2.default)(this);
                 if (rippling === false) {
                     rippling = true;
-                    var $targetBtn = (0, _jquery2.default)(this);
-                    $navButtonClicked = $targetBtn;
                     $ripple.css({
                         // 直接从鼠标系事件中取得相对于页面的坐标
                         left: evt.pageX - 50,
                         // top 值要减掉窗口的垂直滚动偏移
                         top: evt.pageY - 50 - document.body.scrollTop
                     }).addClass('noneToCircle');
+                    $buttonClicked = $targetBtn.addClass('clicking');
                 }
-            })
-            // .on('click', '.nav-button', function(evt) {
-            //     let $targetBtn = $(this)
-            //     if (!$targetBtn.hasClass('active') && !rippling) {
-            //         rippling = true
-            // // 主题配色
-            // changeColorTheme($targetBtn)
-            // // 改变标题文字
-            // $pageTitle.text($targetBtn.text())
-            //     }
-            // })
-            .on('mouseup', function (evt) {
-                if (rippling === true && $navButtonClicked !== null) {
+            }).on('mouseup', function (evt) {
+                // 根据事件目标的话，只能判断 mousedown，无法判断 mouseup，因为后者的目标永远是波纹元素。
+                // 所以以波纹元素是否已有动画类为标准，决定如何处理
+                if ($ripple.hasClass('noneToCircle')) {
+                    $buttons.removeClass('active');
+                    $buttonClicked.addClass('active');
                     /*
-                    滚动至顶部后扩大波纹元素
+                    波纹元素的扩大
                     */
                     $body.animate({
                         scrollTop: 0
                     }, 200, function () {
-                        $ripple.css({
-                            'animation-play-state': 'paused'
-                        }).removeClass('noneToCircle').addClass('toFullscreen').css({
-                            'animation-play-state': 'running'
-                        });
-                        // 动画时间结束后，移除波纹元素的动画类，修改rippling旗标
+                        $ripple.removeClass('noneToCircle').addClass('toFullscreen');
                         setTimeout(function () {
+                            // 移除波纹元素的动画类
                             $ripple.removeClass('noneToCircle toFullscreen');
                             rippling = false;
-                            $navButtonClicked = null;
-                        }, 650);
+                        }, 700);
                     });
                     // 主题配色
-                    changeColorTheme($navButtonClicked);
+                    changeColorTheme($buttonClicked);
                     // 改变标题文字
-                    $pageTitle.text($navButtonClicked.text());
+                    $pageTitle.text($buttonClicked.text());
                 }
             });
 
@@ -3030,7 +3018,7 @@ _jquery2.default.fn.extend({
             // $header
             //     .on('mousedown', '.nav-button', function(evt) {
             //         let $targetBtn = $(this)
-            //         $navButtonClicked = $targetBtn.addClass('clicking')
+            //         $buttonClicked = $targetBtn.addClass('clicking')
             //     })
             //     .on('mouseup', '.nav-button', function(evt) {
             //         let $targetBtn = $(this)
@@ -3051,7 +3039,7 @@ _jquery2.default.fn.extend({
             //             endX = $currentBtn.position().left + $currentBtn.innerWidth()
             //         }
             //
-            //         $navbuttonIndicator.css({
+            //         $buttonIndicator.css({
             //             left: startX,
             //             right: endX,
             //             width: endX - startX,
@@ -3061,12 +3049,12 @@ _jquery2.default.fn.extend({
             //         $targetBtn.addClass('active')
             //
             //         // 动画结束时如果目标按钮在右侧，则left为终点坐标，反之为起点坐标
-            //         $navbuttonIndicator.animate({
+            //         $buttonIndicator.animate({
             //                 width: 0,
             //                 left: [targetIsAtRight ? endX : startX],
             //             },
             //             function() {
-            //                 $navbuttonIndicator.css({
+            //                 $buttonIndicator.css({
             //                     left: 0,
             //                     width: 0,
             //                     right: 'auto',
@@ -3075,9 +3063,9 @@ _jquery2.default.fn.extend({
             //         )
             //     })
             //     .on('click', '.nav-button', function(evt) {
-            //         //  如果 $navButtonClicked 不为 null，则在它上面触发 click 事件
-            //         if ($navButtonClicked !== null) {
-            //             $navButtonClicked.click()
+            //         //  如果 $buttonClicked 不为 null，则在它上面触发 click 事件
+            //         if ($buttonClicked !== null) {
+            //             $buttonClicked.click()
             //         }
             //     })
 
@@ -3139,7 +3127,7 @@ exports = module.exports = __webpack_require__(4)(undefined);
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n/*\n字体 - Roboto 和 Roboto Mono 的400和500，共四套\n*/\n@font-face {\n  font-family: \"Roboto\";\n  src: url(" + __webpack_require__(7) + "); }\n\n@font-face {\n  font-family: \"Roboto Medium\";\n  src: url(" + __webpack_require__(8) + "); }\n\n@font-face {\n  font-family: \"Roboto Mono\";\n  src: url(" + __webpack_require__(9) + "); }\n\n@font-face {\n  font-family: \"Roboto Mono Medium\";\n  src: url(" + __webpack_require__(10) + "); }\n\n/*\n混合和变量\n*/\n* {\n  margin: 0;\n  padding: 0;\n  outline: 0; }\n\na {\n  text-decoration: none;\n  color: #000; }\n\nul, ol {\n  list-style: none; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-weight: 400; }\n\nhtml {\n  height: 100%;\n  min-height: 750px; }\n\nbody {\n  background: #fff;\n  position: relative;\n  height: 100%;\n  font-family: \"Roboto Mono\", \"Helvetica Neue\", \"PingFang SC\", \"Microsoft YaHei\", \"\\5FAE\\8F6F\\96C5\\9ED1\", Arial, sans-serif;\n  -webkit-font-smoothing: antialiased; }\n  body.no-scroll {\n    overflow: hidden; }\n\n.jm-main-wrap {\n  position: relative;\n  width: 100%;\n  min-height: 100%;\n  margin-top: 256px;\n  background-color: #fafafa;\n  z-index: 99;\n  animation: wrapPopIn .5s; }\n\n@keyframes wrapPopIn {\n  from {\n    opacity: 0;\n    transform: translateY(50px); }\n  to {\n    opacity: 1;\n    transition: translateY(0); } }\n\n.jm-main {\n  position: relative;\n  width: 1680px;\n  min-width: 970px;\n  margin-left: auto;\n  margin-right: auto;\n  min-height: 100%;\n  z-index: 99; }\n  @media (max-width: 1280px) {\n    .jm-main {\n      width: 970px; } }\n  @media (min-width: 1280px) and (max-width: 1600px) {\n    .jm-main {\n      width: 1280px; } }\n  @media (min-width: 1600px) and (max-width: 1900px) {\n    .jm-main {\n      width: 1440px; } }\n  @media (min-width: 1900px) {\n    .jm-main {\n      width: 1680px; } }\n\n.jm-single-word {\n  float: left; }\n  .jm-single-word::after {\n    content: '\\B7';\n    opacity: .4; }\n  .jm-single-word:last-of-type:after {\n    content: '\\AC'; }\n\n/*\n配色\n*/\n.jm-header[data-theme=silver] nav, .jm-header[data-theme=silver] {\n  background-color: #f1f3f4; }\n\n.jm-header[data-theme=gray] nav, .jm-header[data-theme=gray] {\n  background-color: #3c5a64; }\n\n.jm-header[data-theme=yellow] nav, .jm-header[data-theme=yellow] {\n  background-color: #fbbc05; }\n\n.jm-header[data-theme=red] nav, .jm-header[data-theme=red] {\n  background-color: #ea4335; }\n\n.jm-header[data-theme=blue] nav, .jm-header[data-theme=blue] {\n  background-color: #4285f4; }\n\n.jm-header[data-theme=green] nav, .jm-header[data-theme=green] {\n  background-color: #34a853; }\n\n.jm-header[data-theme=red] h1, .jm-header[data-theme=red] li, .jm-header[data-theme=red] a, .jm-header[data-theme=blue] h1, .jm-header[data-theme=blue] li, .jm-header[data-theme=blue] a, .jm-header[data-theme=green] h1, .jm-header[data-theme=green] li, .jm-header[data-theme=green] a, .jm-header[data-theme=gray] h1, .jm-header[data-theme=gray] li, .jm-header[data-theme=gray] a {\n  color: #fff; }\n\n.jm-header[data-theme=red] .nav-item.active, .jm-header[data-theme=blue] .nav-item.active, .jm-header[data-theme=green] .nav-item.active, .jm-header[data-theme=gray] .nav-item.active {\n  border-color: #fff; }\n\n.jm-header[data-theme=red] .nav-item.clicking, .jm-header[data-theme=red] .nav-item:not(.active):hover, .jm-header[data-theme=blue] .nav-item.clicking, .jm-header[data-theme=blue] .nav-item:not(.active):hover, .jm-header[data-theme=green] .nav-item.clicking, .jm-header[data-theme=green] .nav-item:not(.active):hover, .jm-header[data-theme=gray] .nav-item.clicking, .jm-header[data-theme=gray] .nav-item:not(.active):hover {\n  border-color: rgba(255, 255, 255, 0.5); }\n\n.jm-header[data-theme=red] .nav-indicator, .jm-header[data-theme=blue] .nav-indicator, .jm-header[data-theme=green] .nav-indicator, .jm-header[data-theme=gray] .nav-indicator {\n  background-color: #fff; }\n\n.jm-header[data-theme=silver] h1, .jm-header[data-theme=silver] li, .jm-header[data-theme=silver] a, .jm-header[data-theme=yellow] h1, .jm-header[data-theme=yellow] li, .jm-header[data-theme=yellow] a {\n  color: rgba(0, 0, 0, 0.7) !important; }\n\n.jm-header[data-theme=silver] .nav-item.active, .jm-header[data-theme=yellow] .nav-item.active {\n  border-color: rgba(0, 0, 0, 0.7) !important; }\n\n.jm-header[data-theme=silver] .nav-item.clicking, .jm-header[data-theme=silver] .nav-item:not(.active):hover, .jm-header[data-theme=yellow] .nav-item.clicking, .jm-header[data-theme=yellow] .nav-item:not(.active):hover {\n  border-color: rgba(0, 0, 0, 0.3) !important; }\n\n.jm-header[data-theme=silver] .nav-indicator, .jm-header[data-theme=yellow] .nav-indicator {\n  background-color: rgba(0, 0, 0, 0.7) !important; }\n\n.ripple {\n  position: absolute;\n  display: none;\n  width: 100px;\n  height: 100px;\n  top: 0;\n  left: 0;\n  background-color: rgba(255, 255, 255, 0.5);\n  border-radius: 50%;\n  cursor: pointer;\n  z-index: 103; }\n  .ripple.noneToCircle {\n    display: block;\n    animation: noneToCircle 0.55s cubic-bezier(0.25, 0.8, 0.25, 1); }\n  .ripple.toFullscreen {\n    display: block;\n    animation: toFullscreen .7s ease-out; }\n\n@keyframes noneToCircle {\n  from {\n    transform: scale(0); }\n  to {\n    transform: scale(1); } }\n\n@keyframes toFullscreen {\n  to {\n    transform: scale(18);\n    opacity: 0; } }\n\n/*\nz-index 计数\n100 .jm-header; .jm-header-shadow;\n101 .current-title;\n102 .jm-header-content; nav;\n103 .ripple;\n104 .nav-indicator;\n*/\n.jm-header {\n  position: fixed;\n  overflow: hidden;\n  width: 100%;\n  top: 0;\n  background-color: #f1f3f4;\n  user-select: none;\n  z-index: 100;\n  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }\n  .jm-header li, .jm-header a {\n    color: #fff; }\n\n.jm-header-content {\n  width: 1680px;\n  min-width: 970px;\n  margin-left: auto;\n  margin-right: auto;\n  margin: 0 auto;\n  overflow: hidden;\n  z-index: 102; }\n  @media (max-width: 1280px) {\n    .jm-header-content {\n      width: 970px; } }\n  @media (min-width: 1280px) and (max-width: 1600px) {\n    .jm-header-content {\n      width: 1280px; } }\n  @media (min-width: 1600px) and (max-width: 1900px) {\n    .jm-header-content {\n      width: 1440px; } }\n  @media (min-width: 1900px) {\n    .jm-header-content {\n      width: 1680px; } }\n  .jm-header-content > nav {\n    position: relative;\n    width: 100%;\n    height: 64px;\n    line-height: 64px;\n    transition: background-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);\n    z-index: 102; }\n    .jm-header-content > nav .site-title {\n      display: inline-block;\n      font-size: 20px;\n      line-height: 64px;\n      height: 64px;\n      padding-left: 20px; }\n  .jm-header-content .nav-buttons {\n    display: block;\n    position: absolute;\n    top: 0;\n    right: 0;\n    font-size: 14px;\n    white-space: nowrap;\n    letter-spacing: .25px;\n    font-family: \"Roboto Mono Medium\";\n    overflow-y: hidden;\n    animation: fadeIn 1s cubic-bezier(0.25, 0.8, 0.25, 1); }\n    .jm-header-content .nav-buttons .nav-button {\n      position: relative;\n      display: block;\n      float: left;\n      box-sizing: border-box;\n      height: 64px;\n      line-height: 64px;\n      padding: 0 12px;\n      border-bottom: 2px solid transparent;\n      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);\n      cursor: pointer;\n      text-transform: uppercase;\n      z-index: 102; }\n      .jm-header-content .nav-buttons .nav-button.active {\n        border-color: #fff; }\n      .jm-header-content .nav-buttons .nav-button.clicking, .jm-header-content .nav-buttons .nav-button:not(.active):hover {\n        border-color: rgba(255, 255, 255, 0.5); }\n  .jm-header-content .nav-indicator {\n    position: absolute;\n    height: 2px;\n    bottom: 0;\n    background-color: #fff;\n    transition: color .3s;\n    z-index: 104; }\n  .jm-header-content .banner {\n    width: 100%;\n    height: 192px; }\n    .jm-header-content .banner .page-title {\n      position: absolute;\n      display: block;\n      bottom: 80px;\n      color: #fff;\n      height: 56px;\n      padding-left: 20px;\n      font-size: 56px;\n      font-weight: 300;\n      line-height: 56px;\n      text-transform: capitalize;\n      animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);\n      transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);\n      z-index: 101; }\n      .jm-header-content .banner .page-title.hidden {\n        opacity: 0; }\n\n.jm-header-shadow {\n  position: fixed;\n  width: 100%;\n  top: 256px;\n  height: 12px;\n  z-index: 100;\n  background: url(" + __webpack_require__(35) + ") repeat-x;\n  background-size: 1px 12px; }\n\n@keyframes fadeIn {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n@keyframes popIn {\n  from {\n    opacity: 0;\n    transform: translateY(30px); }\n  to {\n    opacity: 1;\n    transform: translateY(0); } }\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n/*\n字体 - Roboto 和 Roboto Mono 的400和500，共四套\n*/\n@font-face {\n  font-family: \"Roboto\";\n  src: url(" + __webpack_require__(7) + "); }\n\n@font-face {\n  font-family: \"Roboto Medium\";\n  src: url(" + __webpack_require__(8) + "); }\n\n@font-face {\n  font-family: \"Roboto Mono\";\n  src: url(" + __webpack_require__(9) + "); }\n\n@font-face {\n  font-family: \"Roboto Mono Medium\";\n  src: url(" + __webpack_require__(10) + "); }\n\n/*\n混合和变量\n*/\n* {\n  margin: 0;\n  padding: 0;\n  outline: 0; }\n\na {\n  text-decoration: none;\n  color: #000; }\n\nul, ol {\n  list-style: none; }\n\nh1, h2, h3, h4, h5, h6 {\n  font-weight: 400; }\n\nhtml {\n  height: 100%;\n  min-height: 750px; }\n\nbody {\n  background: #fff;\n  position: relative;\n  height: 100%;\n  font-family: \"Roboto Mono\", \"Helvetica Neue\", \"PingFang SC\", \"Microsoft YaHei\", \"\\5FAE\\8F6F\\96C5\\9ED1\", Arial, sans-serif;\n  -webkit-font-smoothing: antialiased; }\n  body.no-scroll {\n    overflow: hidden; }\n\n.jm-main-wrap {\n  position: relative;\n  width: 100%;\n  min-height: 100%;\n  margin-top: 256px;\n  background-color: #fafafa;\n  z-index: 99;\n  animation: wrapPopIn .5s; }\n\n@keyframes wrapPopIn {\n  from {\n    opacity: 0;\n    transform: translateY(50px); }\n  to {\n    opacity: 1;\n    transition: translateY(0); } }\n\n.jm-main {\n  position: relative;\n  width: 1680px;\n  min-width: 970px;\n  margin-left: auto;\n  margin-right: auto;\n  min-height: 100%;\n  z-index: 99; }\n  @media (max-width: 1280px) {\n    .jm-main {\n      width: 970px; } }\n  @media (min-width: 1280px) and (max-width: 1600px) {\n    .jm-main {\n      width: 1280px; } }\n  @media (min-width: 1600px) and (max-width: 1900px) {\n    .jm-main {\n      width: 1440px; } }\n  @media (min-width: 1900px) {\n    .jm-main {\n      width: 1680px; } }\n\n.jm-single-word {\n  float: left; }\n  .jm-single-word::after {\n    content: '\\B7';\n    opacity: .4; }\n  .jm-single-word:last-of-type:after {\n    content: '\\AC'; }\n\n/*\n配色\n*/\n.jm-header[data-theme=silver] nav, .jm-header[data-theme=silver] {\n  background-color: #f1f3f4; }\n\n.jm-header[data-theme=gray] nav, .jm-header[data-theme=gray] {\n  background-color: #3c5a64; }\n\n.jm-header[data-theme=yellow] nav, .jm-header[data-theme=yellow] {\n  background-color: #fbbc05; }\n\n.jm-header[data-theme=red] nav, .jm-header[data-theme=red] {\n  background-color: #ea4335; }\n\n.jm-header[data-theme=blue] nav, .jm-header[data-theme=blue] {\n  background-color: #4285f4; }\n\n.jm-header[data-theme=green] nav, .jm-header[data-theme=green] {\n  background-color: #34a853; }\n\n.jm-header[data-theme=red] h1, .jm-header[data-theme=red] li, .jm-header[data-theme=red] a, .jm-header[data-theme=blue] h1, .jm-header[data-theme=blue] li, .jm-header[data-theme=blue] a, .jm-header[data-theme=green] h1, .jm-header[data-theme=green] li, .jm-header[data-theme=green] a, .jm-header[data-theme=gray] h1, .jm-header[data-theme=gray] li, .jm-header[data-theme=gray] a {\n  color: #fff; }\n\n.jm-header[data-theme=red] .nav-item.active, .jm-header[data-theme=blue] .nav-item.active, .jm-header[data-theme=green] .nav-item.active, .jm-header[data-theme=gray] .nav-item.active {\n  border-color: #fff; }\n\n.jm-header[data-theme=red] .nav-item.clicking, .jm-header[data-theme=red] .nav-item:not(.active):hover, .jm-header[data-theme=blue] .nav-item.clicking, .jm-header[data-theme=blue] .nav-item:not(.active):hover, .jm-header[data-theme=green] .nav-item.clicking, .jm-header[data-theme=green] .nav-item:not(.active):hover, .jm-header[data-theme=gray] .nav-item.clicking, .jm-header[data-theme=gray] .nav-item:not(.active):hover {\n  border-color: rgba(255, 255, 255, 0.5); }\n\n.jm-header[data-theme=red] .nav-indicator, .jm-header[data-theme=blue] .nav-indicator, .jm-header[data-theme=green] .nav-indicator, .jm-header[data-theme=gray] .nav-indicator {\n  background-color: #fff; }\n\n.jm-header[data-theme=silver] h1, .jm-header[data-theme=silver] li, .jm-header[data-theme=silver] a, .jm-header[data-theme=yellow] h1, .jm-header[data-theme=yellow] li, .jm-header[data-theme=yellow] a {\n  color: rgba(0, 0, 0, 0.7) !important; }\n\n.jm-header[data-theme=silver] .nav-item.active, .jm-header[data-theme=yellow] .nav-item.active {\n  border-color: rgba(0, 0, 0, 0.7) !important; }\n\n.jm-header[data-theme=silver] .nav-item.clicking, .jm-header[data-theme=silver] .nav-item:not(.active):hover, .jm-header[data-theme=yellow] .nav-item.clicking, .jm-header[data-theme=yellow] .nav-item:not(.active):hover {\n  border-color: rgba(0, 0, 0, 0.3) !important; }\n\n.jm-header[data-theme=silver] .nav-indicator, .jm-header[data-theme=yellow] .nav-indicator {\n  background-color: rgba(0, 0, 0, 0.7) !important; }\n\n.ripple {\n  position: absolute;\n  display: none;\n  width: 100px;\n  height: 100px;\n  top: 0;\n  left: 0;\n  background-color: rgba(255, 255, 255, 0.5);\n  border-radius: 50%;\n  cursor: pointer;\n  z-index: 103; }\n  .ripple.noneToCircle {\n    display: block;\n    animation: noneToCircle 0.55s cubic-bezier(0.25, 0.8, 0.25, 1); }\n\n@keyframes noneToCircle {\n  from {\n    transform: scale(0); }\n  to {\n    transform: scale(1); } }\n  .ripple.toFullscreen {\n    display: block;\n    animation: toFullscreen .7s ease-out !important; }\n\n@keyframes toFullscreen {\n  to {\n    transform: scale(18);\n    opacity: 0; } }\n\n/*\nz-index 计数\n100 .jm-header; .jm-header-shadow;\n101 .current-title;\n102 .jm-header-content; nav;\n103 .ripple;\n104 .nav-indicator;\n*/\n.jm-header {\n  position: fixed;\n  overflow: hidden;\n  width: 100%;\n  top: 0;\n  background-color: #f1f3f4;\n  user-select: none;\n  z-index: 100;\n  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }\n  .jm-header li, .jm-header a {\n    color: #fff; }\n\n.jm-header-content {\n  width: 1680px;\n  min-width: 970px;\n  margin-left: auto;\n  margin-right: auto;\n  margin: 0 auto;\n  overflow: hidden;\n  z-index: 102; }\n  @media (max-width: 1280px) {\n    .jm-header-content {\n      width: 970px; } }\n  @media (min-width: 1280px) and (max-width: 1600px) {\n    .jm-header-content {\n      width: 1280px; } }\n  @media (min-width: 1600px) and (max-width: 1900px) {\n    .jm-header-content {\n      width: 1440px; } }\n  @media (min-width: 1900px) {\n    .jm-header-content {\n      width: 1680px; } }\n  .jm-header-content > nav {\n    position: relative;\n    width: 100%;\n    height: 64px;\n    line-height: 64px;\n    transition: background-color 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);\n    z-index: 102; }\n    .jm-header-content > nav .site-title {\n      display: inline-block;\n      font-size: 20px;\n      line-height: 64px;\n      height: 64px;\n      padding-left: 20px; }\n  .jm-header-content .nav-buttons {\n    display: block;\n    position: absolute;\n    top: 0;\n    right: 0;\n    font-size: 14px;\n    white-space: nowrap;\n    letter-spacing: .25px;\n    font-family: \"Roboto Mono Medium\";\n    overflow-y: hidden;\n    animation: fadeIn 1s cubic-bezier(0.25, 0.8, 0.25, 1); }\n    .jm-header-content .nav-buttons .nav-button {\n      position: relative;\n      display: block;\n      float: left;\n      box-sizing: border-box;\n      height: 64px;\n      line-height: 64px;\n      padding: 0 12px;\n      border-bottom: 2px solid transparent;\n      transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);\n      cursor: pointer;\n      text-transform: uppercase;\n      z-index: 102; }\n      .jm-header-content .nav-buttons .nav-button.active {\n        border-color: #fff; }\n      .jm-header-content .nav-buttons .nav-button.clicking, .jm-header-content .nav-buttons .nav-button:not(.active):hover {\n        border-color: rgba(255, 255, 255, 0.5); }\n  .jm-header-content .nav-indicator {\n    position: absolute;\n    height: 2px;\n    bottom: 0;\n    background-color: #fff;\n    transition: color .3s;\n    z-index: 104; }\n  .jm-header-content .banner {\n    width: 100%;\n    height: 192px; }\n    .jm-header-content .banner .page-title {\n      position: absolute;\n      display: block;\n      bottom: 80px;\n      color: #fff;\n      height: 56px;\n      padding-left: 20px;\n      font-size: 56px;\n      font-weight: 300;\n      line-height: 56px;\n      text-transform: capitalize;\n      animation: popIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);\n      transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);\n      z-index: 101; }\n      .jm-header-content .banner .page-title.hidden {\n        opacity: 0; }\n\n.jm-header-shadow {\n  position: fixed;\n  width: 100%;\n  top: 256px;\n  height: 12px;\n  z-index: 100;\n  background: url(" + __webpack_require__(35) + ") repeat-x;\n  background-size: 1px 12px; }\n\n@keyframes fadeIn {\n  from {\n    opacity: 0; }\n  to {\n    opacity: 1; } }\n\n@keyframes popIn {\n  from {\n    opacity: 0;\n    transform: translateY(30px); }\n  to {\n    opacity: 1;\n    transform: translateY(0); } }\n", ""]);
 
 // exports
 

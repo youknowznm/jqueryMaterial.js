@@ -9,7 +9,7 @@ $.fn.extend({
             let $ripple = $header.children('.ripple') // 波纹元素
             let $buttonsContainer = $header.find('.nav-buttons') // 导航按钮容器
             let $buttons = $header.find('.nav-button') // 所有导航按钮
-            let $navbuttonIndicator = $header.find('.nav-indicator') // 按钮底部提示条
+            let $buttonIndicator = $header.find('.nav-indicator') // 按钮底部提示条
             let $banner = $header.find('.banner') // 波纹元素容器
             let $pageTitle = $banner.children('.page-title') // 页面大标题
             let $shadow = $('.jm-header-shadow') // header 阴影
@@ -18,13 +18,12 @@ $.fn.extend({
             波纹动画
             */
             let rippling = false
-            let $navButtonClicked = null
-            $body
+            let $buttonClicked = null
+            $header
                 .on('mousedown', '.nav-button:not(.active)', function(evt) {
+                    let $targetBtn = $(this)
                     if (rippling === false) {
                         rippling = true
-                        let $targetBtn = $(this)
-                        $navButtonClicked = $targetBtn
                         $ripple
                             .css({
                                 // 直接从鼠标系事件中取得相对于页面的坐标
@@ -33,22 +32,17 @@ $.fn.extend({
                                 top: evt.pageY - 50 - document.body.scrollTop,
                             })
                             .addClass('noneToCircle')
+                        $buttonClicked = $targetBtn.addClass('clicking')
                     }
                 })
-                // .on('click', '.nav-button', function(evt) {
-                //     let $targetBtn = $(this)
-                //     if (!$targetBtn.hasClass('active') && !rippling) {
-                //         rippling = true
-                        // // 主题配色
-                        // changeColorTheme($targetBtn)
-                        // // 改变标题文字
-                        // $pageTitle.text($targetBtn.text())
-                //     }
-                // })
                 .on('mouseup', function(evt) {
-                    if (rippling === true && $navButtonClicked !== null) {
+                    // 根据事件目标的话，只能判断 mousedown，无法判断 mouseup，因为后者的目标永远是波纹元素。
+                    // 所以以波纹元素是否已有动画类为标准，决定如何处理
+                    if ($ripple.hasClass('noneToCircle')) {
+                        $buttons.removeClass('active')
+                        $buttonClicked.addClass('active')
                         /*
-                        滚动至顶部后扩大波纹元素
+                        波纹元素的扩大
                         */
                         $body.animate(
                             {
@@ -57,28 +51,19 @@ $.fn.extend({
                             200,
                             function() {
                                 $ripple
-                                    .css({
-                                        'animation-play-state': 'paused',
-                                    })
                                     .removeClass('noneToCircle')
                                     .addClass('toFullscreen')
-                                    .css({
-                                        'animation-play-state': 'running',
-                                    })
-                                // 动画时间结束后，移除波纹元素的动画类，修改rippling旗标
                                 setTimeout(function() {
-                                    $ripple.removeClass(
-                                        'noneToCircle toFullscreen'
-                                    )
+                                    // 移除波纹元素的动画类
+                                    $ripple.removeClass('noneToCircle toFullscreen')
                                     rippling = false
-                                    $navButtonClicked = null
-                                }, 650)
+                                }, 700)
                             }
                         )
                         // 主题配色
-                        changeColorTheme($navButtonClicked)
+                        changeColorTheme($buttonClicked)
                         // 改变标题文字
-                        $pageTitle.text($navButtonClicked.text())
+                        $pageTitle.text($buttonClicked.text())
                     }
                 })
 
@@ -88,7 +73,7 @@ $.fn.extend({
             // $header
             //     .on('mousedown', '.nav-button', function(evt) {
             //         let $targetBtn = $(this)
-            //         $navButtonClicked = $targetBtn.addClass('clicking')
+            //         $buttonClicked = $targetBtn.addClass('clicking')
             //     })
             //     .on('mouseup', '.nav-button', function(evt) {
             //         let $targetBtn = $(this)
@@ -109,7 +94,7 @@ $.fn.extend({
             //             endX = $currentBtn.position().left + $currentBtn.innerWidth()
             //         }
             //
-            //         $navbuttonIndicator.css({
+            //         $buttonIndicator.css({
             //             left: startX,
             //             right: endX,
             //             width: endX - startX,
@@ -119,12 +104,12 @@ $.fn.extend({
             //         $targetBtn.addClass('active')
             //
             //         // 动画结束时如果目标按钮在右侧，则left为终点坐标，反之为起点坐标
-            //         $navbuttonIndicator.animate({
+            //         $buttonIndicator.animate({
             //                 width: 0,
             //                 left: [targetIsAtRight ? endX : startX],
             //             },
             //             function() {
-            //                 $navbuttonIndicator.css({
+            //                 $buttonIndicator.css({
             //                     left: 0,
             //                     width: 0,
             //                     right: 'auto',
@@ -133,9 +118,9 @@ $.fn.extend({
             //         )
             //     })
             //     .on('click', '.nav-button', function(evt) {
-            //         //  如果 $navButtonClicked 不为 null，则在它上面触发 click 事件
-            //         if ($navButtonClicked !== null) {
-            //             $navButtonClicked.click()
+            //         //  如果 $buttonClicked 不为 null，则在它上面触发 click 事件
+            //         if ($buttonClicked !== null) {
+            //             $buttonClicked.click()
             //         }
             //     })
 
