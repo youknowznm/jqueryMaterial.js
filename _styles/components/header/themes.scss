@@ -51,7 +51,7 @@ $gen-colors: (
         h1, li, a {
             color: map-get($gen-colors, white);
         }
-        .nav-item {
+        .nav-button {
             &.active {
                 border-color: map-get($gen-colors, white);
             }
@@ -69,7 +69,7 @@ $gen-colors: (
         h1, li, a {
             color: map-get($gen-colors, black) !important;
         }
-        .nav-item {
+        .nav-button {
             &.active {
                 border-color: map-get($gen-colors, black) !important;
             }

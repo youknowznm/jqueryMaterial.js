@@ -86,7 +86,7 @@ z-index 计数
         position: absolute;
         height: 2px;
         bottom: 0;
-        background-color: map-get($gen-colors, white);
+        // background-color: map-get($gen-colors, white);
         transition: color .3s;
         z-index: 104;
     }
