@@ -1,19 +1,39 @@
 import $ from './jquery.js'
 
+const COLOR_PALLETE = [
+    'silver',
+    'gray',
+    'yellow',
+    'red',
+    'blue',
+    'green',
+]
+
 $.fn.extend({
+    /**
+    生成 design.google.com 旧站风格的头部 https://web.archive.org/web/20170516175305/https://design.google.com
+    @param options {Object}
+        - siteNameWords {Array.<String>} 站名的单词组成的数组，以'·'和'¬'分隔
+        - navContents {Array.<String>} 导航按钮的名称数组
+        - activeNavIndex {Number} 当前活动的导航按钮索引
+    */
     initHeader(options) {
         this.each(function() {
 
-            let {siteNameWords, navContents, activeNavIndex} = options
+            /*
+            参数检查
+            */
+            if (typeof options.siteNameWords[0] !== 'string') {
+                throw new TypeError('Expecting parameter "siteNameWords" as {Array.<String>}')
+            }
+            if (typeof options.navContents[0] !== 'string') {
+                throw new TypeError('Expecting parameter "navContents" as {Array.<String>}')
+            }
+            if (typeof options.activeNavIndex !== 'number') {
+                throw new TypeError('Expecting parameter "activeNavIndex" as {Number}')
+            }
 
-            const COLOR_PALLETE = [
-                'silver',
-                'gray',
-                'yellow',
-                'red',
-                'blue',
-                'green',
-            ]
+            let {siteNameWords, navContents, activeNavIndex} = options
 
             /*
             初始化
@@ -24,13 +44,13 @@ $.fn.extend({
                         <a class="site-title">
                             ${siteNameWords.map(function(item, index) {
                                 return `<span class="jm-single-word">${item}</span>`
-                            })}
+                            }).join('')}
                         </a>
                         <ul class="nav-buttons">
                             ${navContents.map(function(item, index) {
                                 let activeStatus = index === activeNavIndex ? 'active' : ''
                                 return `<li class="nav-button ${activeStatus}">${item}</li>`
-                            })}
+                            }).join('')}
                         </ul>
                     </nav>
                     <div class="banner">

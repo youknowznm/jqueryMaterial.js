@@ -2369,25 +2369,46 @@ var _jquery2 = _interopRequireDefault(_jquery);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var COLOR_PALLETE = ['silver', 'gray', 'yellow', 'red', 'blue', 'green'];
+
 _jquery2.default.fn.extend({
+    /**
+    生成 design.google.com 旧站风格的头部 https://web.archive.org/web/20170516175305/https://design.google.com
+    @param options {Object}
+        - siteNameWords {Array.<String>} 站名的单词组成的数组，以'·'和'¬'分隔
+        - navContents {Array.<String>} 导航按钮的名称数组
+        - activeNavIndex {Number} 当前活动的导航按钮索引
+    */
     initHeader: function initHeader(options) {
         this.each(function () {
+
+            /*
+            参数检查
+            */
+            if (typeof options.siteNameWords[0] !== 'string') {
+                throw new TypeError('Expecting parameter "siteNameWords" as {Array.<String>}');
+            }
+            if (typeof options.navContents[0] !== 'string') {
+                throw new TypeError('Expecting parameter "navContents" as {Array.<String>}');
+            }
+            if (typeof options.activeNavIndex !== 'number') {
+                throw new TypeError('Expecting parameter "activeNavIndex" as {Number}');
+            }
+
             var siteNameWords = options.siteNameWords,
                 navContents = options.navContents,
                 activeNavIndex = options.activeNavIndex;
 
-
-            var COLOR_PALLETE = ['silver', 'gray', 'yellow', 'red', 'blue', 'green'];
-
             /*
             初始化
             */
+
             var jmHeaderHTML = '\n                <div class="jm-header-content">\n                    <nav>\n                        <a class="site-title">\n                            ' + siteNameWords.map(function (item, index) {
                 return '<span class="jm-single-word">' + item + '</span>';
-            }) + '\n                        </a>\n                        <ul class="nav-buttons">\n                            ' + navContents.map(function (item, index) {
+            }).join('') + '\n                        </a>\n                        <ul class="nav-buttons">\n                            ' + navContents.map(function (item, index) {
                 var activeStatus = index === activeNavIndex ? 'active' : '';
                 return '<li class="nav-button ' + activeStatus + '">' + item + '</li>';
-            }) + '\n                        </ul>\n                    </nav>\n                    <div class="banner">\n                        <h1 class="page-title">\n                            <span class="jm-single-word">' + navContents[activeNavIndex] + '</span>\n                        </h1>\n                    </div>\n                </div>\n                <div class="ripple"></div>';
+            }).join('') + '\n                        </ul>\n                    </nav>\n                    <div class="banner">\n                        <h1 class="page-title">\n                            <span class="jm-single-word">' + navContents[activeNavIndex] + '</span>\n                        </h1>\n                    </div>\n                </div>\n                <div class="ripple"></div>';
 
             // header 元素主体
             var $header = (0, _jquery2.default)(this).hide().attr('data-theme', COLOR_PALLETE[activeNavIndex]).html(jmHeaderHTML).append((0, _jquery2.default)('<div class="jm-header-shadow"></div>'));
