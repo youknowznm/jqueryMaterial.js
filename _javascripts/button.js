@@ -21,9 +21,24 @@ $.fn.extend({
                 $button.addClass('_round')
             }
 
+            let tooltipHTML = ''
+            let tooltipContent = $button.data('tooltipContent')
+            let tooltipPosition = $button.data('tooltipPosition') || 'top'
+            if (typeof tooltipContent === 'string') {
+                tooltipHTML = `
+                    <p class="jm-tooltip to-show-at-${tooltipPosition}">
+                        ${tooltipContent}
+                    </p>
+                `
+                $button.addClass('show-tooltip')
+            }
+
+
+
             let buttonHTML = `
                 ${buttonContentHTML}
                 <div class="ripple-container"><span class="ripple"></span></div>
+                ${tooltipHTML}
             `
 
             $button.html(buttonHTML)
@@ -70,29 +85,6 @@ $.fn.extend({
 
                         }, 250)
 
-                    }
-                })
-
-            $('body')
-                .on('mousedown', '.jm-button.jm-icon-button:not(._disabled)', function(evt) {
-                    let $this = $(this)
-                    if ($this.data('animating') === false) {
-                        $this.data('animating', true)
-                        let $ripple = $this.find('.ripple')
-                        $ripple.css({
-                            width: '40px',
-                            height: '40px',
-                            left: '20px',
-                            top: '20px',
-                        })
-                        $this.addClass('mousedown')
-                        setTimeout(function() {
-                            $this.removeClass('mousedown').addClass('mouseup')
-                            setTimeout(function() {
-                                $this.removeClass('mouseup')
-                                $this.data('animating', false)
-                            }, 300)
-                        }, 300)
                     }
                 })
 
