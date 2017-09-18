@@ -1,7 +1,7 @@
 import $ from './jquery.js'
 import '../_styles/jqueryMaterial.scss'
 
-import initHeader from './header.js'
+import './header.js'
 
 // 判断是否移动端
 let $body = $('body')
@@ -12,5 +12,9 @@ if (/Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent)) {
 }
 
 $(function() {
-    $('.jm-header').initHeader()
+    $('.jm-header').initHeader({
+        siteNameWords: ['Previous', 'Google', 'design'],
+        navContents: ['articles', 'resources', 'events', 'jobs', 'news', 'about'],
+        activeNavIndex: 2,
+    })
 })
