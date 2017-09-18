@@ -10,12 +10,23 @@ $.fn.extend({
 
             let $button = $(this).data('animating', false)
 
-            // <span class="icon-wrap">${$button.data('text') || '<i class="icon"></i>'}</span>
+            let textContent = $button.data('text')
+            let buttonContentHTML = ''
+            if (typeof textContent === 'string' && /\S/.test(textContent)) {
+                // 如有有效的data-text属性则按钮内容为字符
+                buttonContentHTML = `<span class="content">${textContent}</span>`
+            } else {
+                // 否则内容为一个icon，在样式表内自行定义。这时给按钮元素添加_round类
+                buttonContentHTML = `<span class="icon-wrap"><i class="icon"></i></span>`
+                $button.addClass('_round')
+            }
 
-            // 如有data-text属性则按钮内容为字符；否则为一个icon，在样式表内自行定义
-            $button.html(`
-                <span class="content">${$button.data('text')}</span>
-                <div class="ripple-container"><span class="ripple"></span></div>`)
+            let buttonHTML = `
+                ${buttonContentHTML}
+                <div class="ripple-container"><span class="ripple"></span></div>
+            `
+
+            $button.html(buttonHTML)
 
             $('body')
                 .on('mousedown', '.jm-button:not(._disabled)', function(evt) {
@@ -63,7 +74,7 @@ $.fn.extend({
                 })
 
             $('body')
-                .on('mousedown', '.jm-icon-button:not(._disabled)', function(evt) {
+                .on('mousedown', '.jm-button.jm-icon-button:not(._disabled)', function(evt) {
                     let $this = $(this)
                     if ($this.data('animating') === false) {
                         $this.data('animating', true)

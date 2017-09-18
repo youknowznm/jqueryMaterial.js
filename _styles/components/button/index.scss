@@ -11,7 +11,7 @@ $jm-button-warn: rgb(255, 82, 82);
     position: relative;
     margin: 16px 8px;
     padding: 0 6px;
-    min-width: 76px;
+    min-width: 88px;
     height: 36px;
     line-height: 36px;
     cursor: pointer;
@@ -110,37 +110,36 @@ $jm-button-warn: rgb(255, 82, 82);
         background-color: rgba(#fff, .7);
     }
 
-    // 常规 - 小尺寸
-    &.small {
+    &:not(._round)._small {
         height: 30px !important;
         line-height: 30px !important;
-        font-size: 13px !important;
+        .content {
+            font-size: 12px !important;
+        }
     }
 
-}
-
-// 主要、禁用、警告三种状态
-.jm-button._primary {
-    background-color: $jm-button-primary;
-    color: #fff;
-    &:hover {
-        background-color: rgb(7, 96, 176);
+    // 主要、禁用、警告三种状态
+    &._primary {
+        background-color: $jm-button-primary;
+        color: #fff;
+        &:hover {
+            background-color: rgb(7, 96, 176);
+        }
+    }
+    &._warn {
+        background-color: $jm-button-warn;
+        color: #fff;
+        &:hover {
+            background-color: rgb(213, 0, 0);
+        }
+    }
+    &._disabled {
+        background-color: rgba(0, 0, 0, .12) !important;
+        color: rgba(0, 0, 0, .38) !important;
+        box-shadow: none !important;
+        cursor: default !important;
     }
 }
-.jm-button._warn {
-    background-color: $jm-button-warn;
-    color: #fff;
-    &:hover {
-        background-color: rgb(213, 0, 0);
-    }
-}
-.jm-button._disabled {
-    background-color: rgba(0, 0, 0, .12) !important;
-    color: rgba(0, 0, 0, .38) !important;
-    box-shadow: none !important;
-    cursor: default !important;
-}
-
 
 /*
 ***** 圆形 ****
@@ -155,27 +154,28 @@ $jm-button-warn: rgb(255, 82, 82);
     border-radius: 50%;
 
     .icon-wrap {
-        position: relative;
-        display: inline-block;
+        display: block;
+        position: absolute;
         width: 24px;
-        line-height: 24px;
         height: 24px;
-        vertical-align: middle;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
         overflow: hidden;
         .icon {
-            position: absolute;
             display: block;
+            position: absolute;
             width: 24px;
             height: 24px;
             top: -24px;
             left: 0;
-            /*
-            http://www.zhangxinxu.com/wordpress/2016/06/png-icon-change-color-by-css/
-            Chrome下如果元素的主体部分【完全】不可见，则其drop-shadow不可见；
-            只要元素有【任何】部分可见，则其drop-shadow完全可见。
-            */
-            // filter: drop-shadow($jm-button-primary 0 24px);
             border-bottom: 24px solid transparent;
+            //  http://www.zhangxinxu.com/wordpress/2016/06/png-icon-change-color-by-css/
+            //  Chrome下如果元素的主体部分【完全】不可见，则其drop-shadow不可见；
+            //  只要元素有【任何】部分可见，则其drop-shadow完全可见。
+            filter: drop-shadow(rgba(#000, .87) 0 24px);
+            // 在单独的样式表内设置背景图片
+            // background: url("...") no-repeat 0 0;
         }
     }
 
@@ -187,6 +187,30 @@ $jm-button-warn: rgb(255, 82, 82);
         width: 40px;
         height: 40px;
         line-height: 40px;
+    }
+
+    &._primary {
+        .icon {
+            filter: drop-shadow(rgba(#fff, .87) 0 24px) !important;
+        }
+    }
+
+    &._warn {
+        .icon {
+            filter: drop-shadow(#fff 0 24px) !important;
+        }
+    }
+
+    &._disabled {
+        .icon {
+            filter: drop-shadow(rgba(0, 0, 0, .38) 0 24px) !important;
+        }
+        box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26) !important;
+    }
+
+    // 禁止_round和_flat同时存在
+    &._flat {
+        display: none !important;
     }
 }
 
@@ -204,7 +228,7 @@ $jm-button-warn: rgb(255, 82, 82);
     &._primary {
         color: $jm-button-primary;
         &.mousedown .ripple {
-            background-color: rgba(16, 108, 200, .1) !important;
+            background-color: rgba(16, 108, 200, .1);
         }
     }
 
@@ -215,12 +239,9 @@ $jm-button-warn: rgb(255, 82, 82);
         }
     }
     &._disabled {
-        cursor: default !important;
-        color: rgba(#000, .38) !important;
-        &:hover,
-        &.mousedown .ripple {
-            background-color: transparent !important;
-        }
+        background-color: transparent !important;
+        cursor: default;
+        color: rgba(#000, .38);
     }
 }
 
@@ -243,28 +264,54 @@ $jm-button-warn: rgb(255, 82, 82);
     cursor: pointer;
     z-index: 90;
 
+    // .icon-wrap {
+    //     position: relative;
+    //     display: inline-block;
+    //     width: 24px;
+    //     line-height: 24px;
+    //     height: 24px;
+    //     vertical-align: middle;
+    //     overflow: hidden;
+    //     .icon {
+    //         position: absolute;
+    //         display: block;
+    //         width: 24px;
+    //         height: 24px;
+    //         top: -24px;
+    //         left: 0;
+    //         filter: drop-shadow(rgba(#000, .54) 0 24px);
+    //         /*
+    //         http://www.zhangxinxu.com/wordpress/2016/06/png-icon-change-color-by-css/
+    //         Chrome下如果元素的主体部分【完全】不可见，则其drop-shadow不可见；
+    //         只要元素有【任何】部分可见，则其drop-shadow完全可见。
+    //         */
+    //         border-bottom: 24px solid transparent;
+    //     }
+    // }
+
     .icon-wrap {
-        position: relative;
-        display: inline-block;
+        display: block;
+        position: absolute;
         width: 24px;
-        line-height: 24px;
         height: 24px;
-        vertical-align: middle;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
         overflow: hidden;
         .icon {
-            position: absolute;
             display: block;
+            position: absolute;
             width: 24px;
             height: 24px;
             top: -24px;
             left: 0;
-            filter: drop-shadow(rgba(#000, .54) 0 24px);
-            /*
-            http://www.zhangxinxu.com/wordpress/2016/06/png-icon-change-color-by-css/
-            Chrome下如果元素的主体部分【完全】不可见，则其drop-shadow不可见；
-            只要元素有【任何】部分可见，则其drop-shadow完全可见。
-            */
             border-bottom: 24px solid transparent;
+            //  http://www.zhangxinxu.com/wordpress/2016/06/png-icon-change-color-by-css/
+            //  Chrome下如果元素的主体部分【完全】不可见，则其drop-shadow不可见；
+            //  只要元素有【任何】部分可见，则其drop-shadow完全可见。
+            filter: drop-shadow(rgba(#000, .87) 0 24px);
+            // 在单独的样式表内设置背景图片
+            // background: url("...") no-repeat 0 0;
         }
     }
 

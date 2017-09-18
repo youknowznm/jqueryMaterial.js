@@ -16,7 +16,22 @@
 @import "./components/header/index";
 @import "./components/button/index";
 
+.row {
+    background: rgb(247, 247, 247);
+}
 
+.jm-button.favorite .icon {
+    background: url("../_images/ic_favorite.png") no-repeat 0 0;
+}
+.jm-button.arrow .icon {
+    background: url("../_images/ic_arrow_right.png") no-repeat 0 0;
+}
+.jm-button.create .icon {
+    background: url("../_images/ic_create.png") no-repeat 0 0;
+}
+.jm-button.edit .icon {
+    background: url("../_images/ic_edit.png") no-repeat 0 0;
+}
 
 // .controll-panel {
 //     display: none;
