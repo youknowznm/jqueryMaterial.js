@@ -204,7 +204,7 @@ $.fn.extend({
                 )
             })
 
-            $header.fadeIn(100)
+            $header.show()
         })
     }
 })

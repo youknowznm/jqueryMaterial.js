@@ -2,6 +2,7 @@ import $ from './jquery.js'
 import '../_styles/jqueryMaterial.scss'
 
 import './header.js'
+import './button.js'
 
 // 判断是否移动端
 let $body = $('body')
@@ -15,6 +16,8 @@ $(function() {
     $('.jm-header').initHeader({
         siteNameWords: ['Previous', 'Google', 'design'],
         navContents: ['articles', 'resources', 'events', 'jobs', 'news', 'about'],
-        activeNavIndex: 2,
+        activeNavIndex: 0,
     })
+
+    $('.jm-button').initButton()
 })
