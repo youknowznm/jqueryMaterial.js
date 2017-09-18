@@ -3,6 +3,7 @@ import '../_styles/jqueryMaterial.scss'
 
 import './header.js'
 import './button.js'
+import './input.js'
 
 // 判断是否移动端
 let $body = $('body')
@@ -20,4 +21,15 @@ $(function() {
     })
 
     $('.jm-button').initButton()
+
+    $('.jm-input.cell').initInput({
+        label: 'chinese cell phone',
+        maxLength: 11,
+        errorMsg: 'Invalid Chinese cell number.',
+    })
+    $('.jm-input.email').initInput({
+        label: 'email',
+        maxLength: 30,
+        errorMsg: 'Invalid email.',
+    })
 })

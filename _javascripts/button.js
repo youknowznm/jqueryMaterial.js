@@ -3,24 +3,30 @@ import $ from './jquery.js'
 $.fn.extend({
     /**
     生成 angular material 风格的按钮 https://material.angularjs.org/latest/demo/button
-    @param
     */
     initButton() {
         this.each(function() {
-
             let $button = $(this).data('animating', false)
 
+            /*
+            拼接按钮内容HTML
+            - 如有有效的data-text属性则按钮内容为字符
+            - 否则内容为一个icon，在样式表内自行定义。这时给按钮元素添加_round类
+            */
             let textContent = $button.data('text')
             let buttonContentHTML = ''
             if (typeof textContent === 'string' && /\S/.test(textContent)) {
-                // 如有有效的data-text属性则按钮内容为字符
                 buttonContentHTML = `<span class="content">${textContent}</span>`
             } else {
-                // 否则内容为一个icon，在样式表内自行定义。这时给按钮元素添加_round类
                 buttonContentHTML = `<span class="icon-wrap"><i class="icon"></i></span>`
                 $button.addClass('_round')
             }
 
+            /*
+            拼接浮动提示条HTML
+            - 如有有效的data-tooltip-content属性则追加一个浮动提示条元素
+            - 如有data-tooltip-position属性则按其设置提示条位置，默认为top
+            */
             let tooltipHTML = ''
             let tooltipContent = $button.data('tooltipContent')
             let tooltipPosition = $button.data('tooltipPosition') || 'top'
@@ -32,8 +38,6 @@ $.fn.extend({
                 `
                 $button.addClass('show-tooltip')
             }
-
-
 
             let buttonHTML = `
                 ${buttonContentHTML}
@@ -96,7 +100,6 @@ $.fn.extend({
                 .on('mouseleave', '.show-tooltip', function(evt) {
                     $(this).children('.jm-tooltip').removeClass('show')
                 })
-
         })
     }
 })
