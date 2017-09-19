@@ -2,7 +2,8 @@ import $ from './jquery.js'
 
 $.fn.extend({
     /**
-    生成 angular material 风格的按钮 https://material.angularjs.org/latest/demo/button
+    生成 angular material 风格的按钮
+    https://material.angularjs.org/latest/demo/button
     */
     initButton() {
         this.each(function() {

@@ -11,7 +11,8 @@ const COLOR_PALLETE = [
 
 $.fn.extend({
     /**
-    生成 design.google.com 旧站风格的头部 https://web.archive.org/web/20170516175305/https://design.google.com
+    生成 design.google.com 旧站风格的头部
+    https://web.archive.org/web/20170516175305/https://design.google.com
     @param options {Object}
         - siteNameWords {Array.<String>} 站名的单词组成的数组，以'·'和'¬'分隔
         - navContents {Array.<String>} 导航按钮的名称数组

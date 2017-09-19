@@ -2,7 +2,8 @@ import $ from './jquery.js'
 
 $.fn.extend({
     /**
-    生成 angular material 风格的text input元素 https://material.angularjs.org/latest/demo/input
+    生成 angular material 风格的text input元素
+    https://material.angularjs.org/latest/demo/input
     */
     initInput(options) {
 
@@ -12,6 +13,7 @@ $.fn.extend({
 
             let $input = $(this)
 
+            // TODO
             let label = $input.data('label') || `Input ${inputEleCounter}`
             let maxLength = $input.data('maxLength') || 20
             let errorMsg = $input.data('errorMsg') || 'Validation failed.'
