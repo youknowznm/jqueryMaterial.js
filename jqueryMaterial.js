@@ -2400,11 +2400,11 @@ _jquery2.default.fn.extend({
             var tooltipContent = $button.data('tooltipContent');
             var tooltipPosition = $button.data('tooltipPosition') || 'top';
             if (typeof tooltipContent === 'string') {
-                tooltipHTML = '\n                    <p class="jm-tooltip to-show-at-' + tooltipPosition + '">\n                        ' + tooltipContent + '\n                    </p>\n                ';
+                tooltipHTML = '\n                    <p class="jm-tooltip to-show-at-' + tooltipPosition + '">\n                        ' + tooltipContent + '\n                    </p>';
                 $button.addClass('show-tooltip');
             }
 
-            var buttonHTML = '\n                ' + buttonContentHTML + '\n                <div class="ripple-container"><span class="ripple"></span></div>\n                ' + tooltipHTML + '\n            ';
+            var buttonHTML = '\n                ' + buttonContentHTML + '\n                <div class="ripple-container"><span class="ripple"></span></div>\n                ' + tooltipHTML;
 
             $button.html(buttonHTML);
 
@@ -2660,18 +2660,20 @@ _jquery2.default.fn.extend({
 
         this.each(function () {
 
-            var label = options.label || 'Input ' + inputEleCounter;
-            var maxLength = options.maxLength || 20;
-            var errorMsg = options.errorMsg || 'Validation failed.';
-            var theme = options.theme || 'light';
-
             var $input = (0, _jquery2.default)(this);
 
-            var inputHTML = '\n                <div class="jm-input-content">\n                    <label class="placeholder" for="jm-input-' + inputEleCounter + '">' + label + '</label>\n                    <input id="jm-input-' + inputEleCounter + '" class="_input" maxlength="' + maxLength + '" />\n                    <p class="error">' + errorMsg + '</p>\n                    <p class="char-counter">\n                        <span class="current"></span>/<span class="maximum"></span>\n                    </p>\n                </div>\n            ';
+            var label = $input.data('label') || 'Input ' + inputEleCounter;
+            var maxLength = $input.data('maxLength') || 20;
+            var errorMsg = $input.data('errorMsg') || 'Validation failed.';
+            var theme = $input.data('theme') || 'light';
+            var regExpStr = $input.data('validator') || '.*';
+            var value = $input.data('value') || '';
+
+            // $input.data
+
+            var inputHTML = '\n                <div class="jm-input-content">\n                    <label class="placeholder" for="jm-input-' + inputEleCounter + '">' + label + '</label>\n                    <input id="jm-input-' + inputEleCounter + '" class="_input" maxlength="' + maxLength + '" value="' + value + '"/>\n                    <p class="error">' + errorMsg + '</p>\n                    <p class="char-counter">\n                        <span class="current"></span>/<span class="maximum"></span>\n                    </p>\n                </div>';
 
             $input.toggleClass('_dark', theme === 'dark').html(inputHTML);
-
-            ++inputEleCounter;
 
             var $_input = $input.find('._input');
             var val = $_input.val();
@@ -2707,7 +2709,6 @@ _jquery2.default.fn.extend({
                 var $wrap = $this.parents('.jm-input');
                 // 若edited为true，进行正则验证
                 if ($wrap.data('edited') === true) {
-                    var regExpStr = $wrap.data('validator') || '.*';
                     var regExp = new RegExp(regExpStr);
                     $wrap.toggleClass('invalid', !regExp.test($this.val()));
                 }
@@ -2717,6 +2718,8 @@ _jquery2.default.fn.extend({
                 var maxCharCount = +$wrap.find('.maximum').text();
                 currentCharCounter.text(currentCount);
             }
+
+            ++inputEleCounter;
         });
     }
 });
@@ -2786,18 +2789,7 @@ if (/Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent)) {
 
     (0, _jquery2.default)('.jm-button').initButton();
 
-    (0, _jquery2.default)('.jm-input.cell').initInput({
-        label: 'chinese cell phone',
-        maxLength: 11,
-        errorMsg: 'Invalid Chinese cell number.',
-        theme: 'dark'
-    });
-
-    (0, _jquery2.default)('.jm-input.email').initInput({
-        label: 'email',
-        maxLength: 30,
-        errorMsg: 'Invalid email.'
-    });
+    (0, _jquery2.default)('.jm-input').initInput();
 });
 
 /***/ }),

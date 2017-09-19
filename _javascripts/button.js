@@ -34,16 +34,14 @@ $.fn.extend({
                 tooltipHTML = `
                     <p class="jm-tooltip to-show-at-${tooltipPosition}">
                         ${tooltipContent}
-                    </p>
-                `
+                    </p>`
                 $button.addClass('show-tooltip')
             }
 
             let buttonHTML = `
                 ${buttonContentHTML}
                 <div class="ripple-container"><span class="ripple"></span></div>
-                ${tooltipHTML}
-            `
+                ${tooltipHTML}`
 
             $button.html(buttonHTML)
 

@@ -23,17 +23,6 @@ $(function() {
 
     $('.jm-button').initButton()
 
-    $('.jm-input.cell').initInput({
-        label: 'chinese cell phone',
-        maxLength: 11,
-        errorMsg: 'Invalid Chinese cell number.',
-        theme: 'dark',
-    })
-
-    $('.jm-input.email').initInput({
-        label: 'email',
-        maxLength: 30,
-        errorMsg: 'Invalid email.',
-    })
+    $('.jm-input').initInput()
 
 })

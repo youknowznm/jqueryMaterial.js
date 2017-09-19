@@ -10,29 +10,30 @@ $.fn.extend({
 
         this.each(function() {
 
-            let label = options.label || `Input ${inputEleCounter}`
-            let maxLength = options.maxLength || 20
-            let errorMsg = options.errorMsg || 'Validation failed.'
-            let theme = options.theme || 'light'
-
             let $input = $(this)
+
+            let label = $input.data('label') || `Input ${inputEleCounter}`
+            let maxLength = $input.data('maxLength') || 20
+            let errorMsg = $input.data('errorMsg') || 'Validation failed.'
+            let theme = $input.data('theme') || 'light'
+            let regExpStr = $input.data('validator') || '.*'
+            let value = $input.data('value') || ''
+
+            // $input.data
 
             let inputHTML = `
                 <div class="jm-input-content">
                     <label class="placeholder" for="jm-input-${inputEleCounter}">${label}</label>
-                    <input id="jm-input-${inputEleCounter}" class="_input" maxlength="${maxLength}" />
+                    <input id="jm-input-${inputEleCounter}" class="_input" maxlength="${maxLength}" value="${value}"/>
                     <p class="error">${errorMsg}</p>
                     <p class="char-counter">
                         <span class="current"></span>/<span class="maximum"></span>
                     </p>
-                </div>
-            `
+                </div>`
 
             $input
                 .toggleClass('_dark', theme === 'dark')
                 .html(inputHTML)
-
-            ++inputEleCounter
 
             let $_input = $input.find('._input')
             let val = $_input.val()
@@ -71,7 +72,6 @@ $.fn.extend({
                 let $wrap = $this.parents('.jm-input')
                 // 若edited为true，进行正则验证
                 if ($wrap.data('edited') === true) {
-                    let regExpStr = $wrap.data('validator') || '.*'
                     let regExp = new RegExp(regExpStr)
                     $wrap.toggleClass('invalid', !regExp.test($this.val()))
                 }
@@ -81,6 +81,8 @@ $.fn.extend({
                 let maxCharCount = +$wrap.find('.maximum').text()
                 currentCharCounter.text(currentCount)
             }
+
+            ++inputEleCounter
 
         })
     }
