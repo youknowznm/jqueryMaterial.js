@@ -1,79 +1,111 @@
 @charset "UTF-8";
 
+$input-blue: rgb(16, 108, 200);
+$input-red: rgb(221, 44, 0);
+$input-yellow: rgb(255, 235, 59);
+
 .jm-input {
     position: relative;
     display: inline-block;
-    padding: 0 6px;
     box-sizing: border-box;
     min-width: 172px;
-    margin: 18px 0;
-    .placeholder {
-        position: absolute;
-        cursor: text;
-        color: rgba(#000, .54);
-        top: 8px;
-        left: 6px;
-        transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        text-transform: capitalize;
-        // IDEA: 这里如果不显式设置 transform-origin 从左侧开始，就需要针对每个元素再进行 transform: translateX() 的改变。origin 这个属性，真屌！
-        transform-origin: left;
-    }
-    ._input {
-        width: 100%;
+    height: 94px;
+    margin: 0 12px;
+    padding-top: 26px;
+    .jm-input-content {
+        position: relative;
         height: 26px;
-        line-height: 26px;
-        background: transparent;
-        color: rgba(#000, .87);
-        padding: 2px 2px 1px 2px;
-        border: 0;
-        border-bottom: 1px solid rgba(#000, .12);
-        font-size: 16px;
-    }
-    .error {
-        position: absolute;
-        left: 6px;
-        bottom: -20px;
-        line-height: 14px;
-        font-size: 12px;
-        color: rgb(221, 44, 0); //red
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-    &:after,
-    &:before {
-        content: '';
-        position: absolute;
-        top: 28px;
-        height: 2px;
-        width: 0;
-        transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        background-color: rgb(16, 108, 200);
-        transform: translateX(2px);
-    }
-    &:after {
-        right: 50%;
-    }
-    &:before {
-        left: 50%;
+        z-index: 1;
+        ._input {
+            display: block;
+            position: relative;
+            width: 100%;
+            height: 26px;
+            line-height: 26px;
+            background: transparent;
+            color: rgba(#000, .87);
+            padding: 2px 2px 1px 2px;
+            border: 0;
+            border-bottom: 1px solid rgba(#000, .12);
+            font-size: 16px;
+        }
+        &:after,
+        &:before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            background-color: $input-blue;
+            z-index: 2;
+        }
+        &:after {
+            right: 50%;
+        }
+        &:before {
+            left: 50%;
+        }
+        .placeholder {
+            position: absolute;
+            cursor: text;
+            color: rgba(#000, .54);
+            top: 5px;
+            left: 3px;
+            transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-transform: capitalize;
+            // IDEA: 这里如果不显式设置 transform-origin 从左侧开始，就需要针对每个元素再进行 transform: translateX() 的改变。origin 这个属性，真屌！
+            transform-origin: left;
+        }
+        .error {
+            position: absolute;
+            left: 3px;
+            bottom: -24px;
+            line-height: 14px;
+            font-size: 12px;
+            color: $input-red;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        // 字数统计
+        .char-counter {
+            position: absolute;
+            font-size: 12px;
+            line-height: 14px;
+            color: rgba(#000, .54);
+            bottom: -24px;
+            right: 3px;
+            transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            user-select: none;
+            cursor: default;
+            .current {
+                margin-right: .5em;
+            }
+            .maximum {
+                margin-left: .5em;
+            }
+        }
     }
     // 获得焦点时
     &.focused {
         .placeholder {
             transform: scale(0.8) translateY(-30px);
-            color: rgb(16, 108, 200); //blue
+            color: $input-blue;
             cursor: default;
         }
-        &:after,
-        &:before {
-            width: calc(50% - 4px);
+        .jm-input-content:before {
+            width: calc(50% + 4px);
+        }
+        .jm-input-content:after {
+            width: 50%;
         }
     }
     // 非空
     &.non-empty {
         .placeholder {
             transform: scale(0.8) translateY(-30px);
-            color: rgb(16, 108, 200); //blue
+            color: $input-blue;
             cursor: default;
         }
     }
@@ -85,33 +117,14 @@
         }
         .char-counter,
         .placeholder {
-            color: rgb(221, 44, 0) !important; //red
+            color: $input-red !important;
         }
         ._input {
-            border-bottom-color: rgb(221, 44, 0) !important; //red
+            border-bottom-color: $input-red !important;
         }
         &:after,
         &:before {
-            background-color: rgb(221, 44, 0) !important; //red
-        }
-    }
-    // 字数统计
-    .char-counter {
-        position: absolute;
-        font-size: 12px;
-        line-height: 14px;
-        color: rgba(#000, .54);
-        top: 36px;
-        right: 3px;
-        font-weight: normal;
-        transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        user-select: none;
-        cursor: default;
-        .current {
-            margin-right: .5em;
-        }
-        .maximum {
-            margin-left: .5em;
+            background-color: $input-red !important;
         }
     }
     // 深色主题
@@ -124,36 +137,15 @@
             color: #fff;
             border-bottom-color: rgba(#fff, .12);
         }
-        &:after,
-        &:before {
-            background-color: rgb(255, 235, 59);
+        .jm-input-content:after,
+        .jm-input-content:before {
+            background-color: $input-yellow;
         }
         &.focused {
             .placeholder {
-                color: rgb(255, 235, 59);
+                color: $input-yellow;
             }
         }
     }
-    // 小尺寸
-    &._small {
-        margin: 10px 0;
-        .placeholder {
-            font-size: 12px;
-            line-height: 14px;
-        }
-        ._input {
-            font-size: 12px;
-            line-height: 14px;
 
-        }
-        .char-counter {
-            line-height: 12px;
-        }
-        &.focused,
-        &.non-empty {
-            .placeholder {
-                transform: scale(0.9) translateY(-15px);
-            }
-        }
-    }
 }

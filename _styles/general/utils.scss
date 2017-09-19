@@ -5,11 +5,13 @@
 // 参考 design.google.com 的响应式宽度控制
 @mixin jm-responsive-wrap {
     width: 1680px;
-    min-width: 970px;
+    min-width: 800px;
+    // min-width: 970px;
     margin-left: auto;
     margin-right: auto;
     @media (max-width: 1280px) {
-        width: 970px;
+        width: 800px;
+        // min-width: 970px;
     }
     @media (min-width: 1280px) and (max-width: 1600px) {
         width: 1280px;

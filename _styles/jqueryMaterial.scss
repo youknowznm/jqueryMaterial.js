@@ -17,9 +17,18 @@
 @import "./components/button/index";
 @import "./components/input/index";
 
+.jm-main {
+    padding-top: 40px;
+}
+
 .row {
+    position: relative;
+    min-height: 70px;
     text-align: center;
     background: rgb(247, 247, 247);
+    &.dark {
+        background: rgb(48, 48, 48);
+    }
 }
 
 .jm-button.favorite .icon {
@@ -34,12 +43,10 @@
 .jm-button.edit .icon {
     background: url("../_images/ic_edit.png") no-repeat 0 0;
 }
-.jm-input.cell {
-    width: 40%;
-}
-
+.jm-input.cell,
 .jm-input.email {
-    width: 59%;
+    display: block;
+
 }
 // .controll-panel {
 //     display: none;

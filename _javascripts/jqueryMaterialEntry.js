@@ -14,6 +14,7 @@ if (/Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent)) {
 }
 
 $(function() {
+
     $('.jm-header').initHeader({
         siteNameWords: ['Previous', 'Google', 'design'],
         navContents: ['articles', 'resources', 'events', 'jobs', 'news', 'about'],
@@ -26,10 +27,13 @@ $(function() {
         label: 'chinese cell phone',
         maxLength: 11,
         errorMsg: 'Invalid Chinese cell number.',
+        theme: 'dark',
     })
+
     $('.jm-input.email').initInput({
         label: 'email',
         maxLength: 30,
         errorMsg: 'Invalid email.',
     })
+
 })

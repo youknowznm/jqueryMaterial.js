@@ -18,19 +18,23 @@ $.fn.extend({
             let $input = $(this)
 
             let inputHTML = `
-                <label class="placeholder" for="jm-input-${inputEleCounter}">${label}</label>
-                <input id="jm-input-${inputEleCounter}" class="_input" maxlength="${maxLength}" />
-                <p class="error">${errorMsg}</p>
-                <h5 class="char-counter">
-                    <span class="current"></span>/<span class="maximum"></span>
-                </h5>
+                <div class="jm-input-content">
+                    <label class="placeholder" for="jm-input-${inputEleCounter}">${label}</label>
+                    <input id="jm-input-${inputEleCounter}" class="_input" maxlength="${maxLength}" />
+                    <p class="error">${errorMsg}</p>
+                    <p class="char-counter">
+                        <span class="current"></span>/<span class="maximum"></span>
+                    </p>
+                </div>
             `
 
-            $input.html(inputHTML)
+            $input
+                .toggleClass('_dark', theme === 'dark')
+                .html(inputHTML)
 
             ++inputEleCounter
 
-            let $_input = $input.children('input')
+            let $_input = $input.find('._input')
             let val = $_input.val()
             // 若input子元素的value非空，则添加non-empty类
             $input.toggleClass('non-empty', /\S/.test(val))
