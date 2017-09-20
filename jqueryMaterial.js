@@ -3068,7 +3068,7 @@ _jquery2.default.fn.extend({
     */
     initButton: function initButton() {
         this.each(function () {
-            var $button = (0, _jquery2.default)(this).data('animating', false);
+            var $button = (0, _jquery2.default)(this);
 
             /*
             拼接按钮内容HTML
@@ -3103,7 +3103,7 @@ _jquery2.default.fn.extend({
 
             (0, _jquery2.default)('body').on('mousedown', '.jm-button:not(._disabled)', function (evt) {
                 var $this = (0, _jquery2.default)(this);
-                if ($this.data('animating') === false) {
+                if ($this.data('animating') !== true) {
                     $this.data('clicked', true);
                     var $ripple = $this.find('.ripple');
                     var _x = evt.offsetX;
@@ -3124,7 +3124,7 @@ _jquery2.default.fn.extend({
                 }
             }).on('mouseup mouseout', '.jm-button:not(._disabled)', function () {
                 var $this = (0, _jquery2.default)(this);
-                if ($this.data('animating') === false && $this.data('clicked') === true) {
+                if ($this.data('animating') !== true && $this.data('clicked') === true) {
 
                     // 设置timeout，避免mousedown事件持续时间过短导致的闪烁
                     setTimeout(function () {
@@ -3526,7 +3526,7 @@ _jquery2.default.fn.extend({
 
         var radiosHTML = '\n            ' + labels.map(function (item, index) {
             var isChecked = item.checked === true ? 'true' : '';
-            var warnClass = item.warn === true ? '_warn' : '';
+            var warnClass = item.warn === true ? '_warn' : '_primary';
             var disableClass = item.disabled === true ? '_disabled' : '';
             return '<label class="jm-radio ' + warnClass + ' ' + disableClass + '" data-checked="' + isChecked + '">\n                    <span class="shadow"></span>\n                    <span class="_outer">\n                        <span class="_inner"></span>\n                    </span>\n                    <span class="text">' + item.name + '</span>\n                </label>';
         }).join('');

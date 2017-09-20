@@ -7,7 +7,7 @@ $.fn.extend({
     */
     initButton() {
         this.each(function() {
-            let $button = $(this).data('animating', false)
+            let $button = $(this)
 
             /*
             拼接按钮内容HTML
@@ -49,7 +49,7 @@ $.fn.extend({
             $('body')
                 .on('mousedown', '.jm-button:not(._disabled)', function(evt) {
                     let $this = $(this)
-                    if ($this.data('animating') === false) {
+                    if ($this.data('animating') !== true) {
                         $this.data('clicked', true)
                         let $ripple = $this.find('.ripple')
                         let _x = evt.offsetX
@@ -71,7 +71,7 @@ $.fn.extend({
                 })
                 .on('mouseup mouseout', '.jm-button:not(._disabled)', function() {
                     let $this = $(this)
-                    if ($this.data('animating') === false && $this.data('clicked') === true) {
+                    if ($this.data('animating') !== true && $this.data('clicked') === true) {
 
                         // 设置timeout，避免mousedown事件持续时间过短导致的闪烁
                         setTimeout(function() {

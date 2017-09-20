@@ -26,7 +26,7 @@ $.fn.extend({
         let radiosHTML = `
             ${labels.map(function(item, index) {
                 let isChecked = (item.checked === true) ? 'true' : ''
-                let warnClass = (item.warn === true) ? '_warn' : ''
+                let warnClass = (item.warn === true) ? '_warn' : '_primary'
                 let disableClass = (item.disabled === true) ? '_disabled' : ''
                 return `<label class="jm-radio ${warnClass} ${disableClass}" data-checked="${isChecked}">
                     <span class="shadow"></span>
