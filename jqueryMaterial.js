@@ -3209,7 +3209,7 @@ _jquery2.default.fn.extend({
             }).join('') + '\n                        </a>\n                        <ul class="nav-buttons">\n                            ' + navContents.map(function (item, index) {
                 var activeStatus = index === activeNavIndex ? 'active' : '';
                 return '<li class="nav-button ' + activeStatus + '">' + item + '</li>';
-            }).join('') + '\n                        </ul>\n                    </nav>\n                    <div class="banner">\n                        <h1 class="page-title">\n                            <span class="jm-single-word">' + navContents[activeNavIndex] + '</span>\n                        </h1>\n                    </div>\n                </div>\n                <div class="ripple"></div>';
+            }).join('') + '\n                            <li class="nav-indicator"></li>\n                        </ul>\n                    </nav>\n                    <div class="banner">\n                        <h1 class="page-title">\n                            <span class="jm-single-word">' + navContents[activeNavIndex] + '</span>\n                        </h1>\n                    </div>\n                </div>\n                <div class="ripple"></div>';
 
             // header 元素主体
             var $header = (0, _jquery2.default)(this).hide().attr('data-theme', COLOR_PALLETE[activeNavIndex]).html(jmHeaderHTML).append((0, _jquery2.default)('<div class="jm-header-shadow"></div>'));

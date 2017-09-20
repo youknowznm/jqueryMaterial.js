@@ -2,3 +2,5 @@
 /dist/
 .sass-cache/
 npm-debug.log
+/_old_styles/
+/_old_javascripts/

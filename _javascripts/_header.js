@@ -54,6 +54,7 @@ $.fn.extend({
                                 let activeStatus = index === activeNavIndex ? 'active' : ''
                                 return `<li class="nav-button ${activeStatus}">${item}</li>`
                             }).join('')}
+                            <li class="nav-indicator"></li>
                         </ul>
                     </nav>
                     <div class="banner">
