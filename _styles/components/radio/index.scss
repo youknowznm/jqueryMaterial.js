@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+.jm-radio-group {
+    position: relative;
+    line-height: 70px;
+    margin: 18px 0;
+    .jm-radio {
+        position: relative;
+        display: inline-block;
+        min-width: 60px;
+        height: 20px;
+        line-height: 20px;
+        margin: 0 10px;
+        cursor: pointer;
+        ._outer {
+            display: block;
+            position: relative;
+            float: left;
+            width: 20px;
+            height: 20px;
+            box-sizing: border-box;
+            border: 2px solid rgba(0, 0, 0, .54);
+            border-radius: 50%;
+            margin-right: 12px;
+            transition: all .28s ease;
+            z-index: 9;
+            ._inner {
+                display: block;
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                left: 3px;
+                top: 3px;
+                transform: scale(0);
+                border-radius: 50%;
+                transition: all .28s ease;
+            }
+        }
+        .shadow {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            left: -10px;
+            top: -10px;
+            border-radius: 50%;
+            transform: scale(0);
+            z-index: 8;
+            &.clicked {
+                animation: ripple-out .5s ease;
+                @keyframes ripple-out {
+                    0% {
+                        transform: scale(0);
+                        opacity: 0;
+                    }
+                    30% {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: scale(1);
+                        opacity: 0;
+                    }
+                }
+            }
+        }
+        .label {
+            float: left;
+            user-select: none;
+            color: rgba(0, 0, 0, 0.87);
+            font-size: 14px;
+        }
+        .text {
+            text-transform: capitalize;
+        }
+
+        // 不同颜色主题
+        &._primary {
+            .shadow {
+                background-color: rgb(189, 213, 237);
+            }
+            &[data-checked=true] {
+                ._inner {
+                    background: rgba(16, 108, 200, 0.87);
+                    transform: scale(1);
+                }
+                ._outer {
+                    border-color: rgba(16, 108, 200, 0.87);
+                }
+            }
+        }
+        &._warn {
+            .shadow {
+                background-color: rgb(251, 206, 206);
+            }
+            &[data-checked=true] {
+                ._inner {
+                    background: rgba(255, 82, 82, 0.87);
+                    transform: scale(1);
+                }
+                ._outer {
+                    border-color: rgba(255, 82, 82, 0.87);
+                }
+            }
+        }
+
+        // 禁用状态
+        &._disabled {
+            cursor: default !important;
+            ._outer {
+                border-color: rgba(0, 0, 0, .38) !important;
+            }
+            .text {
+                color: rgba(0, 0, 0, .38) !important;
+            }
+        }
+    }
+}

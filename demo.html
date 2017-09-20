@@ -52,26 +52,29 @@
 <div class="jm-main-wrap">
     <div class="jm-main">
 
+        <!-- 单选按钮组 -->
+        <div class="row">
+            <div class="jm-radio-group"></div>
+        </div>
+
         <!-- 输入 -->
         <div class="row dark">
             <div class="jm-input cell"
                 data-validator="^1[0-9]{10}$"
-                data-label="cell phone number"
+                data-li="cell phone number"
                 data-max-length="11"
                 data-error-msg="That's not a Chinese cell number."
                 data-theme="dark"
-                data-value="asdfd"
-                >
+                data-value="13426105824">
             </div>
         </div>
 
         <div class="row">
             <div class="jm-input email"
                 data-validator="^([a-zA-Z\d]+)\w*@(\w+)(\.[a-zA-Z]{1,4}){1,2}$"
-                data-label="email"
+                data-li="email"
                 data-max-length="30"
-                data-error-msg="Invalid email format."
-                >
+                data-error-msg="Invalid email format.">
             </div>
         </div>
 
@@ -125,27 +128,13 @@
         </div>
 
 
-        <!-- <div class="jm-radio-group">
-            <div class="jm-radio">
-                <div class="shadow"></div>
-                <div class="_outer">
-                    <div class="_inner"></div>
-                </div>
-                Apple
-            </div>
-            <div class="jm-radio _warn">
-                <div class="shadow"></div>
-                <div class="_outer">
-                    <div class="_inner"></div>
-                </div>
-                Banana
-            </div>
-        </div>
+
+        <!--
 
 
     <div class="row">
         <div class="jm-input _title">
-            <label class="placeholder" for="input_1">Title</label>
+            <li class="placeholder" for="input_1">Title</li>
             <input id="input_1" class="_input" maxlength="20" />
             <p class="error"></p>
             <h5 class="char-counter">
@@ -153,7 +142,7 @@
             </h5>
         </div>
         <div class="jm-input _summary">
-            <label class="placeholder" for="input_2">Summary</label>
+            <li class="placeholder" for="input_2">Summary</li>
             <input id="input_2" class="_input" maxlength="40" />
             <p class="error"></p>
             <h5 class="char-counter">
@@ -166,14 +155,14 @@
                 <div class="_outer">
                     <div class="_inner"></div>
                 </div>
-                <span class="label">Post</span>
+                <span class="li">Post</span>
             </div>
             <div class="jm-radio" data-name="product">
                 <div class="shadow"></div>
                 <div class="_outer">
                     <div class="_inner"></div>
                 </div>
-                <span class="label">Product</span>
+                <span class="li">Product</span>
             </div>
         </div>
     </div> -->

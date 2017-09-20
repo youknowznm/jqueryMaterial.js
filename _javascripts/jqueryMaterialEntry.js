@@ -1,10 +1,11 @@
 import $ from './jquery.js'
 import '../_styles/jqueryMaterial.scss'
 
-import './header.js'
-import './button.js'
-import './input.js'
-import './modal.js'
+import './_header.js'
+import './_button.js'
+import './_input.js'
+import './_modal.js'
+import './_radio.js'
 
 // 判断是否移动端
 let $body = $('body')
@@ -45,6 +46,26 @@ $(function() {
             confirmButtonText: 'got it!',
             showCancel: false,
         })
+    })
+
+    $('.jm-radio-group').initRadio({
+        labels: [
+            {
+                name: 'apple',
+            },
+            {
+                name: 'banana',
+                warn: true,
+            },
+            {
+                name: 'grape',
+                checked: true,
+            },
+            {
+                name: 'orange',
+                disabled: true,
+            },
+        ],
     })
 
 })
