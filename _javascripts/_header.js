@@ -1,40 +1,42 @@
 import $ from './jquery.js'
 
-const COLOR_PALLETE = [
-    'silver',
-    'gray',
-    'yellow',
-    'red',
-    'blue',
-    'green',
-]
-
 $.fn.extend({
     /**
     生成 design.google.com 旧站风格的头部
     https://web.archive.org/web/20170516175305/https://design.google.com
+
     @param options {Object}
         - siteNameWords {Array.<String>} 站名的单词组成的数组，以'·'和'¬'分隔
         - navContents {Array.<String>} 导航按钮的名称数组
-        - activeNavIndex {Number} 当前活动的导航按钮索引
+        - activeNavIndex {?Number} 当前活动的导航按钮索引。不提供时为0
     */
     initHeader(options) {
+
+        const COLOR_PALLETE = [
+            'silver',
+            'gray',
+            'yellow',
+            'red',
+            'blue',
+            'green',
+        ]
+
         this.each(function() {
+
+            let {siteNameWords, navContents, activeNavIndex} = options
 
             /*
             参数检查
             */
-            if (typeof options.siteNameWords[0] !== 'string') {
+            if (typeof siteNameWords[0] !== 'string') {
                 throw new TypeError('Expecting parameter "siteNameWords" as {Array.<String>}')
             }
-            if (typeof options.navContents[0] !== 'string') {
+            if (typeof navContents[0] !== 'string') {
                 throw new TypeError('Expecting parameter "navContents" as {Array.<String>}')
             }
-            if (typeof options.activeNavIndex !== 'number') {
-                throw new TypeError('Expecting parameter "activeNavIndex" as {Number}')
+            if (typeof activeNavIndex !== 'number') {
+                activeNavIndex = 0
             }
-
-            let {siteNameWords, navContents, activeNavIndex} = options
 
             /*
             初始化

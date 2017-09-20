@@ -4,6 +4,14 @@ $.fn.extend({
     /**
     生成 angular material 风格的text input元素
     https://material.angularjs.org/latest/demo/input
+
+    目标元素可配置的属性：
+        - data-label 输入框标题。不提供时为'Input 1'，'Input 2'...以此类推
+        - data-value 实际内容文字。不提供时为''
+        - data-maxLength 最大字符数。不提供时为20
+        - data-validator 验证内容的正则。不提供时为'.*'
+        - data-errorMsg 内容未通过正则验证时的提示。不提供时为'Validation failed.'
+        - data-theme 主题配色。可为'dark'或'light'，不提供时为'light'
     */
     initInput(options) {
 
@@ -13,15 +21,12 @@ $.fn.extend({
 
             let $input = $(this)
 
-            // TODO
             let label = $input.data('label') || `Input ${inputEleCounter}`
+            let value = $input.data('value') || ''
             let maxLength = $input.data('maxLength') || 20
+            let regExpStr = $input.data('validator') || '.*'
             let errorMsg = $input.data('errorMsg') || 'Validation failed.'
             let theme = $input.data('theme') || 'light'
-            let regExpStr = $input.data('validator') || '.*'
-            let value = $input.data('value') || ''
-
-            // $input.data
 
             let inputHTML = `
                 <div class="jm-input-content">

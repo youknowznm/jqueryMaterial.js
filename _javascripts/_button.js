@@ -4,10 +4,15 @@ $.fn.extend({
     /**
     生成 angular material 风格的按钮
     https://material.angularjs.org/latest/demo/button
+
+    目标元素可配置的属性：
+        - data-text 按钮内容文字。不提供时，按钮内容为一个.icon元素，需在样式表内自行设置背景url
+        - data-tooltip-content 浮动提示条的内容文字。不提供时，不显示浮动提示条
+        - data-tooltip-position 浮动提示条的位置。不提供时默认为'top'
     */
     initButton() {
         this.each(function() {
-            let $button = $(this)
+            let $button = $(this).data('animating', false)
 
             /*
             拼接按钮内容HTML
@@ -30,8 +35,8 @@ $.fn.extend({
             */
             let tooltipHTML = ''
             let tooltipContent = $button.data('tooltipContent')
-            let tooltipPosition = $button.data('tooltipPosition') || 'top'
             if (typeof tooltipContent === 'string') {
+                let tooltipPosition = $button.data('tooltipPosition') || 'top'
                 tooltipHTML = `
                     <p class="jm-tooltip to-show-at-${tooltipPosition}">
                         ${tooltipContent}
@@ -49,7 +54,7 @@ $.fn.extend({
             $('body')
                 .on('mousedown', '.jm-button:not(._disabled)', function(evt) {
                     let $this = $(this)
-                    if ($this.data('animating') !== true) {
+                    if ($this.data('animating') === false) {
                         $this.data('clicked', true)
                         let $ripple = $this.find('.ripple')
                         let _x = evt.offsetX
@@ -71,7 +76,7 @@ $.fn.extend({
                 })
                 .on('mouseup mouseout', '.jm-button:not(._disabled)', function() {
                     let $this = $(this)
-                    if ($this.data('animating') !== true && $this.data('clicked') === true) {
+                    if ($this.data('animating') === false && $this.data('clicked') === true) {
 
                         // 设置timeout，避免mousedown事件持续时间过短导致的闪烁
                         setTimeout(function() {

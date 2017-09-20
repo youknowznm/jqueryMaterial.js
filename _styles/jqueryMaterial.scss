@@ -20,7 +20,7 @@
 @import "./components/radio/index";
 
 .jm-main {
-    padding-top: 40px;
+    padding-top: 12px;
 }
 
 .row {
@@ -28,6 +28,7 @@
     min-height: 70px;
     text-align: center;
     background: rgb(247, 247, 247);
+    margin: 24px 0;
     &.dark {
         background: rgb(48, 48, 48);
     }

@@ -1,6 +1,18 @@
 import $ from './jquery'
 
 $.fn.extend({
+    /**
+    生成 angular material 风格的单选按钮组
+    https://material.angularjs.org/latest/demo/radioButton
+    
+    @param options {Object}
+        - labels {?Array.<Object>} 可选对象的数组。不提供时使用一个默认的示例数组。
+          请注意这里未做类型检查，数组内checked值为true的对象应不多于一个。
+            - name {String} 按钮元素的标题文字
+            - checked {?Boolean} 是否为已选中状态
+            - warn {?Boolean} 是否为'warn'的红色配色
+            - disabled {?Boolean} 是否为禁用状态
+    */
     initRadio(options) {
 
         let $radioWrap = $(this)

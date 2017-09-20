@@ -1,25 +1,27 @@
 import $ from './jquery.js'
 
 /**
-生成 angular material 风格的模态对话框
+生成 angular material 风格的模态对话框/提示框
 https://material.angularjs.org/latest/demo/dialog
+
+@param options {Object}
+    - title {?String} 对话框/提示框标题文字。不提供时为'unnamed modal'
+    - content {?String} 对话框/提示框内容文字。不提供时为'default content'
+    - confirmButtonText {?String} 确认按钮的内容文字。不提供时为'confirm'
+    - cancelButtonText {?String} 取消按钮的内容文字。不提供时为'cancel'
+    - onConfirm {?Function} 确认按钮的点击回调。不提供时为一个空方法
+    - onCancel {?Function} 取消按钮的点击回调。不提供时为一个空方法
+    - showCancel {?boolean} 是否显示取消按钮。true时为对话框，false时为提示框。不提供时为true
 */
 $.showJmModal = function(options) {
 
-    // 模态框标题文本
     let title = options.title || 'unnamed modal'
-    // 模态框内容文本
     let content = options.content || 'default content'
-    // 确认和取消按钮的文案
     let confirmButtonText = options.confirmButtonText || 'confirm'
     let cancelButtonText = options.cancelButtonText || 'cancel'
-    // 确认和取消按钮的点击回调
     let onConfirm = (typeof options.onConfirm === 'function') ? options.onConfirm : function() {}
     let onCancel = (typeof options.onCancel === 'function') ? options.onCancel : function() {}
-    // 是否显示取消按钮。true时为对话框，否则为提示框
-    let showCancel = (typeof options.showCancel === 'boolean')
-        ? options.showCancel
-        : true
+    let showCancel = (typeof options.showCancel === 'boolean') ? options.showCancel : true
 
     let jmModalHTML
 
