@@ -6,6 +6,7 @@ import './_button.js'
 import './_input.js'
 import './_modal.js'
 import './_radio.js'
+import './_tag.js'
 
 // 判断是否移动端
 let $body = $('body')
