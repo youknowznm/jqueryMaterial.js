@@ -3064,6 +3064,8 @@ __webpack_require__(5);
 
 __webpack_require__(6);
 
+__webpack_require__(25);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // 判断是否移动端
@@ -3714,6 +3716,33 @@ module.exports = function(module) {
 	return module;
 };
 
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _jquery = __webpack_require__(0);
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_jquery2.default.fn.extend({
+    /**
+    生成 material design 风格的背景样式
+    https://material.angularjs.org/latest/demo/button
+     @param options {Object}
+        - siteNameWords {Array.<String>} 站名的单词组成的数组，以'·'和'¬'分隔
+        - navContents {Array.<String>} 导航按钮的名称数组
+        - activeNavIndex {?Number} 当前活动的导航按钮索引。不提供时为0
+    */
+    initBackground: function initBackground() {
+        this.each(function () {});
+    }
+});
 
 /***/ })
 /******/ ]);
