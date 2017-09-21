@@ -69,4 +69,6 @@ $(function() {
         ],
     })
 
+    $('.jm-tag').initTag()
+
 })
