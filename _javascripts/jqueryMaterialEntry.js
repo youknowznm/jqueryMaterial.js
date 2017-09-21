@@ -77,6 +77,6 @@ $(function() {
         maxTagCount: 3,
     })
 
-    $('.jm-background').initBackground()
+    $('.jm-bg').initBackground()
 
 })

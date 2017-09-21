@@ -38,15 +38,14 @@ $.fn.extend({
             ['#607D8B', '#455A64'], // blue gray
         ]
 
+        // 对已用配色的统计。当目标元素的个数小于调色板数组长度时，禁止产生相同的配色
+        let usedPaletteIndexes = []
+
         this.each(function() {
 
             let $backgroundContainer = $(this)
 
-            let usedPaletteIndexes = []
-
-            // 在以上色板内随机选取一组配色。小于16个目标元素时，禁止产生相同的配色
-            let paletteIndex
-            paletteIndex = Math.floor(Math.random() * 15)
+            let paletteIndex = Math.floor(Math.random() * 15)
             if (usedPaletteIndexes.length < 16) {
                 while (true) {
                     if (usedPaletteIndexes.indexOf(paletteIndex) === -1) {
@@ -68,10 +67,12 @@ $.fn.extend({
 
             // 生成一定数量范围内的背景色块元素，设置一定范围内的宽度，设置2种盒阴影之一，设置其背景颜色为指定配色，旋转 1 - 360 度
             let blocksHTML = ''
-            let blocksCount = Math.floor(Math.random() * 2 + 4)
+            let blocksCount = Math.floor(Math.random() * 4 + 2)
+            console.log(blocksCount);
             for (let i = 0; i < blocksCount; i++) {
                 let shadowStrength = (Math.random() < .5) ? 'light' : 'strong'
-                let width = Math.floor(Math.random() * 300 + 100)
+                let width = Math.floor(Math.random() * 200 + 100)
+                console.log(width);
                 let rotateAngle = Math.floor(Math.random() * 180 + 1)
                 blocksHTML += `<div class="jm-bg-block jm-shadow-${shadowStrength}"
                                     style="width: ${width}px;
