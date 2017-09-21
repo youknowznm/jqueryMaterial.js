@@ -10,19 +10,13 @@ $.fn.extend({
         - data-tooltip-content 浮动提示条的内容文字。不提供时，不显示浮动提示条
         - data-tooltip-position 浮动提示条的位置。不提供时默认为'top'
     */
-    initTag() {
+    initTag(options) {
 
         let tagEleCounter = 1
 
         this.each(function() {
 
             let $tagsContainer = $(this)
-
-            let options = {
-                tagsArr: ['fuck', 'shit', 'pus'],
-                maxLengthEachTag: 10,
-                maxTagCount: 3,
-            }
 
             let tagsArr = options.tagsArr || []
             let maxLengthEachTag = options.maxLengthEachTag || 15
@@ -38,88 +32,89 @@ $.fn.extend({
                     }).join('')}
                     <input id="jm-tag-${tagEleCounter}" class="_input" maxlength="${maxLengthEachTag}" placeholder="Type tags and press Enter."/>
                     <label class="placeholder" for="jm-tag-${tagEleCounter}">Tags</label>
-                </div>
-                <p class="error"></p>
-                <h5 class="char-counter">
-                    <span class="current">0</span>/<span class="maximum">${maxLengthEachTag}</span>
-                </h5>`
+                    <p class="error"></p>
+                    <h5 class="char-counter">
+                        <span class="current">0</span>/<span class="maximum">${maxLengthEachTag}</span>
+                    </h5>
+                </div>`
 
             $tagsContainer
                 // 若有一个以上的tag子元素，则添加non-empty类
-                .toggleClass('non-empty', tagsArr[0] === undefined)
+                .toggleClass('non-empty', tagsArr[0] !== undefined)
                 // ‘未点击’状态的标识。在输入框产生初次blur后修改
                 .data('edited', false)
                 .html(tagHTML)
 
             let $_input = $tagsContainer.find('._input')
             let $error = $tagsContainer.find('.error')
+            let $currentCharCount = $tagsContainer.find('.current')
 
             $_input
+                .on('focus', function() {
+                    $tagsContainer.addClass('focused')
+                })
                 .one('blur', function() {
                     $tagsContainer.data('edited', true)
                 })
-                .on('focus', function() {
-                    $tagsContainer.toggleClass('focused', $(this).val() === '')
-                })
                 .on('blur', function() {
-                    let $this = $(this)
-                    let $tag = $this.parents('.jm-tag')
-                    if ($this.val() === '') {
-                        $tag.removeClass('focused')
-                    }
-                    if ($tag.find('.tag').length > 0) {
-                        $tag.addClass('non-empty')
+                    $tagsContainer.removeClass('focused')
+
+                    if ($tagsContainer.find('.tag').length > 0) {
+                        $tagsContainer.addClass('non-empty')
                     }
                 })
                 .on('keyup', function(evt) {
-                    let $this = $(this)
+                    console.log(2,evt);
                     let tags = $tagsContainer.find('.tag')
                     let tagCount = tags.length
+                    let originVal = $_input.val()
+                    // 字数统计
+                    $currentCharCount.text(originVal.length)
+                    // 回车键
                     if (evt.keyCode === 13) {
-                        let val = $this.val().trim()
-                        $this.val('')
-                        if (/\S/.test(val)) {
+                        let val = originVal.trim()
+                        if (val !== '') {
+                            // 标签数量验证
                             if (tagCount === maxTagCount) {
-                                showError($error, 'Maximum tags reached.')
+                                switchErrorDisplay(true, 'Maximum tags reached.')
                                 return
                             }
-                            // 同名标签限制
+                            // 同名标签验证
                             for (let c of tags) {
                                 if (c.innerText === val) {
-                                    showError($error, 'Tag already exists.')
+                                    switchErrorDisplay(true, 'Tag already exists.')
                                     return
                                 }
                             }
-                            $this.before(
+                            // 验证通过，添加标签，初始化输入框相关
+                            $_input.before(
                                 $(`<span class="tag"><span class="tag-content">${val}</span><i class="btn-remove"></i></span>`)
                             )
+                            switchErrorDisplay(false, '')
+                            $_input.val('')
+                            $currentCharCount.text('0')
                         }
                     }
-                    // 字数验证
-                    let currentCount = $this.val().length
-                    let currentCharCounter = $tag.find('.current')
-                    let maxCharCount = +$tag.find('.maximum').text()
-                    currentCharCounter.text(currentCount)
-                })
-
-            $tagsContainer
-                .on('click', '.tag', function() {
-                    let $tar = $(this).find('._input')
-                    if (!$tar.is(':focus')) {
-                        $tar.focus()
+                    // 按下退格键且无内容时，删除前一个tag元素
+                    if (originVal === '' && evt.keyCode === 8) {
+                        // 按下退格键且无内容时，删除前一个tag元素
+                        $_input.prev('.tag').remove()
+                        switchErrorDisplay(false, '')
                     }
                 })
-                .on('click', '.btn-remove', function(evt) {
-                    $(this).parents('.tag').remove()
-                })
 
-            function showError($ele, str) {
-                $ele.closest('.tag').addClass('invalid')
-                $ele.text(str).addClass('show')
-                setTimeout(function() {
-                    $ele.removeClass('show')
-                    $ele.closest('.tag').removeClass('invalid')
-                }, 3000)
+            $tagsContainer.on('click', '.btn-remove', function(evt) {
+                $(this).parents('.tag').remove()
+            })
+
+            function switchErrorDisplay(bool, str) {
+                if (bool === true) {
+                    $error.closest('.tag').addClass('invalid')
+                    $error.text(str).addClass('show')
+                } else {
+                    $error.removeClass('show')
+                    $error.closest('.tag').removeClass('invalid')
+                }
             }
 
             ++tagEleCounter

@@ -69,6 +69,10 @@ $(function() {
         ],
     })
 
-    $('.jm-tag').initTag()
+    $('.jm-tag').initTag({
+        tasgsArr: ['fuck', 'shit', 'pus'],
+        maxLengthEachTag: 10,
+        maxTagCount: 3,
+    })
 
 })

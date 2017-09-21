@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+$tag-main: rgb(16, 108, 200);
+$tag-error: rgb(221, 44, 0);
+
 .jm-tag {
     position: relative;
     padding-top: 26px;
@@ -9,6 +12,7 @@
     margin: 0 12px;
     text-align: left;
     .jm-tag-content {
+        display: flex;
         position: relative;
         width: 100%;
         height: 32px;
@@ -16,10 +20,9 @@
         background: transparent;
         border-bottom: 1px solid rgba(#000, .12);
         color: rgba(#000, .87);
-        padding-bottom: 8px;
+        padding-bottom: 4px;
         .tag {
             position: relative;
-            float: left;
             background-color: rgb(224, 224, 224);
             border-radius: 16px;
             color: rgb(66, 66, 66);
@@ -49,7 +52,7 @@
             }
         }
         ._input {
-            display: inline-block;
+            flex-grow: 1;
             border: 0;
             font-size: 16px;
             line-height: 32px;
@@ -59,11 +62,11 @@
         &:before {
             content: '';
             position: absolute;
-            bottom: 6px;
+            bottom: -1px;
             height: 2px;
             width: 0;
             transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            background-color: rgb(16, 108, 200);
+            background-color: $tag-main;
         }
         &:after {
             right: 50%;
@@ -83,15 +86,48 @@
             transform-origin: left;
             cursor: text;
         }
-
+        .error {
+            position: absolute;
+            line-height: 14px;
+            font-size: 12px;
+            color: $tag-error;
+            bottom: -20px;
+            left: 6px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            &.show {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        // 字数统计
+        .char-counter {
+            position: absolute;
+            font-size: 12px;
+            line-height: 14px;
+            color: rgba(#000, .54);
+            bottom: -20px;
+            right: 6px;
+            font-weight: normal;
+            user-select: none;
+            cursor: default;
+            transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            .current {
+                margin-right: .5em;
+            }
+            .maximum {
+                margin-left: .5em;
+            }
+        }
     }
 
     // 非空时
     &.non-empty {
         .placeholder {
             opacity: 1;
-            transform: scale(0.8) translateY(-30px);
-            color: rgb(16, 108, 200); //blue
+            transform: scale(0.8) translateY(-33px);
+            color: $tag-main;
             cursor: default;
         }
     }
@@ -99,49 +135,16 @@
     &.focused {
         .placeholder {
             opacity: 1;
-            transform: scale(0.8) translateY(-30px);
-            color: rgb(16, 108, 200); //blue
+            transform: scale(0.8) translateY(-33px);
+            color: $tag-main;
             cursor: default;
         }
         .jm-tag-content:after,
         .jm-tag-content:before {
-            width: calc(50% - 6px);
+            width: 50%;
         }
     }
 
-    .error {
-        position: absolute;
-        line-height: 14px;
-        font-size: 12px;
-        color: rgb(221, 44, 0); //red
-        top: 50px;
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        &.show {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-    // 字数统计
-    .char-counter {
-        position: absolute;
-        font-size: 12px;
-        line-height: 14px;
-        color: rgba(#000, .54);
-        top: 46px;
-        right: 9px;
-        font-weight: normal;
-        user-select: none;
-        cursor: default;
-        transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
-        .current {
-            margin-right: .5em;
-        }
-        .maximum {
-            margin-left: .5em;
-        }
-    }
     // 输入内容未通过验证时
     &.invalid {
         .error {
@@ -150,14 +153,14 @@
         }
         .char-counter,
         .placeholder {
-            color: rgb(221, 44, 0) !important; //red
+            color: $tag-error !important;
         }
         .jm-tag-content {
-            border-bottom-color: rgb(221, 44, 0) !important; //red
+            border-bottom-color: $tag-error !important;
         }
         .jm-tag-content:after,
         .jm-tag-content:before {
-            background-color: rgb(221, 44, 0) !important; //red
+            background-color: $tag-error !important;
         }
     }
 }
