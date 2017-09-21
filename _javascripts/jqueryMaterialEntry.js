@@ -71,9 +71,12 @@ $(function() {
     })
 
     $('.jm-tag').initTag({
+        tagGroupName: 'Houses',
         tagsArr: ['targaryen', 'stark', 'lannister'],
         maxLengthEachTag: 10,
         maxTagCount: 3,
     })
+
+    $('.jm-background').initBackground()
 
 })

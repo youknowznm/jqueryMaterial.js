@@ -6,9 +6,10 @@ $.fn.extend({
     https://material.angularjs.org/latest/demo/chips
 
     @param options {Object}
-        - tagsArr {?Array.<String>} 已有的标签内容文字组成的数组
-        - maxLengthEachTag {?Number} 单个标签的最大字符数
-        - maxTagCount {?Number} 最大标签总数
+        - tagGroupName {?String} 标签组名称。不提供时为'tags'
+        - tagsArr {?Array.<String>} 已有的标签内容文字组成的数组。不提供时为空数组
+        - maxLengthEachTag {?Number} 单个标签的最大字符数。不提供时为15
+        - maxTagCount {?Number} 最大标签总数。不提供时为3
     */
     initTag(options) {
 
@@ -18,6 +19,7 @@ $.fn.extend({
 
             let $tagsContainer = $(this)
 
+            let tagGroupName = options.tagGroupName || 'tags'
             let tagsArr = options.tagsArr || []
             let maxLengthEachTag = options.maxLengthEachTag || 15
             let maxTagCount = options.maxTagCount || 3
@@ -31,7 +33,7 @@ $.fn.extend({
                                 </span>`
                     }).join('')}
                     <input id="jm-tag-${tagEleCounter}" class="_input" maxlength="${maxLengthEachTag}" placeholder="Type tags and press Enter."/>
-                    <label class="placeholder" for="jm-tag-${tagEleCounter}">Tags</label>
+                    <label class="placeholder" for="jm-tag-${tagEleCounter}">${tagGroupName}</label>
                     <p class="error"></p>
                     <h5 class="char-counter">
                         <span class="current">0</span>/<span class="maximum">${maxLengthEachTag}</span>
