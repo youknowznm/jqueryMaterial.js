@@ -70,7 +70,7 @@ $(function() {
     })
 
     $('.jm-tag').initTag({
-        tasgsArr: ['fuck', 'shit', 'pus'],
+        tagsArr: ['targaryen', 'stark', 'lannister'],
         maxLengthEachTag: 10,
         maxTagCount: 3,
     })

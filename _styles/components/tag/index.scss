@@ -36,6 +36,7 @@ $tag-error: rgb(221, 44, 0);
                 min-width: 32px;
                 line-height: 32px;
                 padding-right: 3px;
+                text-transform: capitalize;
             }
             .btn-remove {
                 position: absolute;
@@ -85,6 +86,11 @@ $tag-error: rgb(221, 44, 0);
             // IDEA: 这里如果不显式设置 transform-origin 从左侧开始，就需要针对每个元素再进行 transform: translateX() 的改变。origin 这个属性，真屌！
             transform-origin: left;
             cursor: text;
+
+            opacity: 1;
+            transform: scale(0.8) translateY(-33px);
+            color: $tag-main;
+            cursor: default;
         }
         .error {
             position: absolute;
@@ -123,14 +129,14 @@ $tag-error: rgb(221, 44, 0);
     }
 
     // 非空时
-    &.non-empty {
-        .placeholder {
-            opacity: 1;
-            transform: scale(0.8) translateY(-33px);
-            color: $tag-main;
-            cursor: default;
-        }
-    }
+    // &.non-empty {
+    //     .placeholder {
+    //         opacity: 1;
+    //         transform: scale(0.8) translateY(-33px);
+    //         color: $tag-main;
+    //         cursor: default;
+    //     }
+    // }
     // 获得焦点时
     &.focused {
         .placeholder {

@@ -5,10 +5,10 @@ $.fn.extend({
     生成 angular material 风格的标签
     https://material.angularjs.org/latest/demo/chips
 
-    目标元素可配置的属性：
-        - data-text 按钮内容文字。不提供时，按钮内容为一个.icon元素，需在样式表内自行设置背景url
-        - data-tooltip-content 浮动提示条的内容文字。不提供时，不显示浮动提示条
-        - data-tooltip-position 浮动提示条的位置。不提供时默认为'top'
+    @param options {Object}
+        - tagsArr {?Array.<String>} 已有的标签内容文字组成的数组
+        - maxLengthEachTag {?Number} 单个标签的最大字符数
+        - maxTagCount {?Number} 最大标签总数
     */
     initTag(options) {
 
@@ -39,10 +39,10 @@ $.fn.extend({
                 </div>`
 
             $tagsContainer
-                // 若有一个以上的tag子元素，则添加non-empty类
-                .toggleClass('non-empty', tagsArr[0] !== undefined)
                 // ‘未点击’状态的标识。在输入框产生初次blur后修改
                 .data('edited', false)
+                // 初始化主容器的tagsData数组
+                .data('tagsData', tagsArr)
                 .html(tagHTML)
 
             let $_input = $tagsContainer.find('._input')
@@ -58,13 +58,8 @@ $.fn.extend({
                 })
                 .on('blur', function() {
                     $tagsContainer.removeClass('focused')
-
-                    if ($tagsContainer.find('.tag').length > 0) {
-                        $tagsContainer.addClass('non-empty')
-                    }
                 })
                 .on('keyup', function(evt) {
-                    console.log(2,evt);
                     let tags = $tagsContainer.find('.tag')
                     let tagCount = tags.length
                     let originVal = $_input.val()
@@ -88,23 +83,25 @@ $.fn.extend({
                             }
                             // 验证通过，添加标签，初始化输入框相关
                             $_input.before(
-                                $(`<span class="tag"><span class="tag-content">${val}</span><i class="btn-remove"></i></span>`)
+                                $(`<span class="tag"><span class="tag-text">${val}</span><i class="btn-remove"></i></span>`)
                             )
                             switchErrorDisplay(false, '')
                             $_input.val('')
                             $currentCharCount.text('0')
+                            // 将该项推入主容器的tagsData数组
+                            $tagsContainer.data('tagsData').push(val)
                         }
-                    }
-                    // 按下退格键且无内容时，删除前一个tag元素
-                    if (originVal === '' && evt.keyCode === 8) {
-                        // 按下退格键且无内容时，删除前一个tag元素
-                        $_input.prev('.tag').remove()
-                        switchErrorDisplay(false, '')
                     }
                 })
 
             $tagsContainer.on('click', '.btn-remove', function(evt) {
-                $(this).parents('.tag').remove()
+                let $targetTag = $(this).parents('.tag')
+                // 删除该标签元素
+                let targetTagText = $targetTag.children('.tag-text').text()
+                $targetTag.remove()
+                // 将该项移出主容器的tagsData数组
+                let tagsData = $tagsContainer.data('tagsData')
+                tagsData.splice(tagsData.indexOf(targetTagText), 1)
             })
 
             function switchErrorDisplay(bool, str) {
