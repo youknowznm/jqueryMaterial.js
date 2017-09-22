@@ -1,19 +1,27 @@
 import $ from './jquery.js'
 
-// TODO
+/**
+延迟调用指定函数。一般用于在按钮等元素产生的动画结束后
+@param fn {Function} 延迟结束后的回调
+@param timeout {?Number} 延迟长度。不提供时为400
+*/
 $.jmDelay = function(fn, timeout = 400) {
     setTimeout(fn, timeout)
 }
 
 $.fn.extend({
     /**
-    动画滚动页面至目标元素位置。请注意该元素并未滚动至offest为0的位置，此时页面顶部的.jm-header元素是无高度的
-    @param cb {function?} 滚动完成的回调
+    动画滚动页面至目标元素位置
+    @param cb {?Function} 滚动完成的回调。不提供时为一个空函数
+    @param amendment {?Number} 滚动高度的修正像素数。不提供时为64
     */
-    jmScrollInto(cb) {
+    jmScrollInto(cb, amendment) {
+        let _cb = (typeof cb === 'function') ? cb : function() {}
+        let _amendment = (typeof amendment === 'number') ? amendment : 64
+
         let $ele = $(this)
         let _body = document.documentElement
-        let targetBodyScrollTop = $ele.offset().top - 64
+        let targetBodyScrollTop = $ele.offset().top - _amendment
         let tId = setInterval(function() {
             let currentBodyScrollTop = _body.scrollTop
             let diff = targetBodyScrollTop - currentBodyScrollTop
@@ -25,19 +33,17 @@ $.fn.extend({
                     currentBodyScrollTop -= Math.ceil(diff / -5)
                     break
                 default:
-                    clearIntervalAndCallback(tId, cb)
+                    clearIntervalAndCallback(tId)
             }
             _body.scrollTop = currentBodyScrollTop
             // 如果页面滚动到了底部，也停止interval
             if (_body.scrollHeight - _body.scrollTop === _body.clientHeight) {
-                clearIntervalAndCallback(tId, cb)
+                clearIntervalAndCallback(tId)
             }
         }, 10)
-        function clearIntervalAndCallback(n, f) {
+        function clearIntervalAndCallback(n) {
             clearInterval(n)
-            if (typeof f === 'function') {
-                f()
-            }
+            _cb()
         }
     },
 })

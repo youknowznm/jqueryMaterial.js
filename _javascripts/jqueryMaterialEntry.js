@@ -23,7 +23,7 @@ $(function() {
     $('.jm-header').initHeader({
         siteNameWords: ['Previous', 'Google', 'design'],
         navContents: ['articles', 'resources', 'events', 'jobs', 'news', 'about'],
-        activeNavIndex: 1,
+        activeNavIndex: 2,
     })
 
     $('.jm-button').initButton()

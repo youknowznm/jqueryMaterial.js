@@ -84,6 +84,7 @@ $.fn.extend({
             let $banner = $header.find('.banner')
             // 页面大标题
             let $pageTitle = $banner.find('.jm-single-word')
+            // let $pageTitle = $banner.find('.page-title')
             // header 阴影
             let $shadow = $('.jm-header-shadow')
 
@@ -116,13 +117,7 @@ $.fn.extend({
                         /*
                         波纹元素的扩大
                         */
-                        // document.documentElement.scrollTop = 0
-                        // $window.scrollTop(0)
-                        $window.animate(
-                            {
-                                scrollTop: 0
-                            },
-                            200,
+                        $body.jmScrollInto(
                             function() {
                                 $ripple
                                     .removeClass('noneToCircle')
@@ -132,7 +127,8 @@ $.fn.extend({
                                     $ripple.removeClass('noneToCircle toFullscreen')
                                     rippling = false
                                 }, 670)
-                            }
+                            },
+                            256
                         )
                         // 主题配色
                         changeColorTheme($buttonClicked)

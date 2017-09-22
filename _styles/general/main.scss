@@ -63,11 +63,15 @@ body {
 // md 风格的标题后缀
 .jm-single-word {
     float: left;
+    transition: opacity .4s cubic-bezier(0.25, 0.8, 0.25, 1);
     &::after {
         content: '·';
         opacity: .4;
     }
     &:last-of-type:after {
         content: '¬';
+    }
+    &.hidden {
+        opacity: 0;
     }
 }
