@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import '../general/article';
+@import '../../general/article';
 
 .jm-rte {
     position: relative;
@@ -29,7 +29,7 @@
             font-size: 20px;
             line-height: 40px;
             text-align: center;
-            color: #aaa;
+            color: #106cc8;
             font-family: "Roboto Medium";
             .icon-wrap {
                 position: absolute;
@@ -45,7 +45,7 @@
                     height: 24px;
                     top: -24px;
                     left: 0;
-                    filter: drop-shadow(#aaa 0 24px);
+                    filter: drop-shadow(#106cc8 0 24px);
                     border-bottom: 24px solid transparent;
                     background: center no-repeat;
                     background-size: 24px 24px;

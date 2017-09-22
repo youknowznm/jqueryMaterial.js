@@ -84,4 +84,6 @@ $(function() {
         $('.cell').jmScrollInto()
     })
 
+    $('.jm-rte').initRte()
+
 })

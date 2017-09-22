@@ -1,14 +1,13 @@
-import $ from 'jquery'
+import $ from './jquery'
 
 /**
 @param
 */
 $.fn.extend({
-    initRte(options) {
-        let $jmRte = $('.jm-rte')
-        let execute = function(commandName, value = null) {
-            console.log(document.execCommand(commandName, false, value))
-        }
+    initRte() {
+
+        let $rte = $(this)
+
         const ACTIONS = [
             {
                 abbr: 'undo',
@@ -97,6 +96,11 @@ $.fn.extend({
                 action: () => execute('removeFormat'),
             },
         ]
+
+        function execute(commandName, value = null) {
+            console.log(document.execCommand(commandName, false, value))
+        }
+
         let rteHTML = '<ul class="actions">'
         ACTIONS.forEach(function(action) {
             // 已有该行为的对应图标时，使用图标；否则用字符串标识之
@@ -109,7 +113,7 @@ $.fn.extend({
             `
         })
         rteHTML += '</ul><div class="content jm-article" contenteditable="true" spellcheck="false"></div>'
-        $jmRte
+        $rte
             .html(rteHTML)
             // IDEA 在可编辑区域获得焦点时，execCommand才起作用。否则返回false；而mousedown事件会夺取焦点
             // https://stackoverflow.com/questions/12525087/why-doesnt-the-document-execcommand-work-when-i-click-on-a-div
