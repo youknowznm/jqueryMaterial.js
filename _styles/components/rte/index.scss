@@ -1,7 +1,7 @@
 @charset "UTF-8";
-@import './global-article';
+@import '../general/article';
 
-.md-rte {
+.jm-rte {
     position: relative;
     width: 100%;
     background: #fff;
@@ -51,7 +51,7 @@
                     background-size: 24px 24px;
                 }
             }
-            .md-tooltip {
+            .jm-tooltip {
                 top: 35px;
                 text-transform: capitalize;
                 width: auto !important;
@@ -86,7 +86,7 @@
             }
             &[data-action-abbr="p"] .icon,
             &[data-action-abbr="h"] .icon {
-                // IDEA: md icons里没有合适的，故用字符代替
+                // IDEA: jm icons里没有合适的，故用字符代替
                 user-select: none;
             }
             &[data-action-abbr="p"] {

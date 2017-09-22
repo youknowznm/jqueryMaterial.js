@@ -1,6 +1,21 @@
 import $ from './jquery.js'
 
 /**
+TODO
+*/
+$.jmDebounce = function(fn, delay = 500) {
+    var timer = null
+    return function () {
+        var context = this
+        var args = arguments
+        clearTimeout(timer)
+        timer = setTimeout(function() {
+            fn.apply(context, args)
+        }, delay)
+    }
+}
+
+/**
 延迟调用指定函数。一般用于在按钮等元素产生的动画结束后
 @param fn {Function} 延迟结束后的回调
 @param timeout {?Number} 延迟长度。不提供时为400
