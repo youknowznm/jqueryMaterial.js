@@ -3,12 +3,7 @@ import $ from './jquery.js'
 $.fn.extend({
     /**
     生成 material design 风格的背景样式
-    https://material.angularjs.org/latest/demo/button
-
-    @param options {Object}
-        - siteNameWords {Array.<String>} 站名的单词组成的数组，以'·'和'¬'分隔
-        - navContents {Array.<String>} 导航按钮的名称数组
-        - activeNavIndex {?Number} 当前活动的导航按钮索引。不提供时为0
+    http://thezinx.com/wallpapers/25-material-design-wallpapers/
     */
     initBackground() {
 
@@ -37,6 +32,7 @@ $.fn.extend({
 
             ['#607D8B', '#455A64'], // blue gray
         ]
+        const PALETTE_LENGTH = MD_COLOR_PALETTE.length
 
         // 对已用配色的统计。当目标元素的个数小于调色板数组长度时，禁止产生相同的配色
         let usedPaletteIndexes = []
@@ -45,14 +41,14 @@ $.fn.extend({
 
             let $backgroundContainer = $(this)
 
-            let paletteIndex = Math.floor(Math.random() * 15)
-            if (usedPaletteIndexes.length < 16) {
+            let paletteIndex = Math.floor(Math.random() * PALETTE_LENGTH)
+            if (usedPaletteIndexes.length < (PALETTE_LENGTH + 1)) {
                 while (true) {
                     if (usedPaletteIndexes.indexOf(paletteIndex) === -1) {
                         usedPaletteIndexes.push(paletteIndex)
                         break
                     } else {
-                        paletteIndex = Math.floor(Math.random() * 15)
+                        paletteIndex = Math.floor(Math.random() * PALETTE_LENGTH)
                     }
                 }
             }
@@ -67,7 +63,7 @@ $.fn.extend({
 
             // 生成一定数量范围内的背景色块元素，设置一定范围内的宽度，设置2种盒阴影之一，设置其背景颜色为指定配色，旋转 1 - 360 度
             let blocksHTML = ''
-            let blocksCount = Math.floor(Math.random() * 4 + 2)
+            let blocksCount = Math.floor(Math.random() * 2 + 2)
             for (let i = 0; i < blocksCount; i++) {
                 let shadowStrength = (Math.random() < .5) ? 'light' : 'strong'
                 let width = Math.floor(Math.random() * 200 + 100)

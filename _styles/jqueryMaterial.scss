@@ -101,19 +101,17 @@
 //
 // }
 
-
 .jm-bg {
     position: relative;
     height: 300px;
-
     &:nth-child(1) {
         width: 23%;
     }
     &:nth-child(2) {
-        width: 33%;
+        width: 43%;
     }
     &:nth-child(3) {
-        width: 43%;
+        width: 33%;
     }
 
 }
