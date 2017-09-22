@@ -1,6 +1,7 @@
 import $ from './jquery.js'
 import '../_styles/jqueryMaterial.scss'
 
+import './_utils.js'
 import './_header.js'
 import './_button.js'
 import './_input.js'
@@ -15,10 +16,6 @@ if (/Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent)) {
     $body.data('device', 'mobile')
 } else {
     $body.data('device', 'desktop')
-}
-
-$.jmDelay = function(fn, timeout = 400) {
-    setTimeout(fn, timeout)
 }
 
 $(function() {
@@ -78,5 +75,12 @@ $(function() {
     })
 
     $('.jm-bg').initBackground()
+
+    $('.to-top').click(function() {
+        $('body').jmScrollInto()
+    })
+    $('.to-input').click(function() {
+        $('.cell').jmScrollInto()
+    })
 
 })

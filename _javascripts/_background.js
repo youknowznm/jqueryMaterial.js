@@ -68,11 +68,9 @@ $.fn.extend({
             // 生成一定数量范围内的背景色块元素，设置一定范围内的宽度，设置2种盒阴影之一，设置其背景颜色为指定配色，旋转 1 - 360 度
             let blocksHTML = ''
             let blocksCount = Math.floor(Math.random() * 4 + 2)
-            console.log(blocksCount);
             for (let i = 0; i < blocksCount; i++) {
                 let shadowStrength = (Math.random() < .5) ? 'light' : 'strong'
                 let width = Math.floor(Math.random() * 200 + 100)
-                console.log(width);
                 let rotateAngle = Math.floor(Math.random() * 180 + 1)
                 blocksHTML += `<div class="jm-bg-block jm-shadow-${shadowStrength}"
                                     style="width: ${width}px;

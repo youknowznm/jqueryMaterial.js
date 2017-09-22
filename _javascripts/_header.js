@@ -103,7 +103,8 @@ $.fn.extend({
                                 // 直接从鼠标系事件中取得相对于页面的坐标
                                 left: evt.pageX - 50,
                                 // top 值要减掉窗口的垂直滚动偏移
-                                top: evt.pageY - 50 - document.body.scrollTop,
+                                // IDEA 是documentElement不是body！！！所以$.animate()也坏掉了
+                                top: evt.pageY - 50 - document.documentElement.scrollTop,
                             })
                             .addClass('noneToCircle')
                     }
@@ -115,7 +116,9 @@ $.fn.extend({
                         /*
                         波纹元素的扩大
                         */
-                        $body.animate(
+                        // document.documentElement.scrollTop = 0
+                        // $window.scrollTop(0)
+                        $window.animate(
                             {
                                 scrollTop: 0
                             },
@@ -190,7 +193,7 @@ $.fn.extend({
             }
 
             $window.on('scroll', function(evt) {
-                let scTp = document.body.scrollTop
+                let scTp = document.documentElement.scrollTop
                 // 大于一定值时渐隐标题
                 if (scTp > 30) {
                     $pageTitle.addClass('hidden')
