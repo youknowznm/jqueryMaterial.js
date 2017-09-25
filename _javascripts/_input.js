@@ -85,7 +85,6 @@ $.fn.extend({
                 // 字数验证
                 let currentCount = $this.val().length
                 let currentCharCounter = $wrap.find('.current')
-                let maxCharCount = +$wrap.find('.maximum').text()
                 currentCharCounter.text(currentCount)
             }
 

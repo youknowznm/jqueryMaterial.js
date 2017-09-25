@@ -1,15 +1,25 @@
 import $ from './jquery.js'
 
 /**
-TODO
+强制一个函数在某个连续时间段内只执行一次，哪怕它本来会被调用多次。
+类似于 vue 1 中的 debounce 过滤器： https://v1.vuejs.org/api/#debounce
+@param fn {Function} 要控制执行次数的函数
+@param delay {?Number} 延迟的毫秒数。不提供时为500
+@return {Function} 返回经过处理的该函数
 */
 $.jmDebounce = function(fn, delay = 500) {
-    var timer = null
+    // 定时器，用来 setTimeout
+    let timer
+    // 返回一个函数，这个函数会在一个时间区间结束后的 delay 毫秒时执行 fn 函数
     return function () {
-        var context = this
-        var args = arguments
+        // 保存函数调用时的上下文和参数，传递给 fn
+        let context = this
+        let args = arguments
+        // 每次这个返回的函数被调用，就清除定时器，以保证不执行 fn
         clearTimeout(timer)
-        timer = setTimeout(function() {
+        // 当返回的函数被最后一次调用后（也就是用户停止了某个连续的操作），
+        // 再过 delay 毫秒就执行 fn
+        timer = setTimeout(function () {
             fn.apply(context, args)
         }, delay)
     }
@@ -17,8 +27,8 @@ $.jmDebounce = function(fn, delay = 500) {
 
 /**
 延迟调用指定函数。一般用于在按钮等元素产生的动画结束后
-@param fn {Function} 延迟结束后的回调
-@param timeout {?Number} 延迟长度。不提供时为400
+@param fn {Function} 延迟结束后执行的函数
+@param timeout {?Number} 延迟的毫秒数。不提供时为400
 */
 $.jmDelay = function(fn, timeout = 400) {
     setTimeout(fn, timeout)
@@ -28,7 +38,7 @@ $.fn.extend({
     /**
     动画滚动页面至目标元素位置
     @param cb {?Function} 滚动完成的回调。不提供时为一个空函数
-    @param amendment {?Number} 滚动高度的修正像素数。不提供时为64
+    @param amendment {?Number} 滚动高度的修正像素数。不提供时为64（.jm-header元素的默认高度）
     */
     jmScrollInto(cb, amendment) {
         let _cb = (typeof cb === 'function') ? cb : function() {}
