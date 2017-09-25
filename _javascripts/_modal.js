@@ -69,25 +69,34 @@ $.showJmModal = function(options) {
     }, 250)
 
     $modal.on('click', function(evt) {
-        $.jmDelay(function() {
-            let type = $(evt.target).closest('.jm-button').data('buttonType')
-            // 未点击二按钮之一时无操作
-            switch (type) {
-                case 'confirm':
-                    onConfirm()
-                    break
-                case 'cancel':
-                    onCancel()
-                    break
-                default:
-                    return
-            }
-            $wrap.removeClass('show')
-            setTimeout(function() {
-                $body.removeClass('no-scroll')
-                $wrap.remove()
-            }, 250)
-        })
+        let type = $(evt.target).closest('.jm-button').data('buttonType')
+        // 未点击二按钮之一时无操作
+        switch (type) {
+            case 'confirm':
+                onConfirm()
+                break
+            case 'cancel':
+                onCancel()
+                break
+            default:
+                return
+        }
+        $wrap.removeClass('show')
+        setTimeout(function() {
+            $body.removeClass('no-scroll')
+            $wrap.remove()
+        }, 250)
     })
 
+    // esc热键处理。在有取消按钮时点击之；否则点击确认按钮
+    $(window).on('keyup', function(evt) {
+        if ($modal.length !== 0 && evt.keyCode === 27) {
+            if (showCancel === true) {
+                $('[data-button-type=cancel]').click()
+            } else {
+                $('[data-button-type=confirm]').click()
+            }
+        }
+    })
+    
 }

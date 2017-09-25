@@ -136,7 +136,7 @@
     .edit-area {
         position: relative;
         min-height: 15em;
-        margin: 15px 15px 30px;
+        margin: 15px 15px 25px;
         background: #fff;
         font-size: 16px;
         line-height: 24px;
@@ -175,7 +175,7 @@
         font-size: 12px;
         line-height: 14px;
         color: rgba(#000, .54);
-        bottom: 10px;
+        bottom: 8px;
         right: 15px;
         transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
         user-select: none;
@@ -188,7 +188,7 @@
         }
     }
 
-    // 字符超出限制
+    // 字符超限
     &.exceeded {
         .char-counter {
             color: rgb(221, 44, 0) !important;

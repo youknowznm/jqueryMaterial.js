@@ -5,7 +5,7 @@ $.fn.extend({
     生成 angular material 风格的text input元素
     https://material.angularjs.org/latest/demo/input
     目标元素可配置的属性：
-        - data-label 输入框标题。不提供时为'Input 1'，'Input 2'...以此类推
+        - data-label 输入框标题。不提供时从'Input 1'开始计数
         - data-value 实际内容文字。不提供时为''
         - data-maxLength 最大字符数。不提供时为20
         - data-validator 验证内容的正则。不提供时为'.*'

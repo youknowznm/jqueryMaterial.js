@@ -5,11 +5,19 @@ $.fn.extend({
     生成 angular material 风格的富文本编辑器
     https://material.angularjs.org/latest/demo/input
     @param options {Object}
+        - id {String} 当前编辑内容的唯一标识，用于在localStorage内存取
+                      注意在内容提交成功后，需使用localStorage.removeItem(`jmRteDraft-${id}`)手动删除草稿
         - contentHTML {?String} 编辑区域的HTML字符串。不提供时用空字符串占位
         - maxLength {?Number} 编辑区域的最大字符数。不提供时为500
     */
     initRte(options) {
 
+        // 参数检查
+        if (typeof options.id !== 'string' || !/\S/.test(options.id)) {
+            throw new TypeError('Expecting parameter "options.id" as non-empty {String}')
+        }
+
+        let id = options.id
         let contentHTML = (typeof options.contentHTML === 'string') ? options.contentHTML : ''
         let maxLength = (typeof options.maxLength === 'number') ? options.maxLength : 500
 
@@ -131,6 +139,7 @@ $.fn.extend({
             <p class="char-counter"><span class="current">0</span>/<span class="maximum">${maxLength}</span></p>`
 
         $rte
+            .attr('data-id', id)
             .html(rteHTML)
             // IDEA 在可编辑区域获得焦点时，execCommand才起作用。否则返回false；而li元素上的mousedown事件会夺取焦点
             // https://stackoverflow.com/questions/12525087/why-doesnt-the-document-execcommand-work-when-i-click-on-a-div
@@ -147,44 +156,44 @@ $.fn.extend({
             })
 
         let $editArea = $('.edit-area')
-        let $currentLength = $rte.find('.current')
+        let $currentLength = $rte.find('.current').text($editArea.text().length)
 
+        // 初始化编辑器高度
         responseToContentHeight($editArea)
+
+        // 取得相应草稿在localStorage中的键名
+        let targetDraftName = `jmRteDraft-${id}`
 
         $editArea
             // 编辑区首次获得焦点时，检查localStorage中是否有草稿
             .one('focus', function() {
-                let draft = localStorage.getItem('jmRteDraft')
-                if (draft !== null && draft !== '') {
+                let currentDraft = localStorage.getItem(targetDraftName)
+                if (currentDraft !== null) {
                     $.showJmModal({
                         title: 'A draft was found in local storage.',
                         content: 'Would you like to restore it?',
                         confirmButtonText: 'restore',
                         onConfirm() {
-                            $editArea.html(draft)
+                            $editArea.html(currentDraft)
                         }
                     })
                 }
             })
-            // 监听输入事件，立即根据输入内容改变元素高度
+            // 监听输入事件，立即根据输入内容改变元素高度、检查是否超出字数限制
             $editArea.on('input', function() {
                 responseToContentHeight($editArea)
                 let currentLength = $editArea.text().length
                 $currentLength.html(currentLength)
                 $rte.toggleClass('exceeded', currentLength > maxLength)
             })
-            // 监听输入事件，debounce后保存至localStorage
+            // 监听输入事件，若编辑器的实际内容非空，则debounce后保存至localStorage
             .on(
                 'input',
                 $.jmDebounce(function() {
-                    console.log($editArea.html());
+                    if (/\S/.test($editArea.text())) {
+                        localStorage.setItem(targetDraftName, $editArea.html())
+                    }
                 }, 500)
             )
-
-
-
-
-
-
     }
 })
