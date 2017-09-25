@@ -38,6 +38,7 @@ body {
     }
 }
 
+// 主内容容器
 .jm-main-wrap {
     position: relative;
     width: 100%;
@@ -58,6 +59,7 @@ body {
     }
 }
 
+// 主内容
 .jm-main {
     position: relative;
     @include jm-responsive-wrap;
@@ -66,7 +68,33 @@ body {
     padding-top: 12px;
 }
 
-// md 风格的标题后缀
+// 行元素前的标题
+.jm-row-label {
+    font-size: 14px;
+    line-height: 30px;
+    color: rgba(#000, .46);
+    background: rgb(247, 247, 247);
+    text-indent: 6px;
+    text-transform: capitalize;
+    margin-top: 24px;
+}
+
+// 行元素
+.jm-row {
+    position: relative;
+    min-height: 70px;
+    text-align: center;
+    background: rgb(247, 247, 247);
+    &.dark {
+        background: rgb(48, 48, 48);
+    }
+    &.flexed {
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+// span后缀装饰
 .jm-single-word {
     float: left;
     transition: opacity .4s cubic-bezier(0.25, 0.8, 0.25, 1);

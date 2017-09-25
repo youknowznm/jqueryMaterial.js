@@ -1,0 +1,30 @@
+.jm-button.android .icon {
+    background: url("./_images/ic_android.png") no-repeat 0 0;
+}
+.jm-button.edit .icon {
+    background: url("./_images/ic_edit.png") no-repeat 0 0;
+}
+.jm-button.logout .icon {
+    background: url("./_images/ic_logout.png") no-repeat 0 0;
+}
+.jm-button.comment .icon {
+    background: url("./_images/ic_comment.png") no-repeat 0 0;
+}
+.jm-input.cell,
+.jm-input.email {
+    display: block;
+}
+.jm-bg {
+    position: relative;
+    height: 300px;
+
+}
+.jm-bg:nth-child(1) {
+    width: 23%;
+}
+.jm-bg:nth-child(2) {
+    width: 43%;
+}
+.jm-bg:nth-child(3) {
+    width: 33%;
+}
