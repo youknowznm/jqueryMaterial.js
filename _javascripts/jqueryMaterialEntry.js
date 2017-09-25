@@ -22,7 +22,7 @@ if (/Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent)) {
 $(function() {
 
     $('.jm-header').initHeader({
-        siteNameWords: ['Previous', 'Google', 'design'],
+        siteNameWords: ['jQuery', 'Material'],
         navContents: ['articles', 'resources', 'events', 'jobs', 'news', 'about'],
         activeNavIndex: 2,
     })
@@ -81,7 +81,7 @@ $(function() {
         $('body').jmScrollInto()
     })
     $('.to-input').click(function() {
-        $('.cell').jmScrollInto()
+        $('._email-input-label').jmScrollInto()
     })
 
     $('.jm-rte').initRte({

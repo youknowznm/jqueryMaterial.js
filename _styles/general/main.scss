@@ -43,7 +43,7 @@ body {
     width: 100%;
     min-height: 100%;
     margin-top: 256px;
-    // background-color: #fafafa;
+    background-color: #fafafa;
     z-index: 99;
     animation: wrapPopIn .5s;
     @keyframes wrapPopIn {
@@ -63,6 +63,7 @@ body {
     @include jm-responsive-wrap;
     min-height: 100%;
     z-index: 99;
+    padding-top: 12px;
 }
 
 // md 风格的标题后缀

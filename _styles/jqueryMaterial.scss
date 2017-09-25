@@ -13,12 +13,9 @@
 @import "./components/tag/index";
 @import "./components/background/index";
 @import "./components/rte/index";
+@import "./components/footer/index";
 
-.jm-main {
-    padding-top: 12px;
-}
-
-.row-label {
+.jm-row-label {
     font-size: 14px;
     line-height: 30px;
     color: rgba(#000, .46);
@@ -27,7 +24,7 @@
     text-transform: capitalize;
     margin-top: 24px;
 }
-.row {
+.jm-row {
     position: relative;
     min-height: 70px;
     text-align: center;
@@ -58,50 +55,6 @@
     display: block;
 
 }
-// .controll-panel {
-//     display: none;
-//     position: fixed;
-//     top: 50%;
-//     transform: translateY(-50%);
-//     left: 0;
-//     z-index: 199;
-//     > li {
-//         display: block;
-//         animation: zoomIn .4s ease;
-//         &.zoom-out {
-//             display: none;
-//             animation: zoomIn .4s ease reverse;
-//         }
-//     }
-//     ._logout .icon {
-//         background: url("../_images/ic_logout.png") no-repeat;
-//         filter: drop-shadow(#fff 0 24px);
-//     }
-//     ._create-new .icon {
-//         background: url("../_images/ic_create.png") no-repeat;
-//         filter: drop-shadow(#fff 0 24px);
-//     }
-//     ._edit .icon {
-//         background: url("../_images/ic_edit.png") no-repeat;
-//         filter: drop-shadow(#fff 0 24px);
-//     }
-//     ._to-top .icon {
-//         background: url("../_images/ic_arrow_up.png") no-repeat;
-//         filter: drop-shadow(#fff 0 24px);
-//     }
-//     @keyframes zoomIn {
-//         from {
-//             display: none;
-//             transform: scale(0);
-//         }
-//         to {
-//             display: block;
-//             transform: scale(1);
-//         }
-//     }
-//
-// }
-
 .jm-bg {
     position: relative;
     height: 300px;
@@ -114,5 +67,4 @@
     &:nth-child(3) {
         width: 33%;
     }
-
 }

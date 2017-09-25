@@ -13,62 +13,63 @@
 </head>
 <body>
 
+<!-- header -->
 <header class="jm-header"></header>
 
 <div class="jm-main-wrap">
     <div class="jm-main">
 
         <!-- 背景生成器 -->
-        <p class="row-label">background generator</p>
-        <div class="row flexed">
+        <p class="jm-row-label">background generator</p>
+        <div class="jm-row flexed">
             <div class="jm-bg"></div>
             <div class="jm-bg"></div>
             <div class="jm-bg"></div>
         </div>
 
         <!-- 按钮 - 凸起 -->
-        <p class="row-label">button raised</p>
-        <div class="row">
+        <p class="jm-row-label">button raised</p>
+        <div class="jm-row">
             <button class="jm-button" data-text="general"></button>
             <button class="jm-button _primary" data-text="primary"></button>
             <button class="jm-button _warn" data-text="warn"></button>
             <button class="jm-button _disabled" data-text="disabled"></button>
         </div>
         <!-- 按钮 - 凸起 - 小 -->
-        <p class="row-label">button raised small</p>
-        <div class="row">
+        <p class="jm-row-label">button raised small</p>
+        <div class="jm-row">
             <button class="jm-button _small" data-text="general"></button>
             <button class="jm-button _small _primary" data-text="primary"></button>
             <button class="jm-button _small _warn" data-text="warn"></button>
             <button class="jm-button _small _disabled" data-text="disabled"></button>
         </div>
         <!-- 按钮 - 扁平 -->
-        <p class="row-label">button flat</p>
-        <div class="row">
+        <p class="jm-row-label">button flat</p>
+        <div class="jm-row">
             <button class="jm-button _flat" data-text="general"></button>
             <button class="jm-button _flat _primary" data-text="primary"></button>
             <button class="jm-button _flat _warn" data-text="warn"></button>
             <button class="jm-button _flat _disabled" data-text="disabled"></button>
         </div>
         <!-- 按钮 - 小 -->
-        <p class="row-label">button round</p>
-        <div class="row">
+        <p class="jm-row-label">button round</p>
+        <div class="jm-row">
             <button class="jm-button favorite"></button>
             <button class="jm-button _primary arrow"></button>
             <button class="jm-button _warn create"></button>
             <button class="jm-button _disabled edit"></button>
         </div>
         <!-- 按钮 - 圆 - 小 -->
-        <p class="row-label">button round small</p>
-        <div class="row">
+        <p class="jm-row-label">button round small</p>
+        <div class="jm-row">
             <button class="jm-button _small favorite"></button>
             <button class="jm-button _small _primary arrow"></button>
             <button class="jm-button _small _warn create"></button>
             <button class="jm-button _small _disabled edit"></button>
         </div>
         <!-- 按钮 - 带提示条 -->
-        <p class="row-label">button with tooltip</p>
-        <div class="row">
+        <p class="jm-row-label">button with tooltip</p>
+        <div class="jm-row">
             <button class="jm-button favorite" data-tooltip-position="left" data-tooltip-content="tooltip 1"></button>
             <button class="jm-button _primary arrow" data-tooltip-position="top" data-tooltip-content="tooltip 2"></button>
             <button class="jm-button _warn create" data-tooltip-position="bottom" data-tooltip-content="tooltip 3"></button>
@@ -76,8 +77,8 @@
         </div>
 
         <!-- 输入 -->
-        <p class="row-label">input</p>
-        <div class="row">
+        <p class="jm-row-label _email-input-label">input</p>
+        <div class="jm-row">
             <div class="jm-input email"
                 data-validator="^([a-zA-Z\d]+)\w*@(\w+)(\.[a-zA-Z]{1,4}){1,2}$"
                 data-label="email"
@@ -86,8 +87,8 @@
             </div>
         </div>
         <!-- 输入 - 暗色 -->
-        <p class="row-label">input - dark</p>
-        <div class="row dark">
+        <p class="jm-row-label">input - dark</p>
+        <div class="jm-row dark">
             <div class="jm-input cell"
                 data-validator="^1[0-9]{10}$"
                 data-label="cell phone number"
@@ -99,43 +100,43 @@
         </div>
 
         <!-- 模态 -->
-        <p class="row-label">modal</p>
-        <div class="row">
+        <p class="jm-row-label">modal</p>
+        <div class="jm-row">
             <button class="jm-button show-dialog" data-text="show dialog"></button>
             <button class="jm-button show-alert" data-text="show alert"></button>
         </div>
 
         <!-- 单选按钮组 -->
-        <p class="row-label">radio group</p>
-        <div class="row">
+        <p class="jm-row-label">radio group</p>
+        <div class="jm-row">
             <div class="jm-radio-group"></div>
         </div>
 
         <!-- 编辑器 -->
-        <p class="row-label">rich text editor</p>
-        <div class="row">
+        <p class="jm-row-label">rich text editor</p>
+        <div class="jm-row">
             <div class="jm-rte"></div>
         </div>
 
         <!-- 标签 -->
-        <p class="row-label">tag</p>
-        <div class="row">
+        <p class="jm-row-label">tag</p>
+        <div class="jm-row">
             <div class="jm-tag"></div>
         </div>
 
         <!-- 滚动 -->
-        <p class="row-label">scrolling</p>
-        <div class="row">
+        <p class="jm-row-label">scrolling</p>
+        <div class="jm-row">
             <button class="jm-button to-top" data-text="to page top"></button>
-            <button class="jm-button to-input" data-text="to jm input"></button>
+            <button class="jm-button to-input" data-text="to email input"></button>
         </div>
 
     </div>
 
 </div>
 
-<!-- <footer class="jm-footer">
-
+<!-- footer -->
+<footer class="jm-footer">
     <div class="_top-wrap">
         <div class="_top">
             <div class="social">
@@ -157,31 +158,27 @@
             </div>
         </div>
     </div>
-
     <div class="_bottom-wrap">
         <div class="_bottom">
-            <a class="logo" href="/">
-                <span class="jm-single-word">Rh</span>
-                <span class="jm-single-word">ae</span>
-                <span class="jm-single-word">go</span>
+            <a class="logo">
+                <span class="jm-single-word">jQuery</span>
+                <span class="jm-single-word">Material</span>
             </a>
             <p class="info">
                 Made with
                 <span class="heart-wrap">
                     <svg class="heart" width="14px" height="14px" viewBox="0 0 24 24">
-                        <path  fill="#ff5252" d="M12 21.35l-1.45-1.32c-5.15-4.67-8.55-7.75-8.55-11.53 0-3.08 2.42-5.5 5.5-5.5 1.74 0 3.41.81 4.5 2.09 1.09-1.28 2.76-2.09 4.5-2.09 3.08 0 5.5 2.42 5.5 5.5 0 3.78-3.4 6.86-8.55 11.54l-1.45 1.31z"></path>
+                        <path fill="#ff5252" d="M12 21.35l-1.45-1.32c-5.15-4.67-8.55-7.75-8.55-11.53 0-3.08 2.42-5.5 5.5-5.5 1.74 0 3.41.81 4.5 2.09 1.09-1.28 2.76-2.09 4.5-2.09 3.08 0 5.5 2.42 5.5 5.5 0 3.78-3.4 6.86-8.55 11.54l-1.45 1.31z"></path>
                     </svg>
                 </span>
                 by <a href="https://github.com/youknowznm" target="_blank" class="info-link">youknowznm</a>.
             </p>
-            <button class="jm-button source _warn _flat">
-                <span class="content">View Source</span>
-                <div class="ripple-container"><span class="ripple"></span></div>
-            </button>
+            <a href="https://github.com/youknowznm/jqueryMaterial.js" target="_blank">
+                <button class="jm-button source _warn _flat" data-text="view source"></button>
+            </a>
         </div>
     </div>
-
-</footer> -->
+</footer>
 
 </body>
 </html>
