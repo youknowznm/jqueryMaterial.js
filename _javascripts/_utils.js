@@ -1,5 +1,3 @@
-import $ from './jquery.js'
-
 /**
 强制一个函数在某个连续时间段内只执行一次，哪怕它本来会被调用多次。
 类似于 vue 1 中的 debounce 过滤器： https://v1.vuejs.org/api/#debounce

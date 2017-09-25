@@ -1,5 +1,3 @@
-import $ from './jquery.js'
-
 $.fn.extend({
     /**
     生成 angular material 风格的text input元素

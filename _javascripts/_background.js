@@ -1,5 +1,3 @@
-import $ from './jquery.js'
-
 $.fn.extend({
     /**
     生成 material design 风格的背景样式

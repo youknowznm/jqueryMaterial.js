@@ -1,5 +1,3 @@
-import $ from './jquery.js'
-
 /**
 生成 angular material 风格的模态对话框/提示框
 https://material.angularjs.org/latest/demo/dialog
@@ -98,5 +96,5 @@ $.showJmModal = function(options) {
             }
         }
     })
-    
+
 }

@@ -1,5 +1,3 @@
-import $ from './jquery.js'
-
 $.fn.extend({
     /**
     生成 design.google.com 旧站风格的头部

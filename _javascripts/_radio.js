@@ -1,5 +1,3 @@
-import $ from './jquery'
-
 $.fn.extend({
     /**
     生成 angular material 风格的单选按钮组

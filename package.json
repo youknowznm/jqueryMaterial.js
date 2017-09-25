@@ -1,33 +1,31 @@
 {
-    "name": "jquery-material",
-    "version": "0.1.0",
-    "description": "a library based on jQuery following material design",
-    "main": "/",
-    "scripts": {
-        "server": "nodemon ./bin/www",
-        "webpack": "./node_modules/.bin/webpack --display-error-details",
-        "gulp": "gulp"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/youknowznm/jquery-material.git"
-    },
-    "author": "EZhang",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/youknowznm/jquery-material/issues"
-    },
-    "dependencies": {
-        "babel-core": "^6.24.1",
-        "babel-loader": "^7.0.0",
-        "babel-preset-es2015": "^6.24.1",
-        "babel-preset-es2015": "^6.22.0",
-        "css-loader": "^0.28.0",
-        "jquery": "^3.1.1",
-        "node-sass": "^4.5.2",
-        "sass-loader": "^6.0.3",
-        "style-loader": "^0.16.1",
-        "url-loader": "^0.5.8",
-        "webpack": "^2.4.1"
-    }
+  "name": "jquery-material",
+  "version": "0.1.0",
+  "description": "a library based on jQuery following material design",
+  "main": "/",
+  "scripts": {
+    "server": "nodemon ./bin/www",
+    "webpack": "./node_modules/.bin/webpack --display-error-details",
+    "gulp": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/youknowznm/jquery-material.git"
+  },
+  "author": "EZhang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/youknowznm/jquery-material/issues"
+  },
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.22.0",
+    "css-loader": "^0.28.0",
+    "node-sass": "^4.5.2",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.1",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.4.1"
+  }
 }
