@@ -12,7 +12,7 @@ const OUTPUT_PATH = path.join(__dirname, '/')
 
 module.exports = {
     watch: true,
-    entry: path.resolve(__dirname, INPUT_PATH, 'jqueryMaterialEntry.js'),
+    entry: path.resolve(__dirname, INPUT_PATH, 'entry.js'),
     output: {
         path: path.resolve(__dirname, OUTPUT_PATH),
         filename: 'jqueryMaterial.js',
