@@ -17,7 +17,6 @@
         ._top {
             position: relative;
             height: 100%;
-            @include jm-responsive-wrap;
             .social {
                 position: absolute;
                 width: 100%;
@@ -116,7 +115,6 @@
         ._bottom {
             position: relative;
             height: 100%;
-            @include jm-responsive-wrap;
             .logo {
                 position: absolute;
                 left: 0;

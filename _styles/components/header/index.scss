@@ -27,7 +27,6 @@ z-index 计数
     }
 }
 .jm-header-content {
-    @include jm-responsive-wrap;
     margin: 0 auto;
     overflow: hidden;
     z-index: 102;

@@ -28,9 +28,30 @@ body {
                  "PingFang SC", "Microsoft YaHei",
                  "微软雅黑", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
+    // 参考 design.google.com 的响应式宽度控制
+    &:not([data-device=mobile]) .jm-responsive-wrap {
+        width: 1680px;
+        min-width: 800px;
+        // min-width: 970px;
+        margin-left: auto;
+        margin-right: auto;
+        @media (max-width: 1280px) {
+            width: 800px;
+            // min-width: 970px;
+        }
+        @media (min-width: 1280px) and (max-width: 1600px) {
+            width: 1280px;
+        }
+        @media (min-width: 1600px) and (max-width: 1900px) {
+            width: 1440px;
+        }
+        @media (min-width: 1900px) {
+            width: 1680px;
+        }
+    }
+    // 产生模态框时隐藏溢出内容，并留出右侧滚动条位置
     &.no-scroll {
         overflow: hidden;
-        // 留出右侧滚动条位置
         padding-right: 15px;
         .jm-header-content {
             transform: translateX(-7.5px);
@@ -62,7 +83,6 @@ body {
 // 主内容
 .jm-main {
     position: relative;
-    @include jm-responsive-wrap;
     min-height: 100%;
     z-index: 99;
     padding-top: 12px;

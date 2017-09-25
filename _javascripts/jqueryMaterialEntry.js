@@ -9,11 +9,3 @@ import './_radio.js'
 import './_tag.js'
 import './_background.js'
 import './_rte.js'
-
-// 判断是否移动端
-let $body = $('body')
-if (/Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent)) {
-    $body.data('device', 'mobile')
-} else {
-    $body.data('device', 'desktop')
-}

@@ -39,7 +39,7 @@ $.fn.extend({
             初始化
             */
             let jmHeaderHTML = `
-                <div class="jm-header-content">
+                <div class="jm-header-content jm-responsive-wrap">
                     <nav>
                         <a class="site-title">
                             ${siteNameWords.map(function(item, index) {

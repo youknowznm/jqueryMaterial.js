@@ -4,12 +4,11 @@
     <meta charset="utf-8" />
     <title>jQuery · Material</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="format-detection" content="telephone=no, email=no" />
     <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <!-- IDEA 不能在jqueryMaterial内部引用jquery的npm包！ -->
     <script type="text/javascript" src="./jqueryMaterial.js"></script>
     <script type="text/javascript" src="./demo.js"></script>
-
     <link rel="stylesheet" type="text/css" href="./demo.css" />
 </head>
 <body>
@@ -18,7 +17,7 @@
 <header class="jm-header"></header>
 
 <div class="jm-main-wrap">
-    <div class="jm-main">
+    <div class="jm-main jm-responsive-wrap">
 
         <!-- 背景生成器 -->
         <p class="jm-row-label">background generator</p>
@@ -139,7 +138,7 @@
 <!-- footer -->
 <footer class="jm-footer">
     <div class="_top-wrap">
-        <div class="_top">
+        <div class="_top jm-responsive-wrap">
             <div class="social">
                 <ul class="link-container">
                     <li class="link wechat">
@@ -160,7 +159,7 @@
         </div>
     </div>
     <div class="_bottom-wrap">
-        <div class="_bottom">
+        <div class="_bottom jm-responsive-wrap">
             <a class="logo">
                 <span class="jm-single-word">jQuery</span>
                 <span class="jm-single-word">Material</span>
