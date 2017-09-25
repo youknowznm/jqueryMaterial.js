@@ -86,8 +86,7 @@ $(function() {
 
     $('.jm-rte').initRte({
         id: '133',
-        contentHTML: '<u>asfd</u><h1><u>asdfdav&nbsp;</u></h1>',
-        maxLength: 10
+        maxLength: 200
     })
 
 })

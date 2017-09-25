@@ -30,6 +30,11 @@ body {
     -webkit-font-smoothing: antialiased;
     &.no-scroll {
         overflow: hidden;
+        // 留出右侧滚动条位置
+        padding-right: 15px;
+        .jm-header-content {
+            transform: translateX(-7.5px);
+        }
     }
 }
 
