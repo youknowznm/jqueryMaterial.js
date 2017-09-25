@@ -18,12 +18,20 @@
     padding-top: 12px;
 }
 
+.row-label {
+    font-size: 14px;
+    line-height: 30px;
+    color: rgba(#000, .46);
+    background: rgb(247, 247, 247);
+    text-indent: 6px;
+    text-transform: capitalize;
+    margin-top: 24px;
+}
 .row {
     position: relative;
     min-height: 70px;
     text-align: center;
     background: rgb(247, 247, 247);
-    margin: 24px 0;
     &.dark {
         background: rgb(48, 48, 48);
     }
