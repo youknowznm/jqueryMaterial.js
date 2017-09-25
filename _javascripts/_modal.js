@@ -3,7 +3,6 @@ import $ from './jquery.js'
 /**
 生成 angular material 风格的模态对话框/提示框
 https://material.angularjs.org/latest/demo/dialog
-
 @param options {Object}
     - title {?String} 对话框/提示框标题文字。不提供时为'unnamed modal'
     - content {?String} 对话框/提示框内容文字。不提供时为'default content'

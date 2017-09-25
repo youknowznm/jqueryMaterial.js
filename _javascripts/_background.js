@@ -4,35 +4,45 @@ $.fn.extend({
     /**
     生成 material design 风格的背景样式
     http://thezinx.com/wallpapers/25-material-design-wallpapers/
+    @param colorPalette {?Array.<Array.<String, String>>}
+           用于搭配浅色字体的背景色若干组，每组各含深色和浅色，均为颜色的色值字符串。
+           例如： [ ['#F44336', '#D32F2F'], ['#E91E63', '#C2185B'] ]
     */
-    initBackground() {
+    initBackground(colorPalette) {
 
-        // 从material design的调色板内选取搭配浅色字体的背景色若干组，每组含深色和浅色
-        // https://material.io/guidelines/style/color.html#color-color-palette
-        const MD_COLOR_PALETTE = [
-            ['#F44336', '#D32F2F'], // red
-            ['#E91E63', '#C2185B'], // pink
-            ['#9C27B0', '#7B1FA2'], // purple
+        let _colorPalette
 
-            ['#673AB7', '#512DA8'], // deep purple
-            ['#3F51B5', '#303F9F'], // indigo
-            ['#2196F3', '#1976D2'], // blue
+        if (!Array.isArray(colorPalette)) {
+            // 未提供有效的色值数组时，使用从material design的调色板内选取的默认数组
+            // https://material.io/guidelines/style/color.html#color-color-palette
+            _colorPalette = [
+                ['#F44336', '#D32F2F'], // red
+                ['#E91E63', '#C2185B'], // pink
+                ['#9C27B0', '#7B1FA2'], // purple
 
-            ['#039BE5', '#0277BD'], // light blue
-            ['#0097A7', '#006064'], // cyan
-            ['#009688', '#00796B'], // teal
+                ['#673AB7', '#512DA8'], // deep purple
+                ['#3F51B5', '#303F9F'], // indigo
+                ['#2196F3', '#1976D2'], // blue
 
-            ['#43A047', '#2E7D32'], // green
-            ['#689F38', '#33691E'], // light green
-            ['#AFB42B', '#827717'], // lime
+                ['#039BE5', '#0277BD'], // light blue
+                ['#0097A7', '#006064'], // cyan
+                ['#009688', '#00796B'], // teal
 
-            ['#FF5722', '#E64A19'], // orange
-            ['#795548', '#5D4037'], // brown
-            ['#757575', '#424242'], // gray
+                ['#43A047', '#2E7D32'], // green
+                ['#689F38', '#33691E'], // light green
+                ['#AFB42B', '#827717'], // lime
 
-            ['#607D8B', '#455A64'], // blue gray
-        ]
-        const PALETTE_LENGTH = MD_COLOR_PALETTE.length
+                ['#FF5722', '#E64A19'], // orange
+                ['#795548', '#5D4037'], // brown
+                ['#757575', '#424242'], // gray
+
+                ['#607D8B', '#455A64'], // blue gray
+            ]
+        } else {
+            _colorPalette = colorPalette
+        }
+
+        let paletteLength = _colorPalette.length
 
         // 对已用配色的统计。当目标元素的个数小于调色板数组长度时，禁止产生相同的配色
         let usedPaletteIndexes = []
@@ -41,14 +51,14 @@ $.fn.extend({
 
             let $backgroundContainer = $(this)
 
-            let paletteIndex = Math.floor(Math.random() * PALETTE_LENGTH)
-            if (usedPaletteIndexes.length < (PALETTE_LENGTH + 1)) {
+            let paletteIndex = Math.floor(Math.random() * paletteLength)
+            if (usedPaletteIndexes.length < (paletteLength + 1)) {
                 while (true) {
                     if (usedPaletteIndexes.indexOf(paletteIndex) === -1) {
                         usedPaletteIndexes.push(paletteIndex)
                         break
                     } else {
-                        paletteIndex = Math.floor(Math.random() * PALETTE_LENGTH)
+                        paletteIndex = Math.floor(Math.random() * paletteLength)
                     }
                 }
             }
@@ -57,7 +67,7 @@ $.fn.extend({
             let wrapRotateAngle = Math.floor(Math.random() * 2) * 180
             let wrapHTML = `<div class="jm-bg-wrap"
                                  style="transform: rotate(${wrapRotateAngle}deg);
-                                        background-color: ${MD_COLOR_PALETTE[paletteIndex][0]};">
+                                        background-color: ${_colorPalette[paletteIndex][0]};">
                             </div>`
             let $mdBgWrap = $(wrapHTML)
 
@@ -71,7 +81,7 @@ $.fn.extend({
                 blocksHTML += `<div class="jm-bg-block jm-shadow-${shadowStrength}"
                                     style="width: ${width}px;
                                            transform: rotate(${rotateAngle}deg);
-                                           background-color: ${MD_COLOR_PALETTE[paletteIndex][1]}">
+                                           background-color: ${_colorPalette[paletteIndex][1]}">
                                </div>`
             }
 

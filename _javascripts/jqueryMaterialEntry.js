@@ -84,6 +84,8 @@ $(function() {
         $('.cell').jmScrollInto()
     })
 
-    $('.jm-rte').initRte()
+    $('.jm-rte').initRte({
+        maxLength: 10
+    })
 
 })

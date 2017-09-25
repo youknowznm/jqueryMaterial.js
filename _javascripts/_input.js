@@ -4,7 +4,6 @@ $.fn.extend({
     /**
     生成 angular material 风格的text input元素
     https://material.angularjs.org/latest/demo/input
-
     目标元素可配置的属性：
         - data-label 输入框标题。不提供时为'Input 1'，'Input 2'...以此类推
         - data-value 实际内容文字。不提供时为''

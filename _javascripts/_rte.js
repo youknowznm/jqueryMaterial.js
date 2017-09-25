@@ -4,15 +4,23 @@ $.fn.extend({
     /**
     生成 angular material 风格的富文本编辑器
     https://material.angularjs.org/latest/demo/input
-
-    @param contentHTML {?String} 编辑区域的HTML字符串。不提供时用空字符串占位
+    @param options {Object}
+        - contentHTML {?String} 编辑区域的HTML字符串。不提供时用空字符串占位
+        - maxLength {?Number} 编辑区域的最大字符数。不提供时为500
     */
-    initRte(contentHTML) {
+    initRte(options) {
 
-        let _contentHTML = (typeof contentHTML === 'string') ? contentHTML : ''
+        let contentHTML = (typeof options.contentHTML === 'string') ? options.contentHTML : ''
+        let maxLength = (typeof options.maxLength === 'number') ? options.maxLength : 500
 
         let $rte = $(this)
 
+        // 使目标元素适应其内容的高度
+        function responseToContentHeight($ele) {
+            $ele.height(1).height($ele[0].scrollHeight)
+        }
+
+        // 执行document.execCommand的相应命令
         function execute(commandName, value = null) {
             document.execCommand(commandName, false, value)
         }
@@ -119,7 +127,8 @@ $.fn.extend({
         })
 
         rteHTML += `</ul>
-            <div class="edit-area jm-article" contenteditable="true" spellcheck="false">${_contentHTML}</div>`
+            <div maxlength="10" class="edit-area jm-article" contenteditable="true" spellcheck="false">${contentHTML}</div>
+            <p class="char-counter"><span class="current">0</span>/<span class="maximum">${maxLength}</span></p>`
 
         $rte
             .html(rteHTML)
@@ -138,29 +147,44 @@ $.fn.extend({
             })
 
         let $editArea = $('.edit-area')
+        let $currentLength = $rte.find('.current')
 
-        // 编辑区首次获得焦点时，检查localStorage中是否有草稿
-        $editArea.one('focus', function() {
-            let draft = localStorage.getItem('jmRteDraft')
-            if (draft !== null && draft !== '') {
-                $.showJmModal({
-                    title: 'A draft was found in local storage.',
-                    content: 'Would you like to restore it?',
-                    confirmButtonText: 'restore',
-                    onConfirm() {
-                        $editArea.html(draft)
-                    }
-                })
-            }
-        })
+        responseToContentHeight($editArea)
 
-        // TODO
-        $editArea.on(
-            'input',
-            $.jmDebounce(function() {
-                console.log($editArea.html());
-            }, 500)
-        )
+        $editArea
+            // 编辑区首次获得焦点时，检查localStorage中是否有草稿
+            .one('focus', function() {
+                let draft = localStorage.getItem('jmRteDraft')
+                if (draft !== null && draft !== '') {
+                    $.showJmModal({
+                        title: 'A draft was found in local storage.',
+                        content: 'Would you like to restore it?',
+                        confirmButtonText: 'restore',
+                        onConfirm() {
+                            $editArea.html(draft)
+                        }
+                    })
+                }
+            })
+            // 监听输入事件，立即根据输入内容改变元素高度
+            $editArea.on('input', function() {
+                responseToContentHeight($editArea)
+                let currentLength = $editArea.text().length
+                $currentLength.html(currentLength)
+                $rte.toggleClass('exceeded', currentLength > maxLength)
+            })
+            // 监听输入事件，debounce后保存至localStorage
+            .on(
+                'input',
+                $.jmDebounce(function() {
+                    console.log($editArea.html());
+                }, 500)
+            )
+
+
+
+
+
 
     }
 })

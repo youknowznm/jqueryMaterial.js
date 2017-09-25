@@ -4,7 +4,6 @@ $.fn.extend({
     /**
     生成 angular material 风格的标签
     https://material.angularjs.org/latest/demo/chips
-
     @param options {Object}
         - tagGroupName {?String} 标签组名称。不提供时为'tags'
         - tagsArr {?Array.<String>} 已有的标签内容文字组成的数组。不提供时为空数组

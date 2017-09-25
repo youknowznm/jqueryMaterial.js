@@ -4,7 +4,6 @@ $.fn.extend({
     /**
     生成 angular material 风格的按钮
     https://material.angularjs.org/latest/demo/button
-
     目标元素可配置的属性：
         - data-text 按钮内容文字。不提供时，按钮内容为一个.icon元素，需在样式表内自行设置背景url
         - data-tooltip-content 浮动提示条的内容文字。不提供时，不显示浮动提示条

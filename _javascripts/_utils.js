@@ -11,7 +11,7 @@ $.jmDebounce = function(fn, delay = 500) {
     // 定时器，用来 setTimeout
     let timer
     // 返回一个函数，这个函数会在一个时间区间结束后的 delay 毫秒时执行 fn 函数
-    return function () {
+    return function() {
         // 保存函数调用时的上下文和参数，传递给 fn
         let context = this
         let args = arguments
@@ -19,7 +19,7 @@ $.jmDebounce = function(fn, delay = 500) {
         clearTimeout(timer)
         // 当返回的函数被最后一次调用后（也就是用户停止了某个连续的操作），
         // 再过 delay 毫秒就执行 fn
-        timer = setTimeout(function () {
+        timer = setTimeout(function() {
             fn.apply(context, args)
         }, delay)
     }
@@ -36,7 +36,7 @@ $.jmDelay = function(fn, timeout = 400) {
 
 $.fn.extend({
     /**
-    动画滚动页面至目标元素位置
+    【在使用了本套组件的header的页面中】动画滚动页面至目标元素位置
     @param cb {?Function} 滚动完成的回调。不提供时为一个空函数
     @param amendment {?Number} 滚动高度的修正像素数。不提供时为64（.jm-header元素的默认高度）
     */
