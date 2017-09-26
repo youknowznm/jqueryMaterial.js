@@ -2,7 +2,7 @@ $(function() {
 
     $('.jm-header').initHeader({
         siteNameWords: ['jQuery', 'Material'],
-        navContents: ['articles', 'resources', 'events', 'jobs', 'news', 'about'],
+        navContents: ['posts', 'products', 'messages', 'about'],
     })
 
     $('.jm-button').initButton()

@@ -29,7 +29,7 @@ body {
                  "微软雅黑", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     // 参考 design.google.com 的响应式宽度控制
-    &:not([data-device=mobile]) .jm-responsive-wrap {
+    &:not(#mobile) .jm-responsive-wrap {
         width: 1680px;
         min-width: 800px;
         // min-width: 970px;
@@ -59,7 +59,7 @@ body {
     }
 }
 
-// 主内容容器
+// 主内容容器 z-index 99
 .jm-main-wrap {
     position: relative;
     width: 100%;

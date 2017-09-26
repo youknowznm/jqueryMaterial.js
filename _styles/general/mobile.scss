@@ -1,7 +1,30 @@
-body[data-device=mobile] {
+body#mobile {
     // .jm-main {
     //     min-width: 0 !important;
     //     width: 100%;
     // }
     overflow-x: hidden;
+
+    .jm-nav {
+        height: 100px;
+        line-height: 50px;
+    }
+    .site-title {
+        display: block;
+        height: 50px;
+        line-height: 50px;
+        padding-left: 16px;
+    }
+    .nav-buttons {
+        display: block;
+        position: relative;
+        height: 50px;
+        white-space: nowrap;
+        margin-left: 6px;
+    }
+    .nav-button {
+        height: 50px;
+        line-height: 50px;
+
+    }
 }

@@ -1,8 +1,8 @@
 // 判断是否移动端
 $(function() {
-    let $body = $('body')
-    let deviceStr = /Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent) ? 'mobile' : 'desktop'
-    $body.attr('data-device', deviceStr)
+    if (/Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent)) {
+        document.querySelector('body').setAttribute('id', 'mobile')
+    }
 })
 
 /**
