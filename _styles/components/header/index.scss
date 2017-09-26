@@ -58,8 +58,8 @@ z-index 计数
         animation: fadeIn 1s cubic-bezier(0.25, 0.8, 0.25, 1);
         .nav-button {
             position: relative;
-            display: block;
-            float: left;
+            display: inline-block;
+            // float: left;
             box-sizing: border-box;
             height: 64px;
             line-height: 64px;
@@ -81,7 +81,10 @@ z-index 计数
         position: absolute;
         height: 2px;
         bottom: 0;
-        transition: color .3s;
+        transition: color .3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        &.hidden {
+            display: none;
+        }
     }
     .banner {
         width: 100%;

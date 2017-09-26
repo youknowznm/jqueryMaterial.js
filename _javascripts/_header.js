@@ -73,8 +73,10 @@ $.fn.extend({
             let $body = $('body')
             // 波纹元素
             let $ripple = $header.children('.ripple')
-             // 所有导航按钮
-            let $buttons = $header.find('.nav-button')
+            // 导航按钮容器
+            let $buttonsWrap = $header.find('.nav-buttons')
+            // 所有导航按钮
+            let $buttons = $buttonsWrap.children('.nav-button')
             // 按钮底部提示条
             let $buttonIndicator = $header.find('.nav-indicator')
             // 波纹元素容器
@@ -84,6 +86,39 @@ $.fn.extend({
             // let $pageTitle = $banner.find('.page-title')
             // header 阴影
             let $shadow = $('.jm-header-shadow')
+
+            // TODO
+            setTimeout(function() {
+                let actualNavHeight = $buttonsWrap.outerHeight()
+
+                if ($body.is('#mobile') && actualNavHeight > 50) {
+                    $buttonIndicator.addClass('hidden')
+
+                    $body.css('marginTop', actualNavHeight + 50)
+                    $shadow.css('top', actualNavHeight + 50)
+
+                }
+
+                $window.on('scroll', function(evt) {
+                    let scTp = document.documentElement.scrollTop
+                    // 大于一定值时渐隐标题
+                    if (scTp > 30) {
+                        $pageTitle.addClass('hidden')
+                    } else {
+                        $pageTitle.removeClass('hidden')
+                    }
+                    // 根据scrollTop调整banner高度和阴影top
+                    $shadow.css(
+                        'top',
+                        (256 - scTp) < 64 ? 64 : (256 - scTp)
+                    )
+                    $banner.css(
+                        'height',
+                        (192 - scTp) < 0 ? 0 : (192 - scTp)
+                    )
+                })
+
+            }, 0)
 
             /*
             波纹动画
@@ -185,24 +220,6 @@ $.fn.extend({
                 $header.attr('data-theme', COLOR_PALLETE[colorIndex])
             }
 
-            $window.on('scroll', function(evt) {
-                let scTp = document.documentElement.scrollTop
-                // 大于一定值时渐隐标题
-                if (scTp > 30) {
-                    $pageTitle.addClass('hidden')
-                } else {
-                    $pageTitle.removeClass('hidden')
-                }
-                // 根据scrollTop调整banner高度和阴影top
-                $shadow.css(
-                    'top',
-                    (256 - scTp) < 64 ? 64 : (256 - scTp)
-                )
-                $banner.css(
-                    'height',
-                    (192 - scTp) < 0 ? 0 : (192 - scTp)
-                )
-            })
 
             $header.show()
         })

@@ -5,26 +5,30 @@ body#mobile {
     // }
     overflow-x: hidden;
 
-    .jm-nav {
-        height: 100px;
-        line-height: 50px;
+    .jm-header {
+        .jm-nav {
+            height: auto;
+            line-height: 50px;
+        }
+        .site-title {
+            display: block;
+            height: 50px;
+            line-height: 50px;
+            padding-left: 17px;
+        }
+        .nav-buttons {
+            position: relative;
+            line-height: 50px;
+            white-space: normal;
+            margin-left: 7px;
+        }
+        .nav-button {
+            height: 50px;
+            line-height: 50px;
+        }
+        .banner {
+            display: none;
+        }
     }
-    .site-title {
-        display: block;
-        height: 50px;
-        line-height: 50px;
-        padding-left: 16px;
-    }
-    .nav-buttons {
-        display: block;
-        position: relative;
-        height: 50px;
-        white-space: nowrap;
-        margin-left: 6px;
-    }
-    .nav-button {
-        height: 50px;
-        line-height: 50px;
 
-    }
 }
