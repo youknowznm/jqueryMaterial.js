@@ -334,24 +334,26 @@ $.fn.extend({
             var $mainWrap = $('.jm-main-wrap');
 
             // TODO
+            // IDEA
             $(function () {
                 var isMobile = $body.is('#mobile');
-                var navLineHeight = isMobile ? 50 : 64;
-                var navHeight = +$buttonsWrap.outerHeight();
-                var headerHeight = isMobile ? navLineHeight + navHeight : 256;
 
-                if (navHeight > navLineHeight) {
-                    $buttonIndicator.addClass('hidden');
-                }
-
-                $mainWrap.css('marginTop', headerHeight);
+                setTimeout(function () {
+                    var navLineHeight = isMobile ? 50 : 64;
+                    var navHeight = +$buttonsWrap.height();
+                    if (navHeight > navLineHeight) {
+                        $buttonIndicator.addClass('hidden');
+                    }
+                    if (isMobile) {
+                        $mainWrap.css('marginTop', navLineHeight + navHeight);
+                    }
+                }, 0);
 
                 $window.on('scroll', function (evt) {
-                    var scTp = document.documentElement.scrollTop;
-
                     // 桌面端
                     if (!isMobile) {
-                        // 大于一定值时渐隐标题
+                        var scTp = document.documentElement.scrollTop;
+                        // 主体的滚动距离大于一定值时渐隐标题
                         if (scTp > 30) {
                             $pageTitle.addClass('hidden');
                         } else {
@@ -366,6 +368,7 @@ $.fn.extend({
                 */
                 var rippling = false;
                 var $buttonClicked = null;
+                var headerHeight = $('.jm-header').height() - 12;
                 $body.on('mousedown', '.nav-button:not(.active)', function (evt) {
                     if (rippling === false) {
                         rippling = true;

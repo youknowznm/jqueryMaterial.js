@@ -91,26 +91,27 @@ $.fn.extend({
             // 主内容容器
             let $mainWrap = $('.jm-main-wrap')
 
-
             // TODO
+            // IDEA
             $(function() {
                 let isMobile = $body.is('#mobile')
-                let navLineHeight = isMobile ? 50 : 64
-                let navHeight = +$buttonsWrap.outerHeight()
-                let headerHeight = isMobile ? (navLineHeight + navHeight) : 256
 
-                if (navHeight > navLineHeight) {
-                    $buttonIndicator.addClass('hidden')
-                }
-
-                $mainWrap.css('marginTop', headerHeight)
+                setTimeout(function() {
+                    let navLineHeight = isMobile ? 50 : 64
+                    let navHeight = +$buttonsWrap.height()
+                    if (navHeight > navLineHeight) {
+                        $buttonIndicator.addClass('hidden')
+                    }
+                    if (isMobile) {
+                        $mainWrap.css('marginTop', navLineHeight + navHeight)
+                    }
+                }, 0)
 
                 $window.on('scroll', function(evt) {
-                    let scTp = document.documentElement.scrollTop
-
                     // 桌面端
                     if (!isMobile) {
-                        // 大于一定值时渐隐标题
+                        let scTp = document.documentElement.scrollTop
+                        // 主体的滚动距离大于一定值时渐隐标题
                         if (scTp > 30) {
                             $pageTitle.addClass('hidden')
                         } else {
@@ -121,7 +122,6 @@ $.fn.extend({
                             (192 - scTp) < 0 ? 0 : (192 - scTp)
                         )
                     }
-
                 })
 
                 /*
@@ -129,6 +129,7 @@ $.fn.extend({
                 */
                 let rippling = false
                 let $buttonClicked = null
+                let headerHeight = $('.jm-header').height() - 12
                 $body.on('mousedown', '.nav-button:not(.active)', function(evt) {
                     if (rippling === false) {
                         rippling = true
