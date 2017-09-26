@@ -39,6 +39,7 @@ $.fn.extend({
             初始化
             */
             let jmHeaderHTML = `
+            <div class="jm-header-wrap-without-shadow">
                 <div class="jm-header-content jm-responsive-wrap">
                     <nav class="jm-nav">
                         <a class="site-title">
@@ -60,39 +61,38 @@ $.fn.extend({
                         </h1>
                     </div>
                 </div>
-                <div class="ripple"></div>`
-
-            // header 元素主体
-            let $header = $(this)
-                .hide()
-                .attr('data-theme', COLOR_PALLETE[activeNavIndex])
-                .html(jmHeaderHTML)
-                .append($('<div class="jm-header-shadow"></div>'))
+                <div class="ripple"></div>
+            </div>
+            <div class="shadow"></div>`
 
             let $window = $(window).scrollTop(0)
             let $body = $('body')
+
+            // header 元素主体
+            let $fullHeader = $(this).hide().html(jmHeaderHTML)
+
+            // 不含阴影的元素部分
+            let $header = $fullHeader.children('.jm-header-wrap-without-shadow')
+                          .attr('data-theme', COLOR_PALLETE[activeNavIndex])
+
             // 波纹元素
-            let $ripple = $header.children('.ripple')
+            let $ripple = $header.find('.ripple')
             // 导航按钮容器
             let $buttonsWrap = $header.find('.nav-buttons')
             // 所有导航按钮
-            let $buttons = $buttonsWrap.children('.nav-button')
+            let $buttons = $buttonsWrap.find('.nav-button')
             // 按钮底部提示条
             let $buttonIndicator = $header.find('.nav-indicator')
             // 波纹元素容器
             let $banner = $header.find('.banner')
             // 页面大标题
             let $pageTitle = $banner.find('.jm-single-word')
-            // let $pageTitle = $banner.find('.page-title')
-            // header 阴影
-            let $shadow = $('.jm-header-shadow')
 
             // 主内容容器
             let $mainWrap = $('.jm-main-wrap')
 
 
             // TODO
-            // ! 桌面端不应产生多于一行的nav-button
             $(function() {
                 let isMobile = $body.is('#mobile')
                 let navLineHeight = isMobile ? 50 : 64
@@ -104,7 +104,6 @@ $.fn.extend({
                 }
 
                 $mainWrap.css('marginTop', headerHeight)
-                $shadow.css('top', headerHeight)
 
                 $window.on('scroll', function(evt) {
                     let scTp = document.documentElement.scrollTop
@@ -122,13 +121,6 @@ $.fn.extend({
                             (192 - scTp) < 0 ? 0 : (192 - scTp)
                         )
                     }
-
-                    // 根据scrollTop调整banner高度和阴影top
-                    $shadow.css(
-                        'top',
-                        (headerHeight - scTp) < navLineHeight ? navLineHeight : (headerHeight - scTp)
-                        // (256 - scTp) < 64 ? 64 : (256 - scTp)
-                    )
 
                 })
 
@@ -182,7 +174,7 @@ $.fn.extend({
                     }
                 })
 
-                $header.show()
+                $fullHeader.show()
 
             })
 

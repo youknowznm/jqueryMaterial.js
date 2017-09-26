@@ -8,7 +8,7 @@
     background-color: map-get($gen-colors, translucent-white);
     border-radius: 50%;
     cursor: pointer;
-    z-index: 101;
+    z-index: 102;
     &.noneToCircle {
         display: block;
         animation: noneToCircle .55s cubic-bezier(0.25, 0.8, 0.25, 1);

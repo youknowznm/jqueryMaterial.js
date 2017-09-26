@@ -19,7 +19,7 @@ $gen-colors: (
     white: #fff,
     light-silver: #99A9BF,
 );
-.jm-header {
+.jm-header-wrap-without-shadow {
     &[data-theme=silver] nav,
     &[data-theme=silver] {
         background-color: nth($jm-header-colors, 1);
