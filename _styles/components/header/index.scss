@@ -54,7 +54,7 @@ z-index 计数
         font-family: "Roboto Mono Medium";
         // 限制最大宽高
         // max-height: 64px;
-        // max-width: 500px;
+        max-width: 500px;
         animation: fadeIn 1s cubic-bezier(0.25, 0.8, 0.25, 1);
         .nav-button {
             position: relative;

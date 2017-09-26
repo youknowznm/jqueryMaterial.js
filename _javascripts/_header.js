@@ -87,46 +87,57 @@ $.fn.extend({
             // header 阴影
             let $shadow = $('.jm-header-shadow')
 
+            // 主内容容器
+            let $mainWrap = $('.jm-main-wrap')
+
+
             // TODO
-            setTimeout(function() {
-                let actualNavHeight = $buttonsWrap.outerHeight()
+            // ! 桌面端不应产生多于一行的nav-button
+            $(function() {
+                let isMobile = $body.is('#mobile')
+                let navLineHeight = isMobile ? 50 : 64
+                let navHeight = +$buttonsWrap.outerHeight()
+                let headerHeight = isMobile ? (navLineHeight + navHeight) : 256
 
-                if ($body.is('#mobile') && actualNavHeight > 50) {
+                if (navHeight > navLineHeight) {
                     $buttonIndicator.addClass('hidden')
-
-                    $body.css('marginTop', actualNavHeight + 50)
-                    $shadow.css('top', actualNavHeight + 50)
-
                 }
+
+                $mainWrap.css('marginTop', headerHeight)
+                $shadow.css('top', headerHeight)
 
                 $window.on('scroll', function(evt) {
                     let scTp = document.documentElement.scrollTop
-                    // 大于一定值时渐隐标题
-                    if (scTp > 30) {
-                        $pageTitle.addClass('hidden')
-                    } else {
-                        $pageTitle.removeClass('hidden')
+
+                    // 桌面端
+                    if (!isMobile) {
+                        // 大于一定值时渐隐标题
+                        if (scTp > 30) {
+                            $pageTitle.addClass('hidden')
+                        } else {
+                            $pageTitle.removeClass('hidden')
+                        }
+                        $banner.css(
+                            'height',
+                            (192 - scTp) < 0 ? 0 : (192 - scTp)
+                        )
                     }
+
                     // 根据scrollTop调整banner高度和阴影top
                     $shadow.css(
                         'top',
-                        (256 - scTp) < 64 ? 64 : (256 - scTp)
+                        (headerHeight - scTp) < navLineHeight ? navLineHeight : (headerHeight - scTp)
+                        // (256 - scTp) < 64 ? 64 : (256 - scTp)
                     )
-                    $banner.css(
-                        'height',
-                        (192 - scTp) < 0 ? 0 : (192 - scTp)
-                    )
+
                 })
 
-            }, 0)
-
-            /*
-            波纹动画
-            */
-            let rippling = false
-            let $buttonClicked = null
-            $header
-                .on('mousedown', '.nav-button:not(.active)', function(evt) {
+                /*
+                波纹动画
+                */
+                let rippling = false
+                let $buttonClicked = null
+                $body.on('mousedown', '.nav-button:not(.active)', function(evt) {
                     if (rippling === false) {
                         rippling = true
                         let $targetBtn = $(this)
@@ -142,7 +153,7 @@ $.fn.extend({
                             .addClass('noneToCircle')
                     }
                 })
-                .on('mouseup', function(evt) {
+                $body.on('mouseup', function(evt) {
                     // IDEA 根据事件目标的话，只能判断 mousedown，无法判断 mouseup，因为后者的目标永远是波纹元素。
                     // 所以以波纹元素是否已有动画类为标准，决定如何处理
                     if ($ripple.hasClass('noneToCircle')) {
@@ -160,7 +171,7 @@ $.fn.extend({
                                     rippling = false
                                 }, 670)
                             },
-                            256
+                            headerHeight
                         )
                         // 主题配色
                         changeColorTheme($buttonClicked)
@@ -170,6 +181,12 @@ $.fn.extend({
                         indicate($buttonClicked)
                     }
                 })
+
+                $header.show()
+
+            })
+
+
 
             /*
             按钮提示条动画
@@ -221,7 +238,6 @@ $.fn.extend({
             }
 
 
-            $header.show()
         })
     }
 })
