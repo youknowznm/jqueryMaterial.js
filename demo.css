@@ -17,14 +17,23 @@
 .jm-bg {
     position: relative;
     height: 300px;
-
+    margin-right: 10px;
+    flex-grow: 1;
 }
 .jm-bg:nth-child(1) {
-    width: 23%;
+    margin-left: 10px;
+
 }
 .jm-bg:nth-child(2) {
-    width: 43%;
+
 }
-.jm-bg:nth-child(3) {
-    width: 33%;
+@media (max-width: 1000px) {
+    .jm-bg:nth-child(3) {
+        flex-grow: 0;
+    }
+}
+@media (max-width: 1800px) {
+    .jm-bg:nth-child(4) {
+        flex-grow: 0;
+    }
 }

@@ -130,56 +130,55 @@ $.fn.extend({
                 let rippling = false
                 let $buttonClicked = null
                 let headerHeight = $('.jm-header').height() - 12
-                $body.on('mousedown', '.nav-button:not(.active)', function(evt) {
-                    if (rippling === false) {
-                        rippling = true
-                        let $targetBtn = $(this)
-                        $buttonClicked = $targetBtn.addClass('clicking')
-                        $ripple
-                            .css({
-                                // 直接从鼠标系事件中取得相对于页面的坐标
-                                left: evt.pageX - 50,
-                                // top 值要减掉窗口的垂直滚动偏移
-                                // IDEA 是documentElement不是body！！！所以$.animate()也坏掉了
-                                top: evt.pageY - 50 - document.documentElement.scrollTop,
-                            })
-                            .addClass('noneToCircle')
-                    }
-                })
-                $body.on('mouseup', function(evt) {
-                    // IDEA 根据事件目标的话，只能判断 mousedown，无法判断 mouseup，因为后者的目标永远是波纹元素。
-                    // 所以以波纹元素是否已有动画类为标准，决定如何处理
-                    if ($ripple.hasClass('noneToCircle')) {
-                        /*
-                        波纹元素的扩大
-                        */
-                        $body.jmScrollInto(
-                            function() {
-                                $ripple
-                                    .removeClass('noneToCircle')
-                                    .addClass('toFullscreen')
-                                setTimeout(function() {
-                                    // 移除波纹元素的动画类
-                                    $ripple.removeClass('noneToCircle toFullscreen')
-                                    rippling = false
-                                }, 670)
-                            },
-                            headerHeight
-                        )
-                        // 主题配色
-                        changeColorTheme($buttonClicked)
-                        // 改变标题文字
-                        $pageTitle.text($buttonClicked.text())
-                        // 按钮提示条动画
-                        indicate($buttonClicked)
-                    }
-                })
+                $body
+                    .on('mousedown', '.nav-button:not(.active)', function(evt) {
+                        if (rippling === false) {
+                            rippling = true
+                            let $targetBtn = $(this)
+                            $buttonClicked = $targetBtn.addClass('clicking')
+                            $ripple
+                                .css({
+                                    // 直接从鼠标系事件中取得相对于页面的坐标
+                                    left: evt.pageX - 50,
+                                    // top 值要减掉窗口的垂直滚动偏移
+                                    // IDEA 是documentElement不是body！！！所以$.animate()也坏掉了
+                                    top: evt.pageY - 50 - document.documentElement.scrollTop,
+                                })
+                                .addClass('noneToCircle')
+                        }
+                    })
+                    .on('mouseup', function(evt) {
+                        // IDEA 根据事件目标的话，只能判断 mousedown，无法判断 mouseup，因为后者的目标永远是波纹元素。
+                        // 所以以波纹元素是否已有动画类为标准，决定如何处理
+                        if ($ripple.hasClass('noneToCircle')) {
+                            /*
+                            波纹元素的扩大
+                            */
+                            $body.jmScrollInto(
+                                function() {
+                                    $ripple
+                                        .removeClass('noneToCircle')
+                                        .addClass('toFullscreen')
+                                    setTimeout(function() {
+                                        // 移除波纹元素的动画类
+                                        $ripple.removeClass('noneToCircle toFullscreen')
+                                        rippling = false
+                                    }, 670)
+                                },
+                                headerHeight
+                            )
+                            // 主题配色
+                            changeColorTheme($buttonClicked)
+                            // 改变标题文字
+                            $pageTitle.text($buttonClicked.text())
+                            // 按钮提示条动画
+                            indicate($buttonClicked)
+                        }
+                    })
 
                 $fullHeader.show()
 
             })
-
-
 
             /*
             按钮提示条动画
@@ -229,7 +228,6 @@ $.fn.extend({
                 let colorIndex = $buttons.index($ele) % (colorCount - 1)
                 $header.attr('data-theme', COLOR_PALLETE[colorIndex])
             }
-
 
         })
     }
