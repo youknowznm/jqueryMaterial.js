@@ -20,7 +20,7 @@ $.fn.extend({
 
         this.each(function() {
 
-            let {siteNameWords, navContents, activeNavIndex} = options
+            let {siteNameWords, navContents, activeNavIndex = 0} = options
 
             /*
             参数检查
@@ -30,9 +30,6 @@ $.fn.extend({
             }
             if (typeof navContents[0] !== 'string') {
                 throw new TypeError('Expecting parameter "navContents" as {Array.<String>}')
-            }
-            if (typeof activeNavIndex !== 'number') {
-                activeNavIndex = 0
             }
 
             /*
@@ -154,7 +151,7 @@ $.fn.extend({
                             /*
                             波纹元素的扩大
                             */
-                            $body.jmScrollInto(
+                            $('.jm-main-wrap').jmScrollInto(
                                 function() {
                                     $ripple
                                         .removeClass('noneToCircle')

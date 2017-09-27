@@ -53,7 +53,7 @@ $.fn.extend({
         let _cb = (typeof cb === 'function') ? cb : function() {}
         let _amendment = (typeof amendment === 'number') ? amendment : jmHeaderHeight
 
-        // 目标元素为body时，目标高度再减12，即.jm-shadow的高度
+        // // 目标元素为body时，目标高度再减12，即.jm-shadow的高度
         _amendment = $ele.is('body') ? (jmHeaderHeight - 12) : _amendment
 
         let targetBodyScrollTop = $ele.offset().top - _amendment

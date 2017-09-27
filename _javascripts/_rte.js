@@ -173,6 +173,8 @@ $.fn.extend({
                         confirmButtonText: 'restore',
                         onConfirm() {
                             $editArea.html(currentDraft)
+                            responseToContentHeight($editArea)
+                            $editArea.focus()
                         }
                     })
                 }

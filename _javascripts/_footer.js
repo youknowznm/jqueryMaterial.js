@@ -9,7 +9,7 @@ $.fn.extend({
             - siteAuthorHomepage {String} 站点作者个人主页的链接
             - siteSourceLink {String} 站点源码仓库的链接
         - socialInfo {?Object} 社交信息相关，按如下顺序展示。不提供任一项则不显示其
-            - wechatQrLink {String} 微信二维码url
+            - wechatQrLink {String} 微信二维码链接
             - email {String} 邮箱地址
             - zhihuLink {String} 知乎链接
             - githubLink {String} GitHub链接
