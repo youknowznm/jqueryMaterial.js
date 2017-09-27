@@ -1,6 +1,6 @@
 $.fn.extend({
     /**
-    生成 design.google.com 旧站风格的头部
+    生成 design.google.com 旧站风格的header
     https://web.archive.org/web/20170516175305/https://design.google.com
     @param options {Object}
         - siteNameWords {Array.<String>} 站名的单词组成的数组，以'·'和'¬'分隔
