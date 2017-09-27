@@ -1,7 +1,9 @@
+let siteNameWords = ['jQuery', 'Material']
+
 $(function() {
 
     $('.jm-header').initHeader({
-        siteNameWords: ['jQuery', 'Material'],
+        siteNameWords,
         // navContents: ['posts', 'products', 'messages', 'about', 'news', 'about'],
         navContents: ['posts', 'products', 'messages', 'about'],
     })

@@ -1076,14 +1076,19 @@ $.fn.extend({
     /**
     【在使用了本套组件的header的页面中】动画滚动页面至目标元素位置
     @param cb {?Function} 滚动完成的回调。不提供时为一个空函数
-    @param amendment {?Number} 滚动高度的修正像素数。不提供时为64（.jm-header元素的默认高度）
+    @param amendment {?Number} 滚动高度的修正像素数。不提供时为.jm-header元素的实际高度
     */
     jmScrollInto: function jmScrollInto(cb, amendment) {
-        var _cb = typeof cb === 'function' ? cb : function () {};
-        var _amendment = typeof amendment === 'number' ? amendment : 64;
-
         var $ele = $(this);
         var _body = document.documentElement;
+        var jmHeaderHeight = $('.jm-header').height();
+
+        var _cb = typeof cb === 'function' ? cb : function () {};
+        var _amendment = typeof amendment === 'number' ? amendment : jmHeaderHeight;
+
+        // 目标元素为body时，目标高度再减12，即.jm-shadow的高度
+        _amendment = $ele.is('body') ? jmHeaderHeight - 12 : _amendment;
+
         var targetBodyScrollTop = $ele.offset().top - _amendment;
         var tId = setInterval(function () {
             var currentBodyScrollTop = _body.scrollTop;
@@ -1163,6 +1168,8 @@ __webpack_require__(7);
 __webpack_require__(0);
 
 __webpack_require__(6);
+
+__webpack_require__(40);
 
 /***/ }),
 /* 11 */
@@ -1800,6 +1807,25 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABK
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAjklEQVR4Ae3LMWrCABSA4e8eoVAQcRXEOzjaG8XRRQyI3kC8gCC46SzuHqNNt6Sv0KWFvKVDoUP+f/78XX2lXxY/yFTlrvbh1c3KJAdfxMhZdD4ZZiDsvQuhcbG2ULlqhFB7yUAIra3Cd4WNVmjMc3DQbaYW3gwyEMqUtMIxBznZCWGcgZw8eVh69k/q+wSQ/FWQ7uyTVAAAAABJRU5ErkJggg=="
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+$.fn.extend({
+    /**
+    生成 design.google.com 旧站风格的尾部
+    https://web.archive.org/web/20170516175305/https://design.google.com
+    @param options {Object}
+        - siteNameWords {Array.<String>} 站名的单词组成的数组，以'·'和'¬'分隔
+        - navContents {Array.<String>} 导航按钮的名称数组
+        - activeNavIndex {?Number} 当前活动的导航按钮索引。不提供时为0
+    */
+    initFooter: function initFooter(options) {}
+});
 
 /***/ })
 /******/ ]);

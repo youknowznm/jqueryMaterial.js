@@ -17,11 +17,11 @@
 .jm-bg {
     position: relative;
     height: 300px;
-    margin-right: 10px;
+    /*margin-right: 10px;*/
     flex-grow: 1;
 }
 .jm-bg:nth-child(1) {
-    margin-left: 10px;
+    /*margin-left: 10px;*/
 
 }
 .jm-bg:nth-child(2) {

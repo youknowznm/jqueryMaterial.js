@@ -43,14 +43,19 @@ $.fn.extend({
     /**
     【在使用了本套组件的header的页面中】动画滚动页面至目标元素位置
     @param cb {?Function} 滚动完成的回调。不提供时为一个空函数
-    @param amendment {?Number} 滚动高度的修正像素数。不提供时为64（.jm-header元素的默认高度）
+    @param amendment {?Number} 滚动高度的修正像素数。不提供时为.jm-header元素的实际高度
     */
     jmScrollInto(cb, amendment) {
-        let _cb = (typeof cb === 'function') ? cb : function() {}
-        let _amendment = (typeof amendment === 'number') ? amendment : 64
-
         let $ele = $(this)
         let _body = document.documentElement
+        let jmHeaderHeight = $('.jm-header').height()
+
+        let _cb = (typeof cb === 'function') ? cb : function() {}
+        let _amendment = (typeof amendment === 'number') ? amendment : jmHeaderHeight
+
+        // 目标元素为body时，目标高度再减12，即.jm-shadow的高度
+        _amendment = $ele.is('body') ? (jmHeaderHeight - 12) : _amendment
+
         let targetBodyScrollTop = $ele.offset().top - _amendment
         let tId = setInterval(function() {
             let currentBodyScrollTop = _body.scrollTop
