@@ -76,9 +76,9 @@ $.fn.extend({
             </div>
             <div class="_bottom-wrap">
             <div class="_bottom jm-responsive-wrap">
-                <span class="logo">
+                <h3 class="logo">
                     ${siteInfo.siteNameWords.map((item) => `<span class="jm-single-word">${item}</span>`).join('')}
-                </span>
+                </h3>
                 <p class="info">
                     Made with
                     <span class="heart-wrap">
@@ -88,9 +88,7 @@ $.fn.extend({
                     </span>
                     by <a href="${siteInfo.siteAuthorHomepage}" target="_blank" class="info-link">${siteInfo.siteAuthorName}</a>.
                 </p>
-                <a href="${siteInfo.siteSourceLink}" target="_blank">
-                    <button class="jm-button source _warn _flat" data-text="view source"></button>
-                </a>
+                <a href="${siteInfo.siteSourceLink}" target="_blank" class="jm-button source _warn _flat" data-text="view source"></a>
             </div>
             </div>`
 

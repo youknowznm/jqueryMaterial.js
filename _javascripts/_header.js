@@ -88,8 +88,7 @@ $.fn.extend({
             // 主内容容器
             let $mainWrap = $('.jm-main-wrap')
 
-            // TODO
-            // IDEA
+            // .nav-buttons显示多于一行时，隐藏掉按钮底部提示条，并调整.jm-main-wrap的上外边距
             $(function() {
                 let isMobile = $body.is('#mobile')
 
