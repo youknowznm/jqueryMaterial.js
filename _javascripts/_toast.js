@@ -1,6 +1,6 @@
 /**
-生成 angular material 风格的模态对话框
-https://material.angularjs.org/latest/demo/dialog
+生成 angular material 风格的toast提示
+https://material.angularjs.org/latest/demo/toast
 @param options {Object}
     - content {?String} 内容文字。不提供时为'default toast'
     - duration {?Number} 持续时间。不提供时为3000

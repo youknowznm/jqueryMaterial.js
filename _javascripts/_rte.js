@@ -10,10 +10,39 @@ function execute(commandName, value = null) {
 
 // TODO
 function addLink() {
-    var linkURL = prompt('Enter a URL:', 'http://');
-    var sText = getSelection().toString();
-    console.log(sText);
-    document.execCommand('insertHTML', false, `<a href="${linkURL}" target="_blank">${sText}</a>`);
+    $.showJmDialog({
+        dialogType: 'prompt',
+        title: 'Set link attributes.',
+        content: 'Enter the text and URL for target anchor tag.',
+        promptDataArr: [
+            {
+                name: 'Text',
+                value: '',
+            },
+            {
+                name: 'URL',
+                value: 'https://',
+            },
+        ],
+
+
+        },
+        onConfirm() {
+            let linkURL = $('#jm-prompt-1').val().trim()
+            if (linkURL === '') {
+                $.showJmToast({
+                    content: 'That doesn\'t look like a URL.'
+                })
+            } else {
+                console.log(document.execCommand(
+                    'insertHTML',
+                    false,
+                    `<a href="${linkURL}" target="_blank">${selectedText}</a>`
+                ))
+            }
+        },
+
+    })
 }
 
 // 命令相关

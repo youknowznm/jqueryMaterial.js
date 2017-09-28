@@ -37,7 +37,7 @@ $.showJmDialog = function(options) {
                         <h1 class="dialog-title">${title}</h1>
                         <p class="dialog-content">${content}</p>
                         <div class="buttons">
-                            <button data-animating="false" data-button-type="confirm" class="jm-button _flat _primary full-width">
+                            <button id="dialog-confirm" class="jm-button _flat _primary full-width" data-animating="false">
                                 <span class="content">${confirmButtonText}</span>
                                 <div class="ripple-container"><span class="ripple"></span></div>
                             </button>
@@ -52,11 +52,11 @@ $.showJmDialog = function(options) {
                         <h1 class="dialog-title">${title}</h1>
                         <p class="dialog-content">${content}</p>
                         <div class="buttons">
-                            <button data-animating="false" data-button-type="cancel" class="jm-button _flat _primary">
+                            <button id="dialog-cancel" class="jm-button _flat _primary" data-animating="false">
                                 <span class="content">${cancelButtonText}</span>
                                 <div class="ripple-container"><span class="ripple"></span></div>
                             </button>
-                            <button data-animating="false" data-button-type="confirm" class="jm-button _flat _primary">
+                            <button id="dialog-confirm" class="jm-button _flat _primary" data-animating="false">
                                 <span class="content">${confirmButtonText}</span>
                                 <div class="ripple-container"><span class="ripple"></span></div>
                             </button>
@@ -74,13 +74,19 @@ $.showJmDialog = function(options) {
                     <div class="jm-dialog">
                         <h1 class="dialog-title">${title}</h1>
                         <p class="dialog-content">${content}</p>
-                        ${promptDataArr.map((i) => `<input class="prompt-input" placeholder="${i.name}" value="${i.value}" spellcheck="false" />`).join('')}
+                        ${promptDataArr.map((item, index) => {
+                            return `<input id="jm-prompt-${index + 1}"
+                                           class="prompt-input"
+                                           placeholder="${item.name}"
+                                           value="${item.value}"
+                                           spellcheck="false" />`
+                        }).join('')}
                         <div class="buttons">
-                            <button data-animating="false" data-button-type="cancel" class="jm-button _flat _primary">
+                            <button id="dialog-cancel" class="jm-button _flat _primary" data-animating="false">
                                 <span class="content">${cancelButtonText}</span>
                                 <div class="ripple-container"><span class="ripple"></span></div>
                             </button>
-                            <button data-animating="false" data-button-type="confirm" class="jm-button _flat _primary">
+                            <button id="dialog-confirm" class="jm-button _flat _primary" data-animating="false">
                                 <span class="content">${confirmButtonText}</span>
                                 <div class="ripple-container"><span class="ripple"></span></div>
                             </button>
@@ -97,13 +103,13 @@ $.showJmDialog = function(options) {
     $dialog.css('transform-origin', '0 0')
 
     $dialog.on('click', function(evt) {
-        let type = $(evt.target).closest('.jm-button').data('buttonType')
+        let type = $(evt.target).closest('.jm-button').attr('id')
         // 未点击二按钮之一时无操作
         switch (type) {
-            case 'confirm':
+            case 'dialog-confirm':
                 onConfirm()
                 break
-            case 'cancel':
+            case 'dialog-cancel':
                 onCancel()
                 break
             default:
@@ -120,9 +126,9 @@ $.showJmDialog = function(options) {
     $(window).on('keyup', function(evt) {
         if ($dialog.length !== 0 && evt.keyCode === 27) {
             if (dialogType === 'alert') {
-                $('[data-button-type=confirm]').click()
+                $('#dialog-confirm').click()
             } else {
-                $('[data-button-type=cancel]').click()
+                $('#dialog-cancel').click()
             }
         }
     })

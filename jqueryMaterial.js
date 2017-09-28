@@ -299,19 +299,19 @@ $.showJmDialog = function (options) {
 
     switch (dialogType) {
         case 'alert':
-            jmDialogHTML = '\n                <div class="jm-dialog-wrap">\n                    <div class="jm-dialog">\n                        <h1 class="dialog-title">' + title + '</h1>\n                        <p class="dialog-content">' + content + '</p>\n                        <div class="buttons">\n                            <button data-animating="false" data-button-type="confirm" class="jm-button _flat _primary full-width">\n                                <span class="content">' + confirmButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                         </div>\n                    </div>\n                </div>';
+            jmDialogHTML = '\n                <div class="jm-dialog-wrap">\n                    <div class="jm-dialog">\n                        <h1 class="dialog-title">' + title + '</h1>\n                        <p class="dialog-content">' + content + '</p>\n                        <div class="buttons">\n                            <button id="dialog-confirm" class="jm-button _flat _primary full-width" data-animating="false">\n                                <span class="content">' + confirmButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                         </div>\n                    </div>\n                </div>';
             break;
         case 'confirm':
-            jmDialogHTML = '\n                <div class="jm-dialog-wrap">\n                    <div class="jm-dialog">\n                        <h1 class="dialog-title">' + title + '</h1>\n                        <p class="dialog-content">' + content + '</p>\n                        <div class="buttons">\n                            <button data-animating="false" data-button-type="cancel" class="jm-button _flat _primary">\n                                <span class="content">' + cancelButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                            <button data-animating="false" data-button-type="confirm" class="jm-button _flat _primary">\n                                <span class="content">' + confirmButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                         </div>\n                    </div>\n                </div>';
+            jmDialogHTML = '\n                <div class="jm-dialog-wrap">\n                    <div class="jm-dialog">\n                        <h1 class="dialog-title">' + title + '</h1>\n                        <p class="dialog-content">' + content + '</p>\n                        <div class="buttons">\n                            <button id="dialog-cancel" class="jm-button _flat _primary" data-animating="false">\n                                <span class="content">' + cancelButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                            <button id="dialog-confirm" class="jm-button _flat _primary" data-animating="false">\n                                <span class="content">' + confirmButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                         </div>\n                    </div>\n                </div>';
             break;
         case 'prompt':
             // 选择了prompt类型但未提供promptDataArr数组时抛出
             if (!Array.isArray(promptDataArr)) {
                 throw new TypeError('Expecting parameter "options.promptDataArr" as {Array.<Object>}');
             }
-            jmDialogHTML = '\n                <div class="jm-dialog-wrap">\n                    <div class="jm-dialog">\n                        <h1 class="dialog-title">' + title + '</h1>\n                        <p class="dialog-content">' + content + '</p>\n                        ' + promptDataArr.map(function (i) {
-                return '<input class="prompt-input" placeholder="' + i.name + '" value="' + i.value + '" spellcheck="false" />';
-            }).join('') + '\n                        <div class="buttons">\n                            <button data-animating="false" data-button-type="cancel" class="jm-button _flat _primary">\n                                <span class="content">' + cancelButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                            <button data-animating="false" data-button-type="confirm" class="jm-button _flat _primary">\n                                <span class="content">' + confirmButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                         </div>\n                    </div>\n                </div>';
+            jmDialogHTML = '\n                <div class="jm-dialog-wrap">\n                    <div class="jm-dialog">\n                        <h1 class="dialog-title">' + title + '</h1>\n                        <p class="dialog-content">' + content + '</p>\n                        ' + promptDataArr.map(function (item, index) {
+                return '<input id="jm-prompt-' + (index + 1) + '"\n                                           class="prompt-input"\n                                           placeholder="' + item.name + '"\n                                           value="' + item.value + '"\n                                           spellcheck="false" />';
+            }).join('') + '\n                        <div class="buttons">\n                            <button id="dialog-cancel" class="jm-button _flat _primary" data-animating="false">\n                                <span class="content">' + cancelButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                            <button id="dialog-confirm" class="jm-button _flat _primary" data-animating="false">\n                                <span class="content">' + confirmButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                         </div>\n                    </div>\n                </div>';
     }
 
     var $body = $('body').append($(jmDialogHTML));
@@ -322,13 +322,13 @@ $.showJmDialog = function (options) {
     $dialog.css('transform-origin', '0 0');
 
     $dialog.on('click', function (evt) {
-        var type = $(evt.target).closest('.jm-button').data('buttonType');
+        var type = $(evt.target).closest('.jm-button').attr('id');
         // 未点击二按钮之一时无操作
         switch (type) {
-            case 'confirm':
+            case 'dialog-confirm':
                 onConfirm();
                 break;
-            case 'cancel':
+            case 'dialog-cancel':
                 onCancel();
                 break;
             default:
@@ -345,9 +345,9 @@ $.showJmDialog = function (options) {
     $(window).on('keyup', function (evt) {
         if ($dialog.length !== 0 && evt.keyCode === 27) {
             if (dialogType === 'alert') {
-                $('[data-button-type=confirm]').click();
+                $('#dialog-confirm').click();
             } else {
-                $('[data-button-type=cancel]').click();
+                $('#dialog-cancel').click();
             }
         }
     });
@@ -792,10 +792,29 @@ function execute(commandName) {
 
 // TODO
 function addLink() {
-    var linkURL = prompt('Enter a URL:', 'http://');
-    var sText = getSelection().toString();
-    console.log(sText);
-    document.execCommand('insertHTML', false, '<a href="' + linkURL + '" target="_blank">' + sText + '</a>');
+    $.showJmDialog({
+        dialogType: 'prompt',
+        title: 'Set link attributes.',
+        content: 'Enter the text and URL for target anchor tag.',
+        promptDataArr: [{
+            name: 'Text',
+            value: ''
+        }, {
+            name: 'URL',
+            value: 'https://'
+        }],
+        onDialogReady: function onDialogReady() {},
+        onConfirm: function onConfirm() {
+            var linkURL = $('#jm-prompt-1').val().trim();
+            if (linkURL === '') {
+                $.showJmToast({
+                    content: 'That doesn\'t look like a URL.'
+                });
+            } else {
+                console.log(document.execCommand('insertHTML', false, '<a href="' + linkURL + '" target="_blank">' + selectedText + '</a>'));
+            }
+        }
+    });
 }
 
 // 命令相关
@@ -1274,11 +1293,11 @@ __webpack_require__(4);
 
 __webpack_require__(1);
 
-__webpack_require__(5);
-
 __webpack_require__(2);
 
 __webpack_require__(40);
+
+__webpack_require__(5);
 
 __webpack_require__(6);
 
@@ -1929,8 +1948,8 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABK
 
 
 /**
-生成 angular material 风格的模态对话框
-https://material.angularjs.org/latest/demo/dialog
+生成 angular material 风格的toast提示
+https://material.angularjs.org/latest/demo/toast
 @param options {Object}
     - content {?String} 内容文字。不提供时为'default toast'
     - duration {?Number} 持续时间。不提供时为3000
