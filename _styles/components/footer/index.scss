@@ -26,18 +26,19 @@
                 line-height: 72px;
 
                 .link-container {
-                    position: absolute;
-                    right: 0;
+                    position: relative;
+                    // float: right;
+                    text-align: right;
                     top: 50%;
                     transform: translateY(-50%);
                 }
 
                 .link  {
                     position: relative;
-                    float: left;
+                    display: inline-block;
                     width: 24px;
                     height: 24px;
-                    margin-right: 24px;
+                    margin: 0 10px;
                     background-repeat: no-repeat;
                     background-position: 0 0;
                     background-size: 24px 24px;
