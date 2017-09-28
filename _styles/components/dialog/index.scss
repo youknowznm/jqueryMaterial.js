@@ -15,7 +15,7 @@
         position: fixed;
         width: 80%;
         min-width: 240px;
-        max-width: 660px;
+        max-width: 440px;
         top: 50%;
         left: 50%;
         transform: scale(1) translateX(-50%) translateY(-50%);
@@ -45,6 +45,7 @@
         letter-spacing: .005em;
         margin-bottom: 12px;
         line-height: 30px;
+        color: rgba(0,0,0,.87);
     }
 
     .dialog-content {
@@ -53,7 +54,27 @@
         line-height: 24px;
         letter-spacing: .01em;
         margin: 12px 0;
-        color: rgba(0,0,0,.54);
+        color: rgba(0,0,0,.87);
+    }
+
+    .prompt-input {
+        display: block;
+        width: 100%;
+        border: 0;
+        background: #fff;
+        border-bottom: 1px solid rgba(0,0,0,.12);
+        font-family: "Roboto";
+        font-size: 16px;
+        line-height: 26px;
+        margin: 18px 0;
+        padding-bottom: 1px;
+        &:focus {
+            padding-bottom: 0;
+            border-bottom: 2px solid rgb(16, 108, 200);
+        }
+        &.invalid {
+            border-bottom-color: rgb(221, 44, 0) !important;
+        }
     }
 
     .buttons {

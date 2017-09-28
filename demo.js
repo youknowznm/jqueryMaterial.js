@@ -26,20 +26,45 @@ $(function() {
 
     $('.jm-input').initInput()
 
-    $('.show-dialog').on('click', function() {
+    $('.show-alert').on('click', function() {
         $.showJmDialog({
+            dialogType: 'alert',
+            title: 'This is an alert title',
+            content: 'You can specify some description text in here.',
+            confirmButtonText: 'got it!',
+        })
+    })
+
+    $('.show-confirm').on('click', function() {
+        $.showJmDialog({
+            dialogType: 'confirm',
             title: 'Would you like to delete your debt?',
             content: 'All of the banks have agreed to forgive you your debts.',
             cancelButtonText: 'sounds like a scam',
             confirmButtonText: 'please do it!',
         })
     })
-    $('.show-alert').on('click', function() {
+
+    $('.show-prompt').on('click', function() {
         $.showJmDialog({
-            title: 'This is an alert title',
-            content: 'You can specify some description text in here.',
-            confirmButtonText: 'got it!',
-            showCancel: false,
+            dialogType: 'prompt',
+            title: 'How would you like to name your dogs?',
+            content: 'Bowser is a common name.',
+            cancelButtonText: 'I\'m a cat person',
+            confirmButtonText: 'OK!',
+            promptDataArr: [
+                {
+                    name: 'Dog 1',
+                    value: 'Buddy',
+                },
+                {
+                    name: 'Dog 2',
+                    value: '',
+                },
+            ],
+            onDialogReady() {
+                // TODO
+            }
         })
     })
 

@@ -28,7 +28,7 @@ $.fn.extend({
             let inputHTML = `
                 <div class="jm-input-content">
                     <label class="placeholder" for="jm-input-${inputEleCounter}">${label}</label>
-                    <input id="jm-input-${inputEleCounter}" class="_input" maxlength="${maxLength}" value="${value}"/>
+                    <input id="jm-input-${inputEleCounter}" class="_input" maxlength="${maxLength}" value="${value}" spellcheck="false" />
                     <p class="error">${errorMsg}</p>
                     <p class="char-counter">
                         <span class="current"></span>/<span class="maximum"></span>
@@ -77,7 +77,6 @@ $.fn.extend({
                 // 若edited为true，进行正则验证
                 if ($wrap.data('edited') === true) {
                     let regExp = new RegExp(regExpStr)
-                    console.log(1,regExp);
                     $wrap.toggleClass('invalid', !regExp.test($this.val()))
                 }
                 // 字数验证
