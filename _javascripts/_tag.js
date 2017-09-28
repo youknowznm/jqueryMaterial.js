@@ -7,6 +7,7 @@ $.fn.extend({
         - tagsArr {?Array.<String>} 已有的标签内容文字组成的数组。不提供时为空数组
         - maxLengthEachTag {?Number} 单个标签的最大字符数。不提供时为15
         - maxTagCount {?Number} 最大标签总数。不提供时为3
+        - tagInputPlaceholder {?String} 标签输入框的占位字符串，不宜过长。不提供时为'Enter a tag...'
     */
     initTag(options) {
 
@@ -20,6 +21,7 @@ $.fn.extend({
             let tagsArr = options.tagsArr || []
             let maxLengthEachTag = options.maxLengthEachTag || 15
             let maxTagCount = options.maxTagCount || 3
+            let tagInputPlaceholder = options.tagInputPlaceholder || 'Enter a tag...'
 
             let tagHTML = `
                 <div class="jm-tag-content">
@@ -29,7 +31,7 @@ $.fn.extend({
                                     <i class="btn-remove"></i>
                                 </span>`
                     }).join('')}
-                    <input id="jm-tag-${tagEleCounter}" class="_input" maxlength="${maxLengthEachTag}" placeholder="Type tags and press Enter."/>
+                    <input id="jm-tag-${tagEleCounter}" class="_input" maxlength="${maxLengthEachTag}" placeholder="${tagInputPlaceholder}"/>
                     <label class="placeholder" for="jm-tag-${tagEleCounter}">${tagGroupName}</label>
                     <p class="error"></p>
                     <h5 class="char-counter">
@@ -59,8 +61,7 @@ $.fn.extend({
                     $tagsContainer.removeClass('focused')
                 })
                 .on('keyup', function(evt) {
-                    let tags = $tagsContainer.find('.tag')
-                    let tagCount = tags.length
+                    let tags = $tagsContainer.data('tagsData')
                     let originVal = $_input.val()
                     // 字数统计
                     $currentCharCount.text(originVal.length)
@@ -69,13 +70,13 @@ $.fn.extend({
                         let val = originVal.trim()
                         if (val !== '') {
                             // 标签数量验证
-                            if (tagCount === maxTagCount) {
+                            if (tags.length === maxTagCount) {
                                 switchErrorDisplay(true, 'Maximum tags reached.')
                                 return
                             }
-                            // 同名标签验证
+                            // 同名标签验证。不区分大小写
                             for (let c of tags) {
-                                if (c.innerText === val) {
+                                if (c.toLowerCase() === val.toLowerCase()) {
                                     switchErrorDisplay(true, 'Tag already exists.')
                                     return
                                 }

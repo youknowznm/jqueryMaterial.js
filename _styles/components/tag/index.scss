@@ -13,9 +13,9 @@ $tag-error: rgb(221, 44, 0);
     text-align: left;
     .jm-tag-content {
         display: flex;
+        flex-wrap: wrap;
         position: relative;
         width: 100%;
-        height: 32px;
         line-height: 32px;
         background: transparent;
         border-bottom: 1px solid rgba(#000, .12);

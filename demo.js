@@ -65,7 +65,7 @@ $(function() {
 
     $('.jm-tag').initTag({
         tagGroupName: 'Houses',
-        tagsArr: ['targaryen', 'stark', 'lannister'],
+        tagsArr: ['targaryen', 'stark'],
         maxLengthEachTag: 10,
         maxTagCount: 3,
     })
