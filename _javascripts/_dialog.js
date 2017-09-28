@@ -5,8 +5,8 @@ function noop() {}
 https://material.angularjs.org/latest/demo/dialog
 @param options {Object}
     - dialogType {?String} 对话框类型，可为'alert'、'confirm'或'prompt'。不提供时为'alert'
-    - title {?String} 对话框/提示框标题文字。不提供时为'unnamed dialog'
-    - content {?String} 对话框/提示框内容文字。不提供时为'default content'
+    - title {?String} 对话框标题文字。不提供时为'unnamed dialog'
+    - content {?String} 对话框内容文字。不提供时为'default content'
     - confirmButtonText {?String} 确认按钮的内容文字。不提供时为'confirm'
     - cancelButtonText {?String} 取消按钮的内容文字。不提供时为'cancel'
     - onConfirm {?Function} 确认按钮的点击回调。不提供时为一个空方法
@@ -26,7 +26,6 @@ $.showJmDialog = function(options) {
     let onCancel = (typeof options.onCancel === 'function') ? options.onCancel : noop
     let onDialogReady = (typeof options.onDialogReady === 'function') ? options.onDialogReady : noop
     let promptDataArr = options.promptDataArr
-
 
     let jmDialogHTML
 
@@ -88,7 +87,6 @@ $.showJmDialog = function(options) {
                          </div>
                     </div>
                 </div>`
-            break;
     }
 
     let $body = $('body').append($(jmDialogHTML))

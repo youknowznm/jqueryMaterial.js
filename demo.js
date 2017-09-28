@@ -110,9 +110,11 @@ $(function() {
         maxLength: 200
     })
 
-    // setTimeout(function() {
-    //
-    // })
+    $('.show-toast').on('click', function() {
+        $.showJmToast({
+            content: 'This is a sample toast.'
+        })
+    })
 
 
 })

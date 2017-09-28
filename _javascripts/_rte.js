@@ -191,7 +191,7 @@ $.fn.extend({
             .one('focus', function() {
                 let currentDraft = localStorage.getItem(targetDraftName)
                 if (currentDraft !== null) {
-                    $.showJmModal({
+                    $.showJmDialog({
                         title: 'A draft was found in local storage.',
                         content: 'Would you like to restore it?',
                         confirmButtonText: 'restore',

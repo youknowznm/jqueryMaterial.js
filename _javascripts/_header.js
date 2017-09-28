@@ -40,12 +40,10 @@ $.fn.extend({
                 <div class="jm-header-content jm-responsive-wrap">
                     <nav class="jm-nav">
                         <a class="site-title">
-                            ${siteNameWords.map(function(item, index) {
-                                return `<span class="jm-single-word">${item}</span>`
-                            }).join('')}
+                            ${siteNameWords.map((item) => `<span class="jm-single-word">${item}</span>`).join('')}
                         </a>
                         <ul class="nav-buttons">
-                            ${navContents.map(function(item, index) {
+                            ${navContents.map((item, index) => {
                                 let activeStatus = index === activeNavIndex ? 'active' : ''
                                 return `<li class="nav-button ${activeStatus}">${item}</li>`
                             }).join('')}

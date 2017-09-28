@@ -33,7 +33,7 @@ $.fn.extend({
         ]
 
         let radiosHTML = `
-            ${labels.map(function(item, index) {
+            ${labels.map((item, index) => {
                 let isChecked = (item.checked === true) ? 'true' : ''
                 let warnClass = (item.warn === true) ? '_warn' : '_primary'
                 let disableClass = (item.disabled === true) ? '_disabled' : ''
