@@ -68,6 +68,8 @@ body {
     background-color: #fafafa;
     z-index: 99;
     animation: wrapPopIn .5s;
+    padding: 18px 8px 0;
+    box-sizing: border-box;
     @keyframes wrapPopIn {
         from {
             opacity: 0;
@@ -85,7 +87,10 @@ body {
     position: relative;
     min-height: 100%;
     z-index: 99;
-    padding-top: 12px;
+    padding: 8px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+    border-radius: 4px;
 }
 
 // 行元素前的标题
@@ -93,10 +98,9 @@ body {
     font-size: 14px;
     line-height: 30px;
     color: rgba(#000, .46);
-    background: rgb(247, 247, 247);
+    background: rgb(240, 240, 240);
     text-indent: 6px;
     text-transform: capitalize;
-    margin-top: 24px;
 }
 
 // 行元素
@@ -104,7 +108,8 @@ body {
     position: relative;
     min-height: 70px;
     text-align: center;
-    background: rgb(247, 247, 247);
+    background: rgb(240, 240, 240);
+    margin-bottom: 24px;
     &.dark {
         background: rgb(48, 48, 48);
     }

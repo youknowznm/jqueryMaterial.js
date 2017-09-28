@@ -53,7 +53,7 @@ $.fn.extend({
                 $input.data('edited', true)
             })
 
-            $('.jm-input ._input')
+            $_input
                 .on('focus', function() {
                     let $this = $(this)
                     let $wrap = $this.parents('.jm-input')
@@ -77,6 +77,7 @@ $.fn.extend({
                 // 若edited为true，进行正则验证
                 if ($wrap.data('edited') === true) {
                     let regExp = new RegExp(regExpStr)
+                    console.log(1,regExp);
                     $wrap.toggleClass('invalid', !regExp.test($this.val()))
                 }
                 // 字数验证
