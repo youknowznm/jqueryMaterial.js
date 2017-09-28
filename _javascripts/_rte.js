@@ -1,3 +1,118 @@
+// 使目标元素适应其内容的高度
+function responseToContentHeight($ele) {
+    $ele.height(1).height($ele[0].scrollHeight)
+}
+
+// 执行document.execCommand的相应命令
+function execute(commandName, value = null) {
+    document.execCommand(commandName, false, value)
+}
+
+// 命令相关
+const ACTIONS = [
+    {
+        abbr: 'undo',
+        fullName: 'undo',
+        action: () => execute('undo'),
+    },
+    {
+        abbr: 'redo',
+        fullName: 'redo',
+        action: () => execute('redo'),
+        followedBySeparator: true,
+    },
+    {
+        abbr: 'b',
+        fullName: 'bold',
+        action: () => execute('bold')
+    },
+    {
+        abbr: 'i',
+        fullName: 'italic',
+        action: () => execute('italic'),
+    },
+    {
+        abbr: 'u',
+        fullName: 'underline',
+        action: () => execute('underline'),
+    },
+    {
+        abbr: 's',
+        fullName: 'strikethrough',
+        action: () => execute('strikeThrough'),
+        followedBySeparator: true,
+    },
+    {
+        abbr: 'h',
+        fullName: 'header',
+        action: () => execute('formatBlock', '<H1>'),
+        textContentHTML: 'H<sub>1</sub>',
+    },
+    {
+        abbr: 'p',
+        fullName: 'paragraph',
+        action: () => execute('formatBlock', '<P>'),
+        textContentHTML: '&#182;',
+    },
+    {
+        abbr: 'q',
+        fullName: 'quote',
+        action: () => execute('formatBlock', '<BLOCKQUOTE>'),
+    },
+    {
+        abbr: 'code',
+        fullName: 'code',
+        action: () => execute('formatBlock', '<PRE>'),
+    },
+    {
+        abbr: 'ol',
+        fullName: 'ordered list',
+        action: () => execute('insertOrderedList'),
+    },
+    {
+        abbr: 'ul',
+        fullName: 'unordered list',
+        action: () => execute('insertUnorderedList'),
+        followedBySeparator: true,
+    },
+    {
+        abbr: 'link',
+        fullName: 'link',
+        action: () => null,
+    },
+    {
+        abbr: 'image',
+        fullName: 'image',
+        action: () => null,
+    },
+    {
+        abbr: 'hr',
+        fullName: 'horizontal line',
+        action: () => execute('insertHorizontalRule'),
+        followedBySeparator: true,
+    },
+    {
+        abbr: 'clear',
+        fullName: 'clear format',
+        action: () => execute('removeFormat'),
+    },
+]
+
+// 移动光标至编辑区的末尾
+// IDEA
+// https://stackoverflow.com/questions/1125292/how-to-move-cursor-to-end-of-contenteditable-entity
+function setEndOfContenteditable(contentEditableElement) {
+    if (!document.createRange) {
+        throw new Error('Get a proper browser please.')
+    }
+    let range = document.createRange()
+    range.selectNodeContents(contentEditableElement)
+    range.collapse(false)
+    let selection = window.getSelection()
+    selection.removeAllRanges()
+    selection.addRange(range)
+}
+
 $.fn.extend({
     /**
     生成 angular material 风格的富文本编辑器
@@ -20,105 +135,6 @@ $.fn.extend({
         let maxLength = (typeof options.maxLength === 'number') ? options.maxLength : 500
 
         let $rte = $(this)
-
-        // 使目标元素适应其内容的高度
-        function responseToContentHeight($ele) {
-            $ele.height(1).height($ele[0].scrollHeight)
-        }
-
-        // 执行document.execCommand的相应命令
-        function execute(commandName, value = null) {
-            document.execCommand(commandName, false, value)
-        }
-
-        const ACTIONS = [
-            {
-                abbr: 'undo',
-                fullName: 'undo',
-                action: () => execute('undo'),
-            },
-            {
-                abbr: 'redo',
-                fullName: 'redo',
-                action: () => execute('redo'),
-                followedBySeparator: true,
-            },
-            {
-                abbr: 'b',
-                fullName: 'bold',
-                action: () => execute('bold')
-            },
-            {
-                abbr: 'i',
-                fullName: 'italic',
-                action: () => execute('italic'),
-            },
-            {
-                abbr: 'u',
-                fullName: 'underline',
-                action: () => execute('underline'),
-            },
-            {
-                abbr: 's',
-                fullName: 'strikethrough',
-                action: () => execute('strikeThrough'),
-                followedBySeparator: true,
-            },
-            {
-                abbr: 'h',
-                fullName: 'header',
-                action: () => execute('formatBlock', '<H1>'),
-                textContentHTML: 'H<sub>1</sub>',
-            },
-            {
-                abbr: 'p',
-                fullName: 'paragraph',
-                action: () => execute('formatBlock', '<P>'),
-                textContentHTML: '&#182;',
-            },
-            {
-                abbr: 'q',
-                fullName: 'quote',
-                action: () => execute('formatBlock', '<BLOCKQUOTE>'),
-            },
-            {
-                abbr: 'code',
-                fullName: 'code',
-                action: () => execute('formatBlock', '<PRE>'),
-            },
-            {
-                abbr: 'ol',
-                fullName: 'ordered list',
-                action: () => execute('insertOrderedList'),
-            },
-            {
-                abbr: 'ul',
-                fullName: 'unordered list',
-                action: () => execute('insertUnorderedList'),
-                followedBySeparator: true,
-            },
-            {
-                abbr: 'link',
-                fullName: 'link',
-                action: () => null,
-            },
-            {
-                abbr: 'image',
-                fullName: 'image',
-                action: () => null,
-            },
-            {
-                abbr: 'hr',
-                fullName: 'horizontal line',
-                action: () => execute('insertHorizontalRule'),
-                followedBySeparator: true,
-            },
-            {
-                abbr: 'clear',
-                fullName: 'clear format',
-                action: () => execute('removeFormat'),
-            },
-        ]
 
         let rteHTML = '<ul class="actions">'
 
@@ -174,7 +190,7 @@ $.fn.extend({
                         onConfirm() {
                             $editArea.html(currentDraft)
                             responseToContentHeight($editArea)
-                            $editArea.focus()
+                            setEndOfContenteditable($editArea[0])
                         }
                     })
                 }

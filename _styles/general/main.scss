@@ -28,7 +28,7 @@ body {
                  "PingFang SC", "Microsoft YaHei",
                  "微软雅黑", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
-    // 参考 design.google.com 的响应式宽度控制
+    // 在桌面端进行响应式的宽度控制，参考 design.google.com
     &:not(#mobile) .jm-responsive-wrap {
         width: 1680px;
         min-width: 800px;
@@ -49,12 +49,15 @@ body {
             width: 1680px;
         }
     }
-    // 产生模态框时隐藏溢出内容，并留出右侧滚动条位置
     &.no-scroll {
+        // 显示模态框时隐藏溢出内容
         overflow: hidden;
-        padding-right: 15px;
-        .jm-header-content {
-            transform: translateX(-7.5px);
+        // 在桌面端则留出右侧滚动条位置，并修改.jm-header的偏移量
+        &:not(#mobile) {
+            padding-right: 15px;
+            .jm-header-content {
+                transform: translateX(-7.5px);
+            }
         }
     }
 }
@@ -86,6 +89,7 @@ body {
 .jm-main {
     position: relative;
     min-height: 100%;
+    min-width: 300px;
     z-index: 99;
     padding: 8px;
     box-sizing: border-box;

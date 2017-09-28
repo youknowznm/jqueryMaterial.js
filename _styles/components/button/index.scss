@@ -28,6 +28,11 @@ $jm-button-warn: rgb(255, 82, 82);
     z-index: 90;
 
     .content {
+        display: block;
+        min-width: 80px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
         font-family: "Roboto Medium";
         font-size: 14px;
     }

@@ -9,11 +9,12 @@
     background-color: rgba(#000, .4);
     z-index: 200;
     opacity: 0;
-    transition: all .25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
 
     .jm-modal {
         position: fixed;
-        min-width: 450px;
+        width: 80%;
+        min-width: 240px;
         max-width: 660px;
         top: 50%;
         left: 50%;
@@ -25,7 +26,8 @@
                     0 5px 24px 4px rgba(0, 0, 0, .12);
         padding: 24px 24px 6px;
         opacity: 0;
-        transition: all .25s cubic-bezier(0.25, 0.8, 0.25, 1);
+        box-sizing: border-box;
+        transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
         transform: scale(0) translateX(-50%) translateY(-50%);
     }
 
@@ -42,7 +44,7 @@
         font-size: 20px;
         letter-spacing: .005em;
         margin-bottom: 12px;
-        line-height: 40px;
+        line-height: 30px;
     }
 
     .modal-content {
@@ -51,6 +53,7 @@
         line-height: 24px;
         letter-spacing: .01em;
         margin: 12px 0;
+        color: rgba(0,0,0,.54);
     }
 
     .buttons {
@@ -66,7 +69,7 @@
     .jm-button {
         display: inline-block;
         margin: 8px 0;
-        min-width: 200px;
+        min-width: 88px;
         flex-grow: 1;
     }
 
