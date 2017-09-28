@@ -27,7 +27,7 @@ $(function() {
     $('.jm-input').initInput()
 
     $('.show-dialog').on('click', function() {
-        $.showJmModal({
+        $.showJmDialog({
             title: 'Would you like to delete your debt?',
             content: 'All of the banks have agreed to forgive you your debts.',
             cancelButtonText: 'sounds like a scam',
@@ -35,7 +35,7 @@ $(function() {
         })
     })
     $('.show-alert').on('click', function() {
-        $.showJmModal({
+        $.showJmDialog({
             title: 'This is an alert title',
             content: 'You can specify some description text in here.',
             confirmButtonText: 'got it!',

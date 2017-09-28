@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-.jm-modal-wrap {
+.jm-dialog-wrap {
     position: absolute;
     top: -300px;
     left: 0;
@@ -11,7 +11,7 @@
     opacity: 0;
     transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
 
-    .jm-modal {
+    .jm-dialog {
         position: fixed;
         width: 80%;
         min-width: 240px;
@@ -33,13 +33,13 @@
 
     &.show {
         opacity: 1;
-        .jm-modal {
+        .jm-dialog {
             opacity: 1;
             transform: scale(1) translateX(-50%) translateY(-50%);
         }
     }
 
-    .modal-title {
+    .dialog-title {
         font-family: "Roboto Medium";
         font-size: 20px;
         letter-spacing: .005em;
@@ -47,7 +47,7 @@
         line-height: 30px;
     }
 
-    .modal-content {
+    .dialog-content {
         font-family: "Roboto";
         font-size: 16px;
         line-height: 24px;

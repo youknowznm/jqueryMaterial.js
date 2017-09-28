@@ -8,6 +8,14 @@ function execute(commandName, value = null) {
     document.execCommand(commandName, false, value)
 }
 
+// TODO
+function addLink() {
+    var linkURL = prompt('Enter a URL:', 'http://');
+    var sText = getSelection().toString();
+    console.log(sText);
+    document.execCommand('insertHTML', false, `<a href="${linkURL}" target="_blank">${sText}</a>`);
+}
+
 // 命令相关
 const ACTIONS = [
     {
@@ -24,7 +32,7 @@ const ACTIONS = [
     {
         abbr: 'b',
         fullName: 'bold',
-        action: () => execute('bold')
+        action: () => execute('bold'),
     },
     {
         abbr: 'i',
@@ -78,7 +86,7 @@ const ACTIONS = [
     {
         abbr: 'link',
         fullName: 'link',
-        action: () => null,
+        action: () => addLink(),
     },
     {
         abbr: 'image',
@@ -196,7 +204,7 @@ $.fn.extend({
                 }
             })
             // 监听输入事件，立即根据输入内容改变元素高度、检查是否超出字数限制
-            $editArea.on('input', function() {
+            .on('input', function() {
                 responseToContentHeight($editArea)
                 let currentLength = $editArea.text().length
                 $currentLength.html(currentLength)
