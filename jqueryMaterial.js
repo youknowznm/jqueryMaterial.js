@@ -804,18 +804,6 @@ $.fn.extend({
 "use strict";
 
 
-// 使目标元素适应其内容的高度
-function responseToContentHeight($ele) {
-    $ele.height(1).height($ele[0].scrollHeight);
-}
-
-// 执行document.execCommand的相应命令
-function execute(commandName) {
-    var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-
-    document.execCommand(commandName, false, value);
-}
-
 // 命令相关
 var ACTIONS = [{
     abbr: 'undo',
@@ -921,15 +909,29 @@ var ACTIONS = [{
     }
 }];
 
+// 执行document.execCommand的相应命令
+function execute(commandName) {
+    var value = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+    document.execCommand(commandName, false, value);
+}
+
+// 使编辑区适应其内容的高度
+function responseToContentHeight() {
+    var editAreaEle = document.querySelector('.jm-edit-area');
+    editAreaEle.style['height'] = editAreaEle.scrollHeight;
+}
+
 // 移动光标至编辑区的末尾
 // IDEA
 // https://stackoverflow.com/questions/1125292/how-to-move-cursor-to-end-of-contenteditable-entity
-function setEndOfContenteditable(contentEditableElement) {
+function moveCursorToEditAreaEnd() {
+    var editAreaEle = document.querySelector('.jm-edit-area');
     if (!document.createRange) {
         throw new Error('Get a proper browser please.');
     }
     var range = document.createRange();
-    range.selectNodeContents(contentEditableElement);
+    range.selectNodeContents(editAreaEle);
     range.collapse(false);
     var selection = window.getSelection();
     selection.removeAllRanges();
@@ -952,16 +954,15 @@ function addLink() {
         onConfirm: function onConfirm() {
             var selectedText = $('#jm-prompt-input-1').val();
             var linkURL = $('#jm-prompt-input-2').val();
-            setEndOfContenteditable($('.jm-edit-area')[0]);
+            moveCursorToEditAreaEnd();
             document.execCommand('insertHTML', false, '<a href="' + linkURL + '" target="_blank">' + selectedText + '</a>');
-            responseToContentHeight($('.edit-area')[0]);
+            responseToContentHeight();
         }
     });
 }
 
 // 在编辑区末尾插入图片
 function addImage() {
-
     getOriginBase64URL(function (originBase64URL) {
         getCompressedBase64URL(originBase64URL, function (compressedBase64URL) {
             $.showJmDialog({
@@ -974,13 +975,12 @@ function addImage() {
                 }],
                 onConfirm: function onConfirm() {
                     var alt = $('#jm-prompt-input-1').val();
-                    setEndOfContenteditable($('.jm-edit-area')[0]);
-                    document.execCommand('insertHTML', false, '<img src="' + compressedBase64URL + '" alt="" />');
+                    moveCursorToEditAreaEnd();
+                    document.execCommand('insertHTML', false, '<img src="' + compressedBase64URL + '" alt="' + alt + '" />');
                 }
             });
         });
     });
-
     // 触发file input交互，取得目标图片的base64 URL
     function getOriginBase64URL(cb) {
         var $jmRteFileInput = $('<input class="jm-rte-file-input" type="file" accept="image/*" />');
@@ -996,7 +996,6 @@ function addImage() {
         });
         $jmRteFileInput.click();
     }
-
     // 目标图片宽度大于700时，压缩其base64 URL
     function getCompressedBase64URL(originBase64URL, cb) {
         var agentImage = new Image();
@@ -1070,7 +1069,7 @@ $.fn.extend({
         var $currentLength = $rte.find('.current').text($editArea.text().length);
 
         // 初始化编辑器高度
-        responseToContentHeight($editArea);
+        responseToContentHeight();
 
         // 取得相应草稿在localStorage中的键名
         var targetDraftName = 'jmRteDraft-' + id;
@@ -1081,20 +1080,21 @@ $.fn.extend({
             var currentDraft = localStorage.getItem(targetDraftName);
             if (currentDraft !== null) {
                 $.showJmDialog({
+                    dialogType: 'confirm',
                     title: 'A draft was found in local storage.',
                     content: 'Would you like to restore it?',
                     confirmButtonText: 'restore',
                     onConfirm: function onConfirm() {
                         $editArea.html(currentDraft);
-                        responseToContentHeight($editArea);
-                        setEndOfContenteditable($editArea[0]);
+                        responseToContentHeight();
+                        moveCursorToEditAreaEnd();
                     }
                 });
             }
         })
         // 监听输入事件，立即根据输入内容改变元素高度、检查是否超出字数限制
         .on('input', function () {
-            responseToContentHeight($editArea);
+            responseToContentHeight();
             var currentLength = $editArea.text().length;
             $currentLength.html(currentLength);
             $rte.toggleClass('exceeded', currentLength > maxLength);
