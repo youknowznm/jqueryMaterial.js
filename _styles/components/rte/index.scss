@@ -11,7 +11,7 @@
     .actions {
         position: relative;
         width: 100%;
-        height: 40px;
+        height: auto;
         line-height: 40px;
         padding: 0 10px;
         background: #fff;
@@ -135,6 +135,7 @@
     }
 
     .jm-edit-area {
+        clear: both;
         position: relative;
         min-height: 15em;
         margin: 15px 15px 25px;

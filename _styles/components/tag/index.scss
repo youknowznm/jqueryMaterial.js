@@ -5,10 +5,11 @@ $tag-error: rgb(221, 44, 0);
 
 .jm-tag {
     position: relative;
-    padding-top: 26px;
+    padding: 26px 0 30px;
     box-sizing: border-box;
     min-width: 172px;
-    height: 94px;
+    min-height: 94px;
+    height: auto;
     margin: 0 12px;
     text-align: left;
     .jm-tag-content {

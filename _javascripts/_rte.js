@@ -4,17 +4,18 @@ const ACTIONS = [
         abbr: 'undo',
         fullName: 'undo',
         action: () => execute('undo'),
+        followingSeparator: true,
     },
     {
         abbr: 'redo',
         fullName: 'redo',
         action: () => execute('redo'),
-        followedBySeparator: true,
     },
     {
         abbr: 'b',
         fullName: 'bold',
         action: () => execute('bold'),
+        followingSeparator: true,
     },
     {
         abbr: 'i',
@@ -30,13 +31,13 @@ const ACTIONS = [
         abbr: 's',
         fullName: 'strikethrough',
         action: () => execute('strikeThrough'),
-        followedBySeparator: true,
     },
     {
         abbr: 'h',
         fullName: 'header',
         action: () => execute('formatBlock', '<H1>'),
         textContentHTML: 'H<sub>1</sub>',
+        followingSeparator: true,
     },
     {
         abbr: 'p',
@@ -63,12 +64,12 @@ const ACTIONS = [
         abbr: 'ul',
         fullName: 'unordered list',
         action: () => execute('insertUnorderedList'),
-        followedBySeparator: true,
     },
     {
         abbr: 'link',
         fullName: 'link',
         action: () => addLink(),
+        followingSeparator: true,
     },
     {
         abbr: 'image',
@@ -79,12 +80,12 @@ const ACTIONS = [
         abbr: 'hr',
         fullName: 'horizontal line',
         action: () => execute('insertHorizontalRule'),
-        followedBySeparator: true,
     },
     {
         abbr: 'clear',
         fullName: 'clear format',
         action: () => execute('removeFormat'),
+        followingSeparator: true,
     },
 ]
 
@@ -236,12 +237,11 @@ $.fn.extend({
 
         ACTIONS.forEach(function(action) {
             // 已有该行为的对应图标时，使用图标；否则用字符串标识之
-            rteHTML += `
+            rteHTML += `${action.followingSeparator === true ? '<div class="separator"></div>' : ''}
                 <li data-action-abbr="${action.abbr}" class="action show-tooltip">
                     ${action.textContentHTML || '<span class="icon-wrap"><i class="icon"></i></span>'}
                     <p class="jm-tooltip to-show-at-top">${action.fullName}</p>
-                </li>
-                ${action.followedBySeparator === true ? '<div class="separator"></div>' : ''}`
+                </li>`
         })
 
         rteHTML += `</ul>

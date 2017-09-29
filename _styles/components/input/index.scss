@@ -9,9 +9,10 @@ $input-yellow: rgb(255, 235, 59);
     display: inline-block;
     box-sizing: border-box;
     min-width: 172px;
-    height: 94px;
+    min-height: 94px;
+    height: auto;
     margin: 0 12px;
-    padding-top: 26px;
+    padding: 26px 0 30px;
     .jm-input-content {
         position: relative;
         height: 26px;

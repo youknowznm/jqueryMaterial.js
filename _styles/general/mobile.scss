@@ -44,8 +44,11 @@ body#mobile {
         }
     }
 
-    .jm-tag {
-
+    .jm-rte {
+        .separator:nth-of-type(3),
+        .separator:nth-of-type(4) {
+            clear: both;
+        }
     }
 
     .jm-toast {
