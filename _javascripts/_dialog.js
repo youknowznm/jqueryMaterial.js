@@ -37,7 +37,7 @@ $.showJmDialog = function(options) {
                         <h1 class="dialog-title">${title}</h1>
                         <p class="dialog-content">${content}</p>
                         <div class="buttons">
-                            <button id="dialog-confirm" class="jm-button _flat _primary full-width" data-animating="false">
+                            <button id="jm-dialog-confirm" class="jm-button _flat _primary full-width" data-animating="false">
                                 <span class="content">${confirmButtonText}</span>
                                 <div class="ripple-container"><span class="ripple"></span></div>
                             </button>
@@ -52,11 +52,11 @@ $.showJmDialog = function(options) {
                         <h1 class="dialog-title">${title}</h1>
                         <p class="dialog-content">${content}</p>
                         <div class="buttons">
-                            <button id="dialog-cancel" class="jm-button _flat _primary" data-animating="false">
+                            <button id="jm-dialog-cancel" class="jm-button _flat" data-animating="false">
                                 <span class="content">${cancelButtonText}</span>
                                 <div class="ripple-container"><span class="ripple"></span></div>
                             </button>
-                            <button id="dialog-confirm" class="jm-button _flat _primary" data-animating="false">
+                            <button id="jm-dialog-confirm" class="jm-button _flat _primary" data-animating="false">
                                 <span class="content">${confirmButtonText}</span>
                                 <div class="ripple-container"><span class="ripple"></span></div>
                             </button>
@@ -75,18 +75,18 @@ $.showJmDialog = function(options) {
                         <h1 class="dialog-title">${title}</h1>
                         <p class="dialog-content">${content}</p>
                         ${promptDataArr.map((item, index) => {
-                            return `<input id="jm-prompt-${index + 1}"
+                            return `<input id="jm-prompt-input-${index + 1}"
                                            class="prompt-input"
                                            placeholder="${item.name}"
                                            value="${item.value}"
                                            spellcheck="false" />`
                         }).join('')}
                         <div class="buttons">
-                            <button id="dialog-cancel" class="jm-button _flat _primary" data-animating="false">
+                            <button id="jm-dialog-cancel" class="jm-button _flat" data-animating="false">
                                 <span class="content">${cancelButtonText}</span>
                                 <div class="ripple-container"><span class="ripple"></span></div>
                             </button>
-                            <button id="dialog-confirm" class="jm-button _flat _primary" data-animating="false">
+                            <button id="jm-dialog-confirm" class="jm-button _flat _primary" data-animating="false">
                                 <span class="content">${confirmButtonText}</span>
                                 <div class="ripple-container"><span class="ripple"></span></div>
                             </button>
@@ -103,35 +103,61 @@ $.showJmDialog = function(options) {
     $dialog.css('transform-origin', '0 0')
 
     $dialog.on('click', function(evt) {
-        let type = $(evt.target).closest('.jm-button').attr('id')
-        // 未点击二按钮之一时无操作
-        switch (type) {
-            case 'dialog-confirm':
-                onConfirm()
-                break
-            case 'dialog-cancel':
-                onCancel()
-                break
-            default:
-                return
+        let $buttonClicked = $(evt.target).closest('.jm-button')
+        if (!$buttonClicked.is('._disabled')) {
+            let type = $buttonClicked.attr('id')
+            // 未点击二按钮之一时无操作
+            switch (type) {
+                case 'jm-dialog-confirm':
+                    onConfirm()
+                    break
+                case 'jm-dialog-cancel':
+                    onCancel()
+                    break
+                default:
+                    return
+            }
+            $wrap.removeClass('show')
+            setTimeout(function() {
+                $body.removeClass('no-scroll')
+                $wrap.remove()
+            }, 250)
         }
-        $wrap.removeClass('show')
-        setTimeout(function() {
-            $body.removeClass('no-scroll')
-            $wrap.remove()
-        }, 250)
     })
 
-    // esc热键处理。在有取消按钮时点击之；否则点击确认按钮
+    // 热键
     $(window).on('keyup', function(evt) {
-        if ($dialog.length !== 0 && evt.keyCode === 27) {
-            if (dialogType === 'alert') {
-                $('#dialog-confirm').click()
-            } else {
-                $('#dialog-cancel').click()
+        if ($dialog.length !== 0) {
+            // esc - 为alert框时点击确认按钮；否则点击取消按钮
+            if (evt.keyCode === 27) {
+                if (dialogType === 'alert') {
+                    $('#jm-dialog-confirm').click()
+                } else {
+                    $('#jm-dialog-cancel').click()
+                }
+            }
+            //
+            if (evt.keyCode === 13) {
+                $('#jm-dialog-confirm').click()
             }
         }
     })
+
+    // 为propmt框时，只在所有.prompt-input框内容有效时允许点击confirm按钮
+    if (dialogType === 'prompt') {
+        let $confirmButton = $('#jm-dialog-confirm').addClass('_disabled')
+        let $dialogInputs = $('.prompt-input')
+        $dialogInputs.on('input', function() {
+            let allValid = true
+            $dialogInputs.each(function() {
+                if (!/\S/.test($(this).val())) {
+                    allValid = false
+                    return
+                }
+                $confirmButton.toggleClass('_disabled', !allValid)
+            })
+        })
+    }
 
     onDialogReady()
 

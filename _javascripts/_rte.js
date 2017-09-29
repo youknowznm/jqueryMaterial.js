@@ -8,43 +8,6 @@ function execute(commandName, value = null) {
     document.execCommand(commandName, false, value)
 }
 
-// TODO
-function addLink() {
-    $.showJmDialog({
-        dialogType: 'prompt',
-        title: 'Set link attributes.',
-        content: 'Enter the text and URL for target anchor tag.',
-        promptDataArr: [
-            {
-                name: 'Text',
-                value: '',
-            },
-            {
-                name: 'URL',
-                value: 'https://',
-            },
-        ],
-
-
-        },
-        onConfirm() {
-            let linkURL = $('#jm-prompt-1').val().trim()
-            if (linkURL === '') {
-                $.showJmToast({
-                    content: 'That doesn\'t look like a URL.'
-                })
-            } else {
-                console.log(document.execCommand(
-                    'insertHTML',
-                    false,
-                    `<a href="${linkURL}" target="_blank">${selectedText}</a>`
-                ))
-            }
-        },
-
-    })
-}
-
 // 命令相关
 const ACTIONS = [
     {
@@ -120,7 +83,7 @@ const ACTIONS = [
     {
         abbr: 'image',
         fullName: 'image',
-        action: () => null,
+        action: () => addImage(),
     },
     {
         abbr: 'hr',
@@ -148,6 +111,40 @@ function setEndOfContenteditable(contentEditableElement) {
     let selection = window.getSelection()
     selection.removeAllRanges()
     selection.addRange(range)
+}
+
+// 在编辑区末尾插入链接
+function addLink() {
+    $.showJmDialog({
+        dialogType: 'prompt',
+        title: 'Set link attributes.',
+        content: 'Enter the text and URL for target anchor tag.',
+        promptDataArr: [
+            {
+                name: 'Text',
+                value: '',
+            },
+            {
+                name: 'URL',
+                value: 'https://',
+            },
+        ],
+        onConfirm() {
+            let selectedText = $('#jm-prompt-input-1').val()
+            let linkURL = $('#jm-prompt-input-2').val()
+            setEndOfContenteditable($('.jm-edit-area')[0])
+            document.execCommand(
+                'insertHTML',
+                false,
+                `<a href="${linkURL}" target="_blank">${selectedText}</a>`
+            )
+        },
+    })
+}
+
+// 在编辑区末尾插入图片
+function addImage() {
+
 }
 
 $.fn.extend({
@@ -186,7 +183,7 @@ $.fn.extend({
         })
 
         rteHTML += `</ul>
-            <div maxlength="10" class="edit-area jm-article" contenteditable="true" spellcheck="false">${contentHTML}</div>
+            <div maxlength="10" class="jm-edit-area jm-article" contenteditable="true" spellcheck="false">${contentHTML}</div>
             <p class="char-counter"><span class="current">0</span>/<span class="maximum">${maxLength}</span></p>`
 
         $rte
@@ -206,7 +203,7 @@ $.fn.extend({
                 actionObj.action()
             })
 
-        let $editArea = $('.edit-area')
+        let $editArea = $('.jm-edit-area')
         let $currentLength = $rte.find('.current').text($editArea.text().length)
 
         // 初始化编辑器高度

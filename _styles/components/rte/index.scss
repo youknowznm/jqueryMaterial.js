@@ -134,7 +134,7 @@
         }
     }
 
-    .edit-area {
+    .jm-edit-area {
         position: relative;
         min-height: 15em;
         margin: 15px 15px 25px;
@@ -194,7 +194,7 @@
         .char-counter {
             color: rgb(221, 44, 0) !important;
         }
-        .edit-area {
+        .jm-edit-area {
             color: rgb(221, 44, 0) !important;
             &:after,
             &:before {

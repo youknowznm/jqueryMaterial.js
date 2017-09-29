@@ -1,41 +1,41 @@
 $.fn.extend({
-    /**
-    生成 design.google.com 旧站风格的header
-    https://web.archive.org/web/20170516175305/https://design.google.com
-    @param options {Object}
-        - siteNameWords {Array.<String>} 站名的单词组成的数组，以'·'和'¬'分隔
-        - navContents {Array.<String>} 导航按钮的名称数组
-        - activeNavIndex {?Number} 当前活动的导航按钮索引。不提供时为0
-    */
-    initHeader(options) {
-
-        const COLOR_PALLETE = [
-            'silver',
-            'gray',
-            'yellow',
-            'red',
-            'blue',
-            'green',
-        ]
-
-        this.each(function() {
-
-            let {siteNameWords, navContents, activeNavIndex = 0} = options
-
-            /*
-            参数检查
+            /**
+            生成 design.google.com 旧站风格的header
+            https://web.archive.org/web/20170516175305/https://design.google.com
+            @param options {Object}
+                - siteNameWords {Array.<String>} 站名的单词组成的数组，以'·'和'¬'分隔
+                - navContents {Array.<String>} 导航按钮的名称数组
+                - activeNavIndex {?Number} 当前活动的导航按钮索引。不提供时为0
             */
-            if (typeof siteNameWords[0] !== 'string') {
-                throw new TypeError('Expecting parameter "siteNameWords" as {Array.<String>}')
-            }
-            if (typeof navContents[0] !== 'string') {
-                throw new TypeError('Expecting parameter "navContents" as {Array.<String>}')
-            }
+            initHeader(options) {
 
-            /*
-            初始化
-            */
-            let jmHeaderHTML = `
+                const COLOR_PALLETE = [
+                    'silver',
+                    'gray',
+                    'yellow',
+                    'red',
+                    'blue',
+                    'green',
+                ]
+
+                this.each(function() {
+
+                            let { siteNameWords, navContents, activeNavIndex = 0 } = options
+
+                            /*
+                            参数检查
+                            */
+                            if (typeof siteNameWords[0] !== 'string') {
+                                throw new TypeError('Expecting parameter "siteNameWords" as {Array.<String>}')
+                            }
+                            if (typeof navContents[0] !== 'string') {
+                                throw new TypeError('Expecting parameter "navContents" as {Array.<String>}')
+                            }
+
+                            /*
+                            初始化
+                            */
+                            let jmHeaderHTML = `
             <div class="jm-header-wrap-without-shadow">
                 <div class="jm-header-content jm-responsive-wrap">
                     <nav class="jm-nav">
