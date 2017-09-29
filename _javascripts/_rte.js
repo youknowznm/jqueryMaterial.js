@@ -52,7 +52,7 @@ const ACTIONS = [
         abbr: 'p',
         fullName: 'paragraph',
         action: () => execute('formatBlock', '<P>'),
-        textContentHTML: '&#182;',
+        textContentHTML: '&#182',
     },
     {
         abbr: 'q',
@@ -118,7 +118,7 @@ function addLink() {
     $.showJmDialog({
         dialogType: 'prompt',
         title: 'Set link attributes.',
-        content: 'Enter the text and URL for target anchor tag.',
+        content: 'Enter the text and URL for target <a> tag.',
         promptDataArr: [
             {
                 name: 'Text',
@@ -138,6 +138,7 @@ function addLink() {
                 false,
                 `<a href="${linkURL}" target="_blank">${selectedText}</a>`
             )
+            responseToContentHeight($('.edit-area')[0])
         },
     })
 }
@@ -145,6 +146,68 @@ function addLink() {
 // 在编辑区末尾插入图片
 function addImage() {
 
+    getOriginBase64URL(function(originBase64URL) {
+        getCompressedBase64URL(originBase64URL, function(compressedBase64URL) {
+            $.showJmDialog({
+                dialogType: 'prompt',
+                title: 'Set image attribute.',
+                content: 'Enter the alternative text for target <img> tag.',
+                promptDataArr: [
+                    {
+                        name: 'Alternative Text',
+                        value: '',
+                    },
+                ],
+                onConfirm() {
+                    let alt = $('#jm-prompt-input-1').val()
+                    setEndOfContenteditable($('.jm-edit-area')[0])
+                    document.execCommand(
+                        'insertHTML',
+                        false,
+                        `<img src="${compressedBase64URL}" alt="" />`
+                    )
+                },
+            })
+        })
+    })
+
+    // 触发file input交互，取得目标图片的base64 URL
+    function getOriginBase64URL(cb) {
+        let $jmRteFileInput = $('<input class="jm-rte-file-input" type="file" accept="image/*" />')
+        $('body').append($jmRteFileInput)
+        $jmRteFileInput.on('change', function() {
+            let selectedImage = $jmRteFileInput[0].files[0]
+            let reader = new FileReader()
+            reader.onload = function(e) {
+                $jmRteFileInput.remove()
+                cb(e.target.result)
+            }
+            reader.readAsDataURL(selectedImage)
+        })
+        $jmRteFileInput.click()
+    }
+
+    // 目标图片宽度大于700时，压缩其base64 URL
+    function getCompressedBase64URL(originBase64URL, cb) {
+        let agentImage = new Image()
+        agentImage.src = originBase64URL
+        agentImage.onload = function() {
+            let originWidth = this.width
+            if (originWidth > 700) {
+                let originHeight = this.height
+                let scale = originWidth / originHeight
+                let agentCanvas = document.createElement('canvas')
+                agentCanvas.setAttribute('width',  700)
+                agentCanvas.setAttribute('height', 700 * scale)
+                let ctx = agentCanvas.getContext('2d')
+                ctx.drawImage(this, 0, 0, 700, 700 * scale)
+                let compressedBase64URL = agentCanvas.toDataURL('image/jpeg')
+                cb(compressedBase64URL)
+            } else {
+                cb(originBase64URL)
+            }
+        }
+    }
 }
 
 $.fn.extend({
