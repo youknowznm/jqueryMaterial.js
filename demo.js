@@ -102,7 +102,7 @@ $(function() {
     })
 
     $('.to-input').click(function() {
-        $('._email-input-label').jmScrollInto()
+        $('.email-input-label').jmScrollInto()
     })
 
     $('.jm-rte').initRte({
@@ -115,6 +115,11 @@ $(function() {
             content: 'This is a sample toast.'
         })
     })
+
+    setTimeout(function() {
+        $('.jm-radio').jmScrollInto()
+    }, 800)
+
 
 
 })

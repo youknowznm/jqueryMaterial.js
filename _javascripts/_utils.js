@@ -46,7 +46,7 @@ $.fn.extend({
     @param amendment {?Number} 滚动高度的修正像素数。不提供时为.jm-header元素的实际高度
     */
     jmScrollInto(cb, amendment) {
-        let $ele = $(this)
+        let $target = $(this)
         let _body = document.documentElement
         let jmHeaderHeight = $('.jm-header').height()
 
@@ -54,9 +54,9 @@ $.fn.extend({
         let _amendment = (typeof amendment === 'number') ? amendment : jmHeaderHeight
 
         // // 目标元素为body时，目标高度再减12，即.jm-shadow的高度
-        _amendment = $ele.is('body') ? (jmHeaderHeight - 12) : _amendment
+        _amendment = $target.is('body') ? (jmHeaderHeight - 12) : _amendment
 
-        let targetBodyScrollTop = $ele.offset().top - _amendment
+        let targetBodyScrollTop = $target.offset().top - _amendment
         let tId = setInterval(function() {
             let currentBodyScrollTop = _body.scrollTop
             let diff = targetBodyScrollTop - currentBodyScrollTop
