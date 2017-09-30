@@ -8,10 +8,8 @@
 .jm-article {
     text-align: left;
     font-family: "Roboto";
-    color: rgba(0, 0, 0, .87);
-    font-size: 14px;
-    line-height: 20px;
-    margin: 4px 0 16px;
+    font-size: 14px !important;
+    line-height: 20px !important;
     b {
         font-weight: 500;
     }
@@ -43,6 +41,7 @@
         //     content: '¬';
         // }
     }
+    div,
     p {
         font-family: "Roboto";
         color: rgba(0, 0, 0, .87);
@@ -69,7 +68,7 @@
         background-color: rgb(242, 242, 242);
         padding: 8px 12px;
         margin-bottom: 30px;
-        overflow-x: scroll;
+        overflow-x: auto;
     }
     li {
         font-size: 14px;
@@ -89,16 +88,12 @@
             list-style-type: decimal;
         }
     }
-    // li ol > li {
-    //     list-style-type: lower-alpha;
-    // }
-    // li ul > li {
-    //     list-style-type: circle;
-    // }
     a {
         color: #039be5;
+        margin: 0 .3em;
     }
     img {
         display: block;
+        margin: 30px auto;
     }
 }

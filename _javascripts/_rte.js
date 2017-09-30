@@ -253,7 +253,7 @@ $.fn.extend({
         })
 
         rteHTML += `</ul>
-            <div maxlength="10" class="jm-edit-area jm-article" contenteditable="true" spellcheck="false">${contentHTML}</div>
+            <article maxlength="10" class="jm-edit-area jm-article" contenteditable="true" spellcheck="false">${contentHTML}</article>
             <p class="char-counter"><span class="current">0</span>/<span class="maximum">${maxLength}</span></p>`
 
         $rte
@@ -285,6 +285,9 @@ $.fn.extend({
         $editArea
             // 编辑区首次获得焦点时，检查localStorage中是否有草稿
             .one('focus', function() {
+                // if (contentHTML === '') {
+                //     execute('formatBlock', '<P>')
+                // }
                 let currentDraft = localStorage.getItem(targetDraftName)
                 if (currentDraft !== null) {
                     $.showJmDialog({
