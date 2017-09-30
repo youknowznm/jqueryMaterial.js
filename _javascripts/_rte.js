@@ -3,7 +3,7 @@ const ACTIONS = [
     {
         abbr: 'undo',
         fullName: 'undo',
-        action: () => execute('undo'),
+        action: () => execute('indent'),
         followingSeparator: true,
     },
     {
@@ -33,6 +33,13 @@ const ACTIONS = [
         action: () => execute('strikeThrough'),
     },
     {
+        // IDEA
+        abbr: 'hl',
+        fullName: 'highlight',
+        action: () => highlightSpan(),
+        followingSeparator: true,
+    },
+    {
         abbr: 'h',
         fullName: 'header',
         action: () => execute('formatBlock', '<H1>'),
@@ -56,14 +63,14 @@ const ACTIONS = [
         action: () => execute('formatBlock', '<PRE>'),
     },
     {
-        abbr: 'ol',
-        fullName: 'ordered list',
-        action: () => execute('insertOrderedList'),
-    },
-    {
         abbr: 'ul',
         fullName: 'unordered list',
         action: () => execute('insertUnorderedList'),
+    },
+    {
+        abbr: 'ol',
+        fullName: 'ordered list',
+        action: () => execute('insertOrderedList'),
     },
     {
         abbr: 'link',
@@ -81,6 +88,7 @@ const ACTIONS = [
         fullName: 'horizontal line',
         action: () => execute('insertHorizontalRule'),
     },
+
     {
         abbr: 'clear',
         fullName: 'clear format',
@@ -116,6 +124,14 @@ function moveCursorToEditAreaEnd() {
     selection.addRange(range)
 }
 
+// 将当前选中内容包装在<code>标签内。无选择内容时不操作
+function highlightSpan() {
+    let selectedText = document.getSelection().toString()
+    if (/\S/.test(selectedText)) {
+        execute('insertHTML', `<code>${selectedText}</code>`)
+    }
+}
+
 // 在编辑区末尾插入链接
 function addLink() {
     $.showJmDialog({
@@ -133,14 +149,10 @@ function addLink() {
             },
         ],
         onConfirm() {
-            let selectedText = $('#jm-prompt-input-1').val()
-            let linkURL = $('#jm-prompt-input-2').val()
+            let anchorText = $('#jm-prompt-input-1').val()
+            let anchorURL = $('#jm-prompt-input-2').val()
             moveCursorToEditAreaEnd()
-            document.execCommand(
-                'insertHTML',
-                false,
-                `<a href="${linkURL}" target="_blank">${selectedText}</a>`
-            )
+            execute('insertHTML', `<a href="${anchorURL}" target="_blank">${anchorText}</a>`)
             responseToContentHeight()
         },
     })
@@ -163,11 +175,7 @@ function addImage() {
                 onConfirm() {
                     let alt = $('#jm-prompt-input-1').val()
                     moveCursorToEditAreaEnd()
-                    document.execCommand(
-                        'insertHTML',
-                        false,
-                        `<img src="${compressedBase64URL}" alt="${alt}" />`
-                    )
+                    execute('insertHTML', `<img src="${compressedBase64URL}" alt="${alt}" />`)
                 },
             })
         })

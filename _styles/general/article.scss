@@ -12,12 +12,25 @@
     font-size: 14px;
     line-height: 20px;
     margin: 4px 0 16px;
-    p {
-        font-family: "Roboto";
-        color: rgba(0, 0, 0, .87);
-        font-size: 14px;
-        line-height: 20px;
-        margin: 4px 0 16px;
+    b {
+        font-weight: 500;
+    }
+    i {
+
+    }
+    u {
+        text-decoration: none;
+        border-bottom: .15em solid rgba(0, 0, 0, .87);
+        padding-bottom: .1em;
+    }
+    strike {
+        text-decoration: strike-through;
+    }
+    code {
+        background-color: rgba(0, 0, 0, .1);
+        font-family: "Roboto Mono";
+        margin: 0 .3em;
+        padding: 0 .3em;
     }
     h1 {
         font-family: "Roboto Mono";
@@ -30,8 +43,12 @@
         //     content: '¬';
         // }
     }
-    b {
-        font-weight: 500;
+    p {
+        font-family: "Roboto";
+        color: rgba(0, 0, 0, .87);
+        font-size: 14px;
+        line-height: 20px;
+        margin: 4px 0 16px;
     }
     blockquote {
         border-left: 4px solid rgb(207, 216, 230);
@@ -43,49 +60,43 @@
         line-height: 20px;
         margin: 4px 0 16px;
     }
-
+    pre {
+        width: auto;
+        color: #000;
+        font-family: 'Roboto Mono';
+        font-size: 12px;
+        line-height: 20px;
+        background-color: rgb(242, 242, 242);
+        padding: 8px 12px;
+        margin-bottom: 30px;
+        overflow-x: scroll;
+    }
     li {
-        margin: 8px 0;
-        list-style-position: outside;
+        font-size: 14px;
+        font-family: "Roboto";
     }
     ul {
-        padding-left: 40px;
+        padding-left: 18px;
+        box-sizing: border-box;
         li {
             list-style-type: disc;
         }
     }
     ol {
-        padding-left: 40px;
+        padding-left: 18px;
+        box-sizing: border-box;
         li {
             list-style-type: decimal;
         }
     }
-    li ol > li {
-        list-style-type: lower-alpha;
-    }
-    li ul > li {
-        list-style-type: circle;
-    }
+    // li ol > li {
+    //     list-style-type: lower-alpha;
+    // }
+    // li ul > li {
+    //     list-style-type: circle;
+    // }
     a {
         color: #039be5;
-    }
-    code {
-        color: #37474f;
-        font-family: 'Roboto Mono';
-        font-size: 14px;
-        line-height: 14px;
-        background-color: #f7f7f7;
-        padding: 0 4px;
-    }
-    pre {
-        display: block;
-        padding: 8px;
-        margin: 16px 0;
-        background-color: #f7f7f7;
-        overflow-x: auto;
-        code {
-            font-weight: normal;
-        }
     }
     img {
         display: block;
