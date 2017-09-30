@@ -120,6 +120,8 @@ $(function() {
         $('.jm-radio').jmScrollInto()
     }, 800)
 
-
+    // $('body').on('keyup', function(e) {
+    //     console.log(e);
+    // })
 
 })

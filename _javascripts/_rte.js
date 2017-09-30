@@ -3,7 +3,7 @@ const ACTIONS = [
     {
         abbr: 'undo',
         fullName: 'undo',
-        action: () => execute('indent'),
+        action: () => execute('bold'),
         followingSeparator: true,
     },
     {
@@ -316,5 +316,17 @@ $.fn.extend({
                     }
                 }, 500)
             )
+            // IDEA tab的效果在down时产生
+            // tab和shift+tab监听
+            .on('keydown', function(e) {
+                if (e.keyCode === 9) {
+                    e.preventDefault()
+                    if (e.shiftKey !== true) {
+                        execute('indent')
+                    } else {
+                        execute('outdent')
+                    }
+                }
+            })
     }
 })
