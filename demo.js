@@ -4,7 +4,7 @@ $(function() {
 
     $('.jm-header').initHeader({
         siteNameWords,
-        navContents: ['posts', 'products', 'messages', 'about'],
+        navContents: ['articles', 'resources', 'events', 'jobs', 'news', 'about'],
     })
 
     $('.jm-footer').initFooter({
@@ -115,13 +115,5 @@ $(function() {
             content: 'This is a sample toast.'
         })
     })
-
-    setTimeout(function() {
-        $('.jm-radio').jmScrollInto()
-    }, 800)
-
-    // $('body').on('keyup', function(e) {
-    //     console.log(e);
-    // })
 
 })

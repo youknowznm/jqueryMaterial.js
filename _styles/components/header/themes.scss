@@ -3,7 +3,6 @@
 /*
 配色
 */
-
 $jm-header-colors: (
     rgb(241, 243, 244), //silver
     rgb(60, 90, 100), //gray
@@ -19,7 +18,7 @@ $gen-colors: (
     white: #fff,
     light-silver: #99A9BF,
 );
-.jm-header-wrap-without-shadow {
+.jm-header {
     &[data-theme=silver] nav,
     &[data-theme=silver] {
         background-color: nth($jm-header-colors, 1);

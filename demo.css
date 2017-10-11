@@ -1,3 +1,6 @@
+.jm-main-wrap {
+    padding-top: 18px !important;
+}
 .jm-button.android .icon {
     background: url("./_images/ic_android.png") no-repeat 0 0;
 }

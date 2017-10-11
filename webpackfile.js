@@ -65,5 +65,6 @@ module.exports = {
         //         warnings: true,
         //     },
         // }),
+        // extractSass,
     ]
 }
