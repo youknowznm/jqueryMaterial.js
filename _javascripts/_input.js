@@ -3,6 +3,7 @@ $.fn.extend({
     生成 angular material 风格的text input元素
     https://material.angularjs.org/latest/demo/input
     目标元素可配置的属性：
+        - data-type 输入框类型。可为text、password等，不提供时为'text'
         - data-label 输入框标题。不提供时从'Input 1'开始计数
         - data-value 实际内容文字。不提供时为''
         - data-maxLength 最大字符数。不提供时为20
@@ -18,6 +19,7 @@ $.fn.extend({
 
             let $input = $(this)
 
+            let type = $input.data('type') || `text`
             let label = $input.data('label') || `Input ${inputEleCounter}`
             let value = $input.data('value') || ''
             let maxLength = $input.data('maxLength') || 20
@@ -28,7 +30,7 @@ $.fn.extend({
             let inputHTML = `
                 <div class="jm-input-content">
                     <label class="placeholder" for="jm-input-${inputEleCounter}">${label}</label>
-                    <input id="jm-input-${inputEleCounter}" class="_input" maxlength="${maxLength}" value="${value}" spellcheck="false" />
+                    <input id="jm-input-${inputEleCounter}" class="_input" type="${type}" maxlength="${maxLength}" value="${value}" spellcheck="false" />
                     <p class="error">${errorMsg}</p>
                     <p class="char-counter">
                         <span class="current"></span>/<span class="maximum"></span>

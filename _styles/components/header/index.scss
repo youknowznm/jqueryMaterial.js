@@ -21,7 +21,7 @@ z-index 计数
     user-select: none;
     z-index: 101;
     transition: all .3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    box-shadow: 0 6px 12px 0 #999;
+    box-shadow: 0 6px 12px 0 rgba(#000, .4);
     li, a {
         color: map-get($gen-colors, white);
     }
