@@ -8,11 +8,11 @@ https://web.archive.org/web/20170516175305/https://design.google.com
 */
 
 const COLOR_PALLETE = [
-    'silver',
     'gray',
+    'silver',
+    'blue',
     'yellow',
     'red',
-    'blue',
     'green',
 ]
 
@@ -208,12 +208,11 @@ $.fn.extend({
 
             function changeColorTheme($ele) {
                 let colorCount = COLOR_PALLETE.length
-                let colorIndex = $buttons.index($ele) % (colorCount - 1)
+                let colorIndex = $buttons.index($ele) % colorCount
+                console.log(colorIndex);
                 $fullHeader.attr('data-theme', COLOR_PALLETE[colorIndex])
             }
 
         })
-
-
     }
 })
