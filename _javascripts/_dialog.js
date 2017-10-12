@@ -32,7 +32,7 @@ $.showJmDialog = function(options) {
     switch (dialogType) {
         case 'alert':
             jmDialogHTML = `
-                <div class="jm-dialog-wrap">
+                <div class="jm-dialog-wrap" id="jm-dialog-removable">
                     <div class="jm-dialog">
                         <h1 class="dialog-title">${title}</h1>
                         <p class="dialog-content">${content}</p>
@@ -47,7 +47,7 @@ $.showJmDialog = function(options) {
             break;
         case 'confirm':
             jmDialogHTML = `
-                <div class="jm-dialog-wrap">
+                <div class="jm-dialog-wrap" id="jm-dialog-removable">
                     <div class="jm-dialog">
                         <h1 class="dialog-title">${title}</h1>
                         <p class="dialog-content">${content}</p>
@@ -70,7 +70,7 @@ $.showJmDialog = function(options) {
                 throw new TypeError('Expecting parameter "options.promptDataArr" as {Array.<Object>}')
             }
             jmDialogHTML = `
-                <div class="jm-dialog-wrap">
+                <div class="jm-dialog-wrap" id="jm-dialog-removable">
                     <div class="jm-dialog">
                         <h1 class="dialog-title">${title}</h1>
                         <p class="dialog-content">${content}</p>
@@ -96,7 +96,7 @@ $.showJmDialog = function(options) {
     }
 
     let $body = $('body').append($(jmDialogHTML))
-    let $wrap = $('.jm-dialog-wrap')
+    let $wrap = $('#jm-dialog-removable')
     let $dialog = $wrap.children('.jm-dialog')
 
     $body.addClass('no-scroll')

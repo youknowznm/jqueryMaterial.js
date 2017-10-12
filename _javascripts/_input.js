@@ -49,11 +49,6 @@ $.fn.extend({
             let maxCharCount = $_input.attr('maxLength')
             $input.find('.current').text(currentCharCount)
             $input.find('.maximum').text(maxCharCount)
-            // ‘未点击’状态的标识。在输入框产生初次blur后修改
-            $input.data('edited', false)
-            $_input.one('blur', function() {
-                $input.data('edited', true)
-            })
 
             $_input
                 .on('focus', function() {
@@ -69,18 +64,15 @@ $.fn.extend({
                     $wrap.toggleClass('non-empty', $this.val() !== '')
                     validate(this)
                 })
-                .on('keyup', function() {
+                .on('input', function() {
                     validate(this)
                 })
 
             function validate(inputEle) {
                 let $this = $(inputEle)
                 let $wrap = $this.parents('.jm-input')
-                // 若edited为true，进行正则验证
-                if ($wrap.data('edited') === true) {
-                    let regExp = new RegExp(regExpStr)
-                    $wrap.toggleClass('invalid', !regExp.test($this.val()))
-                }
+                let regExp = new RegExp(regExpStr)
+                $wrap.toggleClass('invalid', !regExp.test($this.val()))
                 // 字数验证
                 let currentCount = $this.val().length
                 let currentCharCounter = $wrap.find('.current')

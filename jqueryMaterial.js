@@ -299,23 +299,23 @@ $.showJmDialog = function (options) {
 
     switch (dialogType) {
         case 'alert':
-            jmDialogHTML = '\n                <div class="jm-dialog-wrap">\n                    <div class="jm-dialog">\n                        <h1 class="dialog-title">' + title + '</h1>\n                        <p class="dialog-content">' + content + '</p>\n                        <div class="buttons">\n                            <button id="jm-dialog-confirm" class="jm-button _flat _primary full-width" data-animating="false">\n                                <span class="content">' + confirmButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                         </div>\n                    </div>\n                </div>';
+            jmDialogHTML = '\n                <div class="jm-dialog-wrap" id="jm-dialog-removable">\n                    <div class="jm-dialog">\n                        <h1 class="dialog-title">' + title + '</h1>\n                        <p class="dialog-content">' + content + '</p>\n                        <div class="buttons">\n                            <button id="jm-dialog-confirm" class="jm-button _flat _primary full-width" data-animating="false">\n                                <span class="content">' + confirmButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                         </div>\n                    </div>\n                </div>';
             break;
         case 'confirm':
-            jmDialogHTML = '\n                <div class="jm-dialog-wrap">\n                    <div class="jm-dialog">\n                        <h1 class="dialog-title">' + title + '</h1>\n                        <p class="dialog-content">' + content + '</p>\n                        <div class="buttons">\n                            <button id="jm-dialog-cancel" class="jm-button _flat" data-animating="false">\n                                <span class="content">' + cancelButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                            <button id="jm-dialog-confirm" class="jm-button _flat _primary" data-animating="false">\n                                <span class="content">' + confirmButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                         </div>\n                    </div>\n                </div>';
+            jmDialogHTML = '\n                <div class="jm-dialog-wrap" id="jm-dialog-removable">\n                    <div class="jm-dialog">\n                        <h1 class="dialog-title">' + title + '</h1>\n                        <p class="dialog-content">' + content + '</p>\n                        <div class="buttons">\n                            <button id="jm-dialog-cancel" class="jm-button _flat" data-animating="false">\n                                <span class="content">' + cancelButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                            <button id="jm-dialog-confirm" class="jm-button _flat _primary" data-animating="false">\n                                <span class="content">' + confirmButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                         </div>\n                    </div>\n                </div>';
             break;
         case 'prompt':
             // 选择了prompt类型但未提供promptDataArr数组时抛出
             if (!Array.isArray(promptDataArr)) {
                 throw new TypeError('Expecting parameter "options.promptDataArr" as {Array.<Object>}');
             }
-            jmDialogHTML = '\n                <div class="jm-dialog-wrap">\n                    <div class="jm-dialog">\n                        <h1 class="dialog-title">' + title + '</h1>\n                        <p class="dialog-content">' + content + '</p>\n                        ' + promptDataArr.map(function (item, index) {
+            jmDialogHTML = '\n                <div class="jm-dialog-wrap" id="jm-dialog-removable">\n                    <div class="jm-dialog">\n                        <h1 class="dialog-title">' + title + '</h1>\n                        <p class="dialog-content">' + content + '</p>\n                        ' + promptDataArr.map(function (item, index) {
                 return '<input id="jm-prompt-input-' + (index + 1) + '"\n                                           class="prompt-input"\n                                           placeholder="' + item.name + '"\n                                           value="' + item.value + '"\n                                           spellcheck="false" />';
             }).join('') + '\n                        <div class="buttons">\n                            <button id="jm-dialog-cancel" class="jm-button _flat" data-animating="false">\n                                <span class="content">' + cancelButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                            <button id="jm-dialog-confirm" class="jm-button _flat _primary" data-animating="false">\n                                <span class="content">' + confirmButtonText + '</span>\n                                <div class="ripple-container"><span class="ripple"></span></div>\n                            </button>\n                         </div>\n                    </div>\n                </div>';
     }
 
     var $body = $('body').append($(jmDialogHTML));
-    var $wrap = $('.jm-dialog-wrap');
+    var $wrap = $('#jm-dialog-removable');
     var $dialog = $wrap.children('.jm-dialog');
 
     $body.addClass('no-scroll');
@@ -694,11 +694,6 @@ $.fn.extend({
             var maxCharCount = $_input.attr('maxLength');
             $input.find('.current').text(currentCharCount);
             $input.find('.maximum').text(maxCharCount);
-            // ‘未点击’状态的标识。在输入框产生初次blur后修改
-            $input.data('edited', false);
-            $_input.one('blur', function () {
-                $input.data('edited', true);
-            });
 
             $_input.on('focus', function () {
                 var $this = $(this);
@@ -711,18 +706,15 @@ $.fn.extend({
                 $wrap.removeClass('focused');
                 $wrap.toggleClass('non-empty', $this.val() !== '');
                 validate(this);
-            }).on('keyup', function () {
+            }).on('input', function () {
                 validate(this);
             });
 
             function validate(inputEle) {
                 var $this = $(inputEle);
                 var $wrap = $this.parents('.jm-input');
-                // 若edited为true，进行正则验证
-                if ($wrap.data('edited') === true) {
-                    var regExp = new RegExp(regExpStr);
-                    $wrap.toggleClass('invalid', !regExp.test($this.val()));
-                }
+                var regExp = new RegExp(regExpStr);
+                $wrap.toggleClass('invalid', !regExp.test($this.val()));
                 // 字数验证
                 var currentCount = $this.val().length;
                 var currentCharCounter = $wrap.find('.current');
