@@ -140,7 +140,7 @@ $jm-button-warn: rgb(255, 82, 82);
         }
     }
     &._disabled {
-        background-color: rgba(0, 0, 0, .12) !important;
+        background-color: rgb(217, 217, 217) !important;
         color: rgba(0, 0, 0, .38) !important;
         box-shadow: none !important;
         cursor: default !important;
