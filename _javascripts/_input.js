@@ -28,7 +28,7 @@ $.fn.extend({
             let errorMsg = $input.data('errorMsg') || 'Validation failed.'
             let theme = $input.data('theme') || 'light'
             let disabled = $input.data('status') === 'disabled' ? 'disabled' : ''
-            console.log(disabled);
+
             let inputHTML = `
                 <div class="jm-input-content">
                     <label class="placeholder" for="jm-input-${inputEleCounter}">${label}</label>
