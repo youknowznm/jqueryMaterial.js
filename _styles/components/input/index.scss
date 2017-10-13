@@ -54,7 +54,6 @@ $input-yellow: rgb(255, 235, 59);
             top: 5px;
             left: 3px;
             transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            text-transform: capitalize;
             // IDEA: 这里如果不显式设置 transform-origin 从左侧开始，就需要针对每个元素再进行 transform: translateX() 的改变。origin 这个属性，真屌！
             transform-origin: left;
         }

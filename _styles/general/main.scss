@@ -39,14 +39,11 @@ body {
             width: 800px;
             // min-width: 970px;
         }
-        @media (min-width: 1280px) and (max-width: 1600px) {
-            width: 1280px;
-        }
-        @media (min-width: 1600px) and (max-width: 1900px) {
-            width: 1440px;
+        @media (min-width: 1280px) and (max-width: 1900px) {
+            width: 1200px;
         }
         @media (min-width: 1900px) {
-            width: 1680px;
+            width: 1440px;
         }
     }
     &.no-scroll {

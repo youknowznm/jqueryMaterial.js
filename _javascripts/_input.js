@@ -10,6 +10,7 @@ $.fn.extend({
         - data-validator 验证内容的正则。不提供时为'.*'
         - data-errorMsg 内容未通过正则验证时的提示。不提供时为'Validation failed.'
         - data-theme 主题配色。可为'dark'或'light'，不提供时为'light'
+        - data-status 是否禁用输入框。值为'disabled'时禁用，否则为可用
     */
     initInput(options) {
 
@@ -26,11 +27,12 @@ $.fn.extend({
             let regExpStr = $input.data('validator') || '.*'
             let errorMsg = $input.data('errorMsg') || 'Validation failed.'
             let theme = $input.data('theme') || 'light'
-
+            let disabled = $input.data('status') === 'disabled' ? 'disabled' : ''
+            console.log(disabled);
             let inputHTML = `
                 <div class="jm-input-content">
                     <label class="placeholder" for="jm-input-${inputEleCounter}">${label}</label>
-                    <input id="jm-input-${inputEleCounter}" class="_input" type="${type}" maxlength="${maxLength}" value="${value}" spellcheck="false" />
+                    <input id="jm-input-${inputEleCounter}" class="_input" type="${type}" maxlength="${maxLength}" value="${value}" ${disabled} spellcheck="false" />
                     <p class="error">${errorMsg}</p>
                     <p class="char-counter">
                         <span class="current"></span>/<span class="maximum"></span>

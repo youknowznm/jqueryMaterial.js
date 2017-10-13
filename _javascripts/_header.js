@@ -209,7 +209,6 @@ $.fn.extend({
             function changeColorTheme($ele) {
                 let colorCount = COLOR_PALLETE.length
                 let colorIndex = $buttons.index($ele) % colorCount
-                console.log(colorIndex);
                 $fullHeader.attr('data-theme', COLOR_PALLETE[colorIndex])
             }
 
