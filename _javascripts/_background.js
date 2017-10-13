@@ -16,20 +16,15 @@ $.fn.extend({
             _colorPalette = [
                 ['#F44336', '#D32F2F'], // red
                 ['#E91E63', '#C2185B'], // pink
-                ['#9C27B0', '#7B1FA2'], // purple
-
-                ['#673AB7', '#512DA8'], // deep purple
+                ['#673AB7', '#512DA8'], // purple
                 ['#3F51B5', '#303F9F'], // indigo
-                ['#2196F3', '#1976D2'], // blue
 
-                ['#039BE5', '#0277BD'], // light blue
+                ['#2196F3', '#1976D2'], // blue
                 ['#0097A7', '#006064'], // cyan
                 ['#009688', '#00796B'], // teal
-
                 ['#43A047', '#2E7D32'], // green
-                ['#689F38', '#33691E'], // light green
-                ['#AFB42B', '#827717'], // lime
 
+                ['#AFB42B', '#827717'], // lime
                 ['#FF5722', '#E64A19'], // orange
                 ['#795548', '#5D4037'], // brown
                 ['#757575', '#424242'], // gray
@@ -40,26 +35,22 @@ $.fn.extend({
             _colorPalette = colorPalette
         }
 
+        // 打乱数组顺序
+        _colorPalette.sort(() => 0.5 - Math.random())
+
         let paletteLength = _colorPalette.length
 
-        // 对已用配色的统计。当目标元素的个数小于调色板数组长度时，禁止产生相同的配色
-        let usedPaletteIndexes = []
+        // 获取一个随机的索引偏移量
+        let randomOffset = Math.floor(Math.random() * 5)
+
+        let $targetBackgroundContainers = this
 
         this.each(function() {
 
             let $backgroundContainer = $(this)
-
-            let paletteIndex = Math.floor(Math.random() * paletteLength)
-            if (usedPaletteIndexes.length < (paletteLength + 1)) {
-                while (true) {
-                    if (usedPaletteIndexes.indexOf(paletteIndex) === -1) {
-                        usedPaletteIndexes.push(paletteIndex)
-                        break
-                    } else {
-                        paletteIndex = Math.floor(Math.random() * paletteLength)
-                    }
-                }
-            }
+            let elementIndex = $targetBackgroundContainers.index(this)
+            // 取得当前元素在同级元素中的索引，加上上面的偏移量，得到目标调色板项的索引
+            let paletteIndex =  (elementIndex + randomOffset) % paletteLength
 
             // 生成背景色块的容器元素，设置其背景颜色为指定配色，旋转 0 | 180 度
             let wrapRotateAngle = Math.floor(Math.random() * 2) * 180
