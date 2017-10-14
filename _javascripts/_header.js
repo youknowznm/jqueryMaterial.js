@@ -35,7 +35,7 @@ $.fn.extend({
             let jmHeaderHTML = `
                 <div class="jm-header-content jm-responsive-wrap">
                     <nav class="jm-nav">
-                        <a class="site-title">
+                        <a class="site-title" href="/">
                             ${siteNameWords.map((item) => `<span class="jm-single-word">${item}</span>`).join('')}
                         </a>
                         <ul class="nav-buttons">
