@@ -97,11 +97,7 @@ $.fn.extend({
                 if (!isMobile) {
                     let scTp = document.documentElement.scrollTop
                     // 主体的滚动距离大于一定值时渐隐标题
-                    if (scTp > 30) {
-                        $pageTitle.addClass('hidden')
-                    } else {
-                        $pageTitle.removeClass('hidden')
-                    }
+                    $banner.find('.jm-single-word').toggleClass('hidden', scTp > 30)
                     $banner.css(
                         'height',
                         (192 - scTp) < 0 ? 0 : (192 - scTp)
