@@ -1,9 +1,12 @@
 # jQuery Material
 
 一套 Material Design 风格的 jQuery 组件库，适用于桌面端和移动端的快速建站。  
-已用于我的另一个项目 [Rhaego](https://github.com/youknowznm/rhaego)，文档会于近期部署上线。
 
 交互行为和样式参考了 [Google Design 旧站](https://web.archive.org/web/20170516175305/https://design.google.com)、[AngularJS Material](https://material.angularjs.org/latest/) 和 [Material Components](https://material.io/components/web/catalog/) 等 Google 的设计相关站点。
+
+使用 Webpack 模块化图片、样式和脚本，实现 ALL-IN-JS ！
+
+已用于我的另一个项目 [Rhaego](https://github.com/youknowznm/rhaego)，文档会于近期部署上线。
 
 目前包括：
 - 页面头部
