@@ -10,6 +10,7 @@
     font-family: "Roboto";
     font-size: 14px !important;
     line-height: 20px !important;
+    color: rgb(33, 23, 11);
     b {
 
     }
@@ -18,8 +19,8 @@
     }
     u {
         text-decoration: none;
-        border-bottom: .15em solid rgba(0, 0, 0, .87);
-        padding-bottom: .1em;
+        border-bottom: .15em solid rgb(33, 23, 11);
+        padding-bottom: .15em;
     }
     strike {
         text-decoration: strike-through;
@@ -34,7 +35,7 @@
         font-family: "Roboto Mono";
         font-size: 24px;
         line-height: 32px;
-        color: rgba(0, 0, 0, .87);
+        color: rgb(33, 23, 11);
         margin: 24px 0;
         border-bottom: 1px solid #ccc;
         padding-bottom: 6px;
@@ -46,7 +47,7 @@
     div,
     p {
         font-family: "Roboto";
-        color: rgba(0, 0, 0, .87);
+        color: rgb(33, 23, 11);
         font-size: 14px;
         line-height: 20px;
         margin: 4px 0 16px;
@@ -92,7 +93,8 @@
     }
     a {
         color: #039be5;
-        margin: 0 .3em;
+        border-bottom: .15em solid #039be5;
+        padding-bottom: .15em;
     }
     img {
         display: block;
