@@ -203,9 +203,10 @@ function addImage() {
                 let scale = originWidth / originHeight
                 let agentCanvas = document.createElement('canvas')
                 agentCanvas.setAttribute('width',  700)
-                agentCanvas.setAttribute('height', 700 * scale)
+                let scaledHeight = 700 / scale
+                agentCanvas.setAttribute('height', scaledHeight)
                 let ctx = agentCanvas.getContext('2d')
-                ctx.drawImage(this, 0, 0, 700, 700 * scale)
+                ctx.drawImage(this, 0, 0, 700, scaledHeight)
                 let compressedBase64URL = agentCanvas.toDataURL('image/jpeg')
                 cb(compressedBase64URL)
             } else {

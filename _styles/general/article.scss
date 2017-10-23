@@ -19,8 +19,8 @@
     }
     u {
         text-decoration: none;
-        border-bottom: .15em solid rgb(33, 23, 11);
-        padding-bottom: .15em;
+        border-bottom: 2px solid rgb(33, 23, 11);
+        padding-bottom: 0;
     }
     strike {
         text-decoration: strike-through;
@@ -44,7 +44,6 @@
         //     content: '¬';
         // }
     }
-    div,
     p {
         font-family: "Roboto";
         color: rgb(33, 23, 11);
@@ -93,11 +92,22 @@
     }
     a {
         color: #039be5;
-        border-bottom: .15em solid #039be5;
-        padding-bottom: .15em;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 1px;
+        transition: all .2s;
+        &:hover {
+            border-bottom-color: #039be5;
+            padding-bottom: 0;
+        }
     }
     img {
         display: block;
         margin: 30px auto;
+    }
+    hr {
+        border: 0;
+        width: 60%;
+        margin: 18px auto;
+        border-bottom: 1px solid #333;
     }
 }
