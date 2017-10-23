@@ -30,6 +30,15 @@ body#mobile {
     }
 
     .jm-footer {
+        ._top-wrap {
+            height: 72px;
+            line-height: 72px;
+        }
+        ._bottom-wrap,
+        .info {
+            height: 64px;
+            line-height: 64px;
+        }
         .link-container {
             float: none;
             text-align: center;

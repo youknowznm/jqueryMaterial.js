@@ -1,11 +1,10 @@
 @charset "UTF-8";
 
-// 请注意footer只有样式，没有js逻辑，需要手动在HTML内写好相关元素
 .jm-footer {
     position: relative;
     width: 100%;
     background-color: #fff;
-    z-index: 80;
+    z-index: 10000;
     user-select: none;
     clear: left;
 
@@ -43,6 +42,7 @@
                     background-position: 0 0;
                     background-size: 24px 24px;
                     opacity: .6;
+                    vertical-align: middle;
                     transition: opacity .4s ease;
                     cursor: pointer;
                     > a {
