@@ -103,10 +103,8 @@ function execute(commandName, value = null) {
 }
 
 // 使编辑区适应其内容的高度
-function responseToContentHeight() {
-    let editAreaEle = document.querySelector('.jm-edit-area')
-    editAreaEle.style['height'] = editAreaEle.scrollHeight
-}
+// IDEA
+// editAreaEle.style['height'] = editAreaEle.scrollHeight
 
 // 移动光标至编辑区的末尾
 // IDEA
@@ -153,7 +151,6 @@ function addLink() {
             let anchorURL = $('#jm-prompt-input-2').val()
             moveCursorToEditAreaEnd()
             execute('insertHTML', `<a href="${anchorURL}" target="_blank">${anchorText}</a>`)
-            responseToContentHeight()
         },
     })
 }
@@ -276,18 +273,12 @@ $.fn.extend({
         let $editArea = $('.jm-edit-area')
         let $currentLength = $rte.find('.current').text($editArea.text().length)
 
-        // 初始化编辑器高度
-        responseToContentHeight()
-
         // 取得相应草稿在localStorage中的键名
         let targetDraftName = `jmRteDraft-${id}`
 
         $editArea
             // 编辑区首次获得焦点时，检查localStorage中是否有草稿
             .one('focus', function() {
-                // if (contentHTML === '') {
-                //     execute('formatBlock', '<P>')
-                // }
                 let currentDraft = localStorage.getItem(targetDraftName)
                 if (currentDraft !== null) {
                     $.showJmDialog({
@@ -297,15 +288,19 @@ $.fn.extend({
                         confirmButtonText: 'restore',
                         onConfirm() {
                             $editArea.html(currentDraft)
-                            responseToContentHeight()
                             moveCursorToEditAreaEnd()
                         }
                     })
                 }
             })
+            .on('focus', function() {
+                $rte.addClass('focused')
+            })
+            .on('blur', function() {
+                $rte.removeClass('focused')
+            })
             // 监听输入事件，立即根据输入内容改变元素高度、检查是否超出字数限制
             .on('input', function() {
-                responseToContentHeight()
                 let currentLength = $editArea.text().length
                 $currentLength.html(currentLength)
                 $rte.toggleClass('exceeded', currentLength > maxLength)
