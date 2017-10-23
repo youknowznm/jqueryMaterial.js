@@ -192,21 +192,21 @@ function addImage() {
         })
         $jmRteFileInput.click()
     }
-    // 目标图片宽度大于700时，压缩其base64 URL
+    // 目标图片宽度大于800时，压缩其base64 URL
     function getCompressedBase64URL(originBase64URL, cb) {
         let agentImage = new Image()
         agentImage.src = originBase64URL
         agentImage.onload = function() {
             let originWidth = this.width
-            if (originWidth > 700) {
+            if (originWidth > 800) {
                 let originHeight = this.height
                 let scale = originWidth / originHeight
                 let agentCanvas = document.createElement('canvas')
-                agentCanvas.setAttribute('width',  700)
-                let scaledHeight = 700 / scale
+                agentCanvas.setAttribute('width',  800)
+                let scaledHeight = 800 / scale
                 agentCanvas.setAttribute('height', scaledHeight)
                 let ctx = agentCanvas.getContext('2d')
-                ctx.drawImage(this, 0, 0, 700, scaledHeight)
+                ctx.drawImage(this, 0, 0, 800, scaledHeight)
                 let compressedBase64URL = agentCanvas.toDataURL('image/jpeg')
                 cb(compressedBase64URL)
             } else {
