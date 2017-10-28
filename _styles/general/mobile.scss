@@ -33,11 +33,15 @@ body#mobile {
         ._top-wrap {
             height: 72px;
             line-height: 72px;
+            .social {
+                height: 72px;
+                line-height: 72px;
+            }
         }
         ._bottom-wrap,
         .info {
-            height: 64px;
-            line-height: 64px;
+            height: 120px;
+            line-height: 120px;
         }
         .link-container {
             float: none;

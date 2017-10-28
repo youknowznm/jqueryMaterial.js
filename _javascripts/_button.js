@@ -94,7 +94,7 @@ $.fn.extend({
                 })
 
             // 浮动提示条
-            $('body')
+            $('body:not(#mobile)')
                 .on('mouseenter', '.show-tooltip', function(evt) {
                     $(this).children('.jm-tooltip').addClass('show')
                 })

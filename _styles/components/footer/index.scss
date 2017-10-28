@@ -4,7 +4,7 @@
     position: relative;
     width: 100%;
     background-color: #fff;
-    z-index: 10000;
+    z-index: 200;
     user-select: none;
     clear: left;
 
@@ -26,7 +26,6 @@
 
                 .link-container {
                     position: relative;
-                    // float: right;
                     text-align: right;
                     top: 50%;
                     transform: translateY(-50%);
