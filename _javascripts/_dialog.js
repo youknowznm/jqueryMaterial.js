@@ -95,11 +95,12 @@ $.showJmDialog = function(options) {
                 </div>`
     }
 
+    let $html = $('html')
     let $body = $('body').append($(jmDialogHTML))
     let $wrap = $('#jm-dialog-removable')
     let $dialog = $wrap.children('.jm-dialog')
 
-    $body.addClass('no-scroll')
+    $html.addClass('no-scroll')
     $dialog.css('transform-origin', '0 0')
 
     $dialog.on('click', function(evt) {
@@ -119,7 +120,7 @@ $.showJmDialog = function(options) {
             }
             $wrap.removeClass('show')
             setTimeout(function() {
-                $body.removeClass('no-scroll')
+                $html.removeClass('no-scroll')
                 $wrap.remove()
             }, 250)
         }

@@ -13,10 +13,14 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
 }
 html {
+    // 显示模态框时隐藏溢出内容
     &#pc {
-        // 在桌面端则留出右侧滚动条位置，并修改.jm-header的偏移量
-        body.no-scroll {
-            padding-right: 15px;
+        &.no-scroll {
+            overflow: hidden;
+            body {
+                // 在桌面端则留出右侧滚动条位置，并修改.jm-header的偏移量
+                padding-right: 15px;
+            }
             .jm-header-content {
                 transform: translateX(-7.5px);
             }
@@ -35,11 +39,14 @@ html {
         }
     }
     &#mobile {
+        &.no-scroll {
+            overflow: hidden;
+        }
         .jm-footer {
-            z-index: 500;
+            z-index: 200;
         }
         .jm-dialog-wrap {
-            z-index: 1000;
+            z-index: 300;
         }
     }
 }
@@ -53,7 +60,6 @@ body {
     -webkit-font-smoothing: antialiased;
     // 在桌面端进行响应式的宽度控制，参考 design.google.com
     &.no-scroll {
-        // 显示模态框时隐藏溢出内容
         overflow: hidden;
     }
 }
