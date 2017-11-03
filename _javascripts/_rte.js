@@ -245,7 +245,7 @@ $.fn.extend({
     @param options {Object}
         - id {String} 当前编辑内容的唯一标识，用于在localStorage内存取
                       注意在内容提交成功后，需使用localStorage.removeItem(`jmRteDraft-${id}`)手动删除草稿
-        - contentHTML {?String} 编辑区域的HTML字符串。不提供时用空字符串占位
+        - contentToEdit {?String} 编辑区域的内容。不提供时用空字符串占位
         - maxLength {?Number} 编辑区域的最大字符数。不提供时为500
         - useRichText {?Boolean} 是否使用富文本、而不使用markdown。为false时隐藏编辑工具栏。不提供时为true
     */
@@ -257,7 +257,7 @@ $.fn.extend({
         }
 
         let id = options.id
-        let contentHTML = (typeof options.contentHTML === 'string') ? options.contentHTML : ''
+        let contentToEdit = (typeof options.contentToEdit === 'string') ? options.contentToEdit : ''
         let maxLength = (typeof options.maxLength === 'number') ? options.maxLength : 500
         let useRichText = (typeof options.useRichText === 'boolean') ? options.useRichText : true
 
@@ -279,9 +279,16 @@ $.fn.extend({
                 </li>`
         })
 
-        rteHTML += `</ul>
-            <article maxlength="10" class="jm-edit-area jm-article" contenteditable="true" spellcheck="false">${contentHTML}</article>
-            <p class="char-counter"><span class="current">0</span>/<span class="maximum">${maxLength}</span></p>`
+        rteHTML += '</ul>'
+
+        // 富文本时使用contenteditable的div，否则使用textarea
+        if (useRichText === true) {
+            rteHTML += `<article class="jm-edit-area jm-article" contenteditable="true" spellcheck="false">${contentToEdit}</article>`
+        } else {
+            rteHTML += `<textarea class="jm-edit-area jm-article" resize="false" spellcheck="false">${contentToEdit}</textarea>`
+        }
+
+        rteHTML += `<p class="char-counter"><span class="current">0</span>/<span class="maximum">${maxLength}</span></p>`
 
         $rte
             .attr('data-id', id)
@@ -301,10 +308,6 @@ $.fn.extend({
             })
 
         let $editArea = $('.jm-edit-area')
-
-        if (useRichText === true) {
-            let $currentLength = $rte.find('.current').text($editArea.text().length)
-        }
 
         // 取得相应草稿在localStorage中的键名
         let targetDraftName = `jmRteDraft-${id}`
@@ -332,14 +335,6 @@ $.fn.extend({
             .on('blur', function() {
                 $rte.removeClass('focused')
             })
-            // 监听输入事件，立即根据输入内容改变元素高度、检查是否超出字数限制
-            .on('input', function() {
-                if (useRichText === true) {
-                    currentLength = $editArea.text().length
-                    $currentLength.html(currentLength)
-                    $rte.toggleClass('exceeded', currentLength > maxLength)
-                }
-            })
             // 监听输入事件，若编辑器的实际内容非空，则debounce后保存至localStorage
             .on(
                 'input',
@@ -349,17 +344,32 @@ $.fn.extend({
                     }
                 }, 500)
             )
-            // IDEA tab的效果在down时产生
-            // tab和shift+tab监听
-            .on('keydown', function(e) {
-                if (e.keyCode === 9) {
-                    e.preventDefault()
-                    if (e.shiftKey !== true) {
-                        execute('indent')
-                    } else {
-                        execute('outdent')
+
+        if (useRichText === true) {
+
+            let $currentLength = $rte.find('.current').text($editArea.text().length)
+
+            $editArea
+                // 监听输入事件，立即根据输入内容改变元素高度、检查是否超出字数限制
+                .on('input', function() {
+                    if (useRichText === true) {
+                        currentLength = $editArea.text().length
+                        $currentLength.html(currentLength)
+                        $rte.toggleClass('exceeded', currentLength > maxLength)
                     }
-                }
-            })
+                })
+                // IDEA tab的效果在down时产生
+                // tab和shift+tab监听
+                .on('keydown', function(e) {
+                    if (e.keyCode === 9) {
+                        e.preventDefault()
+                        if (e.shiftKey !== true) {
+                            execute('indent')
+                        } else {
+                            execute('outdent')
+                        }
+                    }
+                })
+        }
     }
 })

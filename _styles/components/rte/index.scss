@@ -184,6 +184,13 @@
         transition: color .4s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
+    textarea.jm-edit-area {
+        display: block;
+        width: calc(100% - 30px);
+        border: 0;
+        resize: none;
+    }
+
     // 字数统计
     .char-counter {
         position: absolute;

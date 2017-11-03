@@ -105,6 +105,8 @@ $(function() {
     $('.jm-rte').initRte({
         id: '133',
         maxLength: 200,
+        contentToEdit: '<h1>Sample Heading</h1>',
+        // useRichText: false,
     })
 
     $('.show-toast').on('click', function() {
