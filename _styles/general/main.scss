@@ -15,6 +15,18 @@ h1, h2, h3, h4, h5, h6 {
 html {
     // height: 100%;
     // min-height: 750px;
+    &:not(#mobile) .jm-responsive-wrap {
+        width: 900px;
+        min-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        @media (min-width: 1280px) and (max-width: 1900px) {
+            width: 1200px;
+        }
+        @media (min-width: 1900px) {
+            width: 1440px;
+        }
+    }
 }
 body {
     background: #fff;
@@ -26,21 +38,6 @@ body {
                  "微软雅黑", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     // 在桌面端进行响应式的宽度控制，参考 design.google.com
-    &:not(#mobile) .jm-responsive-wrap {
-        width: 970px;
-        min-width: 970px;
-        margin-left: auto;
-        margin-right: auto;
-        @media (max-width: 1280px) {
-            min-width: 970px;
-        }
-        @media (min-width: 1280px) and (max-width: 1900px) {
-            width: 1200px;
-        }
-        @media (min-width: 1900px) {
-            width: 1440px;
-        }
-    }
     &.no-scroll {
         // 显示模态框时隐藏溢出内容
         overflow: hidden;

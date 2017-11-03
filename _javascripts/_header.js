@@ -79,7 +79,7 @@ $.fn.extend({
             let $mainWrap = $('.jm-main-wrap')
 
             // .nav-buttons显示多于一行时，隐藏掉按钮底部提示条，并调整.jm-main-wrap的上外边距
-            let isMobile = $body.is('#mobile')
+            let isMobile = $('html').is('#mobile')
 
             setTimeout(function() {
                 let navLineHeight = isMobile ? 50 : 64
