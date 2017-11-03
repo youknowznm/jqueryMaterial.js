@@ -157,63 +157,85 @@ function addLink() {
 
 // 在编辑区末尾插入图片
 function addImage() {
-    getOriginBase64URL(function(originBase64URL) {
-        getCompressedBase64URL(originBase64URL, function(compressedBase64URL) {
-            $.showJmDialog({
-                dialogType: 'prompt',
-                title: 'Set image attribute.',
-                content: 'Enter the alternative text for target <img> tag.',
-                promptDataArr: [
-                    {
-                        name: 'Alternative Text',
-                        value: '',
-                    },
-                ],
-                onConfirm() {
-                    let alt = $('#jm-prompt-input-1').val()
-                    moveCursorToEditAreaEnd()
-                    execute('insertHTML', `<img src="${compressedBase64URL}" alt="${alt}" />`)
-                },
-            })
-        })
+    $.showJmDialog({
+        dialogType: 'prompt',
+        title: 'Set image attributes.',
+        content: 'Enter the source and alternative text for target <img> tag.',
+        promptDataArr: [
+            {
+                name: 'src',
+                value: '',
+            },
+            {
+                name: 'alt',
+                value: '',
+            },
+        ],
+        onConfirm() {
+            let imageSrc = $('#jm-prompt-input-1').val()
+            let imageAlt = $('#jm-prompt-input-2').val()
+            moveCursorToEditAreaEnd()
+            execute('insertHTML', `<img src="${imageSrc}" alt="${imageAlt}"/>`)
+        },
     })
-    // 触发file input交互，取得目标图片的base64 URL
-    function getOriginBase64URL(cb) {
-        let $jmRteFileInput = $('<input class="jm-rte-file-input" type="file" accept="image/*" />')
-        $('body').append($jmRteFileInput)
-        $jmRteFileInput.on('change', function() {
-            let selectedImage = $jmRteFileInput[0].files[0]
-            let reader = new FileReader()
-            reader.onload = function(e) {
-                $jmRteFileInput.remove()
-                cb(e.target.result)
-            }
-            reader.readAsDataURL(selectedImage)
-        })
-        $jmRteFileInput.click()
-    }
-    // 目标图片宽度大于800时，压缩其base64 URL
-    function getCompressedBase64URL(originBase64URL, cb) {
-        let agentImage = new Image()
-        agentImage.src = originBase64URL
-        agentImage.onload = function() {
-            let originWidth = this.width
-            if (originWidth > 800) {
-                let originHeight = this.height
-                let scale = originWidth / originHeight
-                let agentCanvas = document.createElement('canvas')
-                agentCanvas.setAttribute('width',  800)
-                let scaledHeight = 800 / scale
-                agentCanvas.setAttribute('height', scaledHeight)
-                let ctx = agentCanvas.getContext('2d')
-                ctx.drawImage(this, 0, 0, 800, scaledHeight)
-                let compressedBase64URL = agentCanvas.toDataURL('image/jpeg')
-                cb(compressedBase64URL)
-            } else {
-                cb(originBase64URL)
-            }
-        }
-    }
+    // // 用base64存储图片，暂时弃用
+    // getOriginBase64URL(function(originBase64URL) {
+    //     getCompressedBase64URL(originBase64URL, function(compressedBase64URL) {
+    //         $.showJmDialog({
+    //             dialogType: 'prompt',
+    //             title: 'Set image attribute.',
+    //             content: 'Enter the alternative text for target <img> tag.',
+    //             promptDataArr: [
+    //                 {
+    //                     name: 'Alternative Text',
+    //                     value: '',
+    //                 },
+    //             ],
+    //             onConfirm() {
+    //                 let alt = $('#jm-prompt-input-1').val()
+    //                 moveCursorToEditAreaEnd()
+    //                 execute('insertHTML', `<img src="${compressedBase64URL}" alt="${alt}" />`)
+    //             },
+    //         })
+    //     })
+    // })
+    // // 触发file input交互，取得目标图片的base64 URL
+    // function getOriginBase64URL(cb) {
+    //     let $jmRteFileInput = $('<input class="jm-rte-file-input" type="file" accept="image/*" />')
+    //     $('body').append($jmRteFileInput)
+    //     $jmRteFileInput.on('change', function() {
+    //         let selectedImage = $jmRteFileInput[0].files[0]
+    //         let reader = new FileReader()
+    //         reader.onload = function(e) {
+    //             $jmRteFileInput.remove()
+    //             cb(e.target.result)
+    //         }
+    //         reader.readAsDataURL(selectedImage)
+    //     })
+    //     $jmRteFileInput.click()
+    // }
+    // // 目标图片宽度大于800时，压缩其base64 URL
+    // function getCompressedBase64URL(originBase64URL, cb) {
+    //     let agentImage = new Image()
+    //     agentImage.src = originBase64URL
+    //     agentImage.onload = function() {
+    //         let originWidth = this.width
+    //         if (originWidth > 800) {
+    //             let originHeight = this.height
+    //             let scale = originWidth / originHeight
+    //             let agentCanvas = document.createElement('canvas')
+    //             agentCanvas.setAttribute('width',  800)
+    //             let scaledHeight = 800 / scale
+    //             agentCanvas.setAttribute('height', scaledHeight)
+    //             let ctx = agentCanvas.getContext('2d')
+    //             ctx.drawImage(this, 0, 0, 800, scaledHeight)
+    //             let compressedBase64URL = agentCanvas.toDataURL('image/jpeg')
+    //             cb(compressedBase64URL)
+    //         } else {
+    //             cb(originBase64URL)
+    //         }
+    //     }
+    // }
 }
 
 $.fn.extend({
@@ -225,6 +247,7 @@ $.fn.extend({
                       注意在内容提交成功后，需使用localStorage.removeItem(`jmRteDraft-${id}`)手动删除草稿
         - contentHTML {?String} 编辑区域的HTML字符串。不提供时用空字符串占位
         - maxLength {?Number} 编辑区域的最大字符数。不提供时为500
+        - useRichText {?Boolean} 是否使用富文本、而不使用markdown。为false时隐藏编辑工具栏。不提供时为true
     */
     initRte(options) {
 
@@ -236,8 +259,14 @@ $.fn.extend({
         let id = options.id
         let contentHTML = (typeof options.contentHTML === 'string') ? options.contentHTML : ''
         let maxLength = (typeof options.maxLength === 'number') ? options.maxLength : 500
+        let useRichText = (typeof options.useRichText === 'boolean') ? options.useRichText : true
 
         let $rte = $(this)
+
+        // 使用富文本而不是Markdown时，显示编辑工具栏
+        if (useRichText === false) {
+            $rte.addClass('is-mark-down')
+        }
 
         let rteHTML = '<ul class="actions">'
 
@@ -272,7 +301,10 @@ $.fn.extend({
             })
 
         let $editArea = $('.jm-edit-area')
-        let $currentLength = $rte.find('.current').text($editArea.text().length)
+
+        if (useRichText === true) {
+            let $currentLength = $rte.find('.current').text($editArea.text().length)
+        }
 
         // 取得相应草稿在localStorage中的键名
         let targetDraftName = `jmRteDraft-${id}`
@@ -302,9 +334,11 @@ $.fn.extend({
             })
             // 监听输入事件，立即根据输入内容改变元素高度、检查是否超出字数限制
             .on('input', function() {
-                let currentLength = $editArea.text().length
-                $currentLength.html(currentLength)
-                $rte.toggleClass('exceeded', currentLength > maxLength)
+                if (useRichText === true) {
+                    currentLength = $editArea.text().length
+                    $currentLength.html(currentLength)
+                    $rte.toggleClass('exceeded', currentLength > maxLength)
+                }
             })
             // 监听输入事件，若编辑器的实际内容非空，则debounce后保存至localStorage
             .on(

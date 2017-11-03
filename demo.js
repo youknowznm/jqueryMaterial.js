@@ -62,9 +62,6 @@ $(function() {
                     value: '',
                 },
             ],
-            onDialogReady() {
-                // TODO
-            }
         })
     })
 
@@ -108,7 +105,6 @@ $(function() {
     $('.jm-rte').initRte({
         id: '133',
         maxLength: 200,
-        contentHTML: '<blockquote>asdfasdf<br>asdf<br>asd&nbsp;<br><br>fasdf adfl;ajlf;kj</blockquote>'
     })
 
     $('.show-toast').on('click', function() {
@@ -116,6 +112,5 @@ $(function() {
             content: 'This is a sample toast.'
         })
     })
-
 
 })

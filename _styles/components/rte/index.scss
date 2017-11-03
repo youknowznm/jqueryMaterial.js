@@ -216,6 +216,23 @@
             }
         }
     }
+
+    // 使用markdown时
+    &.is-mark-down {
+        &:after,
+        &:before {
+            bottom: 12px !important;
+        }
+        .actions {
+            display: none !important;
+        }
+        .jm-edit-area {
+            margin: 15px !important;
+        }
+        .char-counter {
+            display: none !important;
+        }
+    }
 }
 
 .jm-rte-file-input {
