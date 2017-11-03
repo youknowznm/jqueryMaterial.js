@@ -13,25 +13,39 @@ h1, h2, h3, h4, h5, h6 {
     font-weight: 400;
 }
 html {
-    // height: 100%;
-    // min-height: 750px;
-    &:not(#mobile) .jm-responsive-wrap {
-        width: 900px;
-        min-width: 900px;
-        margin-left: auto;
-        margin-right: auto;
-        @media (min-width: 1280px) and (max-width: 1900px) {
-            width: 1200px;
+    &#pc {
+        // 在桌面端则留出右侧滚动条位置，并修改.jm-header的偏移量
+        body.no-scroll {
+            padding-right: 15px;
+            .jm-header-content {
+                transform: translateX(-7.5px);
+            }
         }
-        @media (min-width: 1900px) {
-            width: 1440px;
+        .jm-responsive-wrap {
+            width: 900px;
+            min-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            @media (min-width: 1280px) and (max-width: 1900px) {
+                width: 1200px;
+            }
+            @media (min-width: 1900px) {
+                width: 1440px;
+            }
+        }
+    }
+    &#mobile {
+        .jm-footer {
+            z-index: 500;
+        }
+        .jm-dialog-wrap {
+            z-index: 1000;
         }
     }
 }
 body {
     background: #fff;
     position: relative;
-    // height: 100%;
     // 字体库参考 http://element.eleme.io/#/zh-CN/component/typography 建议的集合
     font-family: "Roboto Mono", "Helvetica Neue",
                  "PingFang SC", "Microsoft YaHei",
@@ -41,13 +55,6 @@ body {
     &.no-scroll {
         // 显示模态框时隐藏溢出内容
         overflow: hidden;
-        // 在桌面端则留出右侧滚动条位置，并修改.jm-header的偏移量
-        &:not(#mobile) {
-            padding-right: 15px;
-            .jm-header-content {
-                transform: translateX(-7.5px);
-            }
-        }
     }
 }
 
@@ -55,7 +62,6 @@ body {
 .jm-main-wrap {
     position: relative;
     width: 100%;
-    // min-height: 100%;
     margin-top: 256px;
     background-color: #fafafa;
     z-index: 99;
@@ -66,7 +72,6 @@ body {
 // 主内容
 .jm-main {
     position: relative;
-    // min-height: 100%;
     min-width: 300px;
     z-index: 99;
     padding: 8px;

@@ -1,8 +1,10 @@
 // 判断是否移动端
 $(function() {
+    let deviceType = 'pc'
     if (/Android|iPhone|Windows Phone|iPad/i.test(window.navigator.userAgent)) {
-        document.documentElement.setAttribute('id', 'mobile')
+        deviceType = 'mobile'
     }
+    document.documentElement.setAttribute('id', deviceType)
 })
 
 /**
