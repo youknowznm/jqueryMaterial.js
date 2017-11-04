@@ -2,16 +2,16 @@
     padding-top: 18px !important;
 }
 .jm-button.android .icon {
-    background: url("./_images/ic_android.png") no-repeat 0 0;
+    background: url("./_images/ic_android_24px.svg") no-repeat 0 0;
 }
 .jm-button.edit .icon {
-    background: url("./_images/ic_edit.png") no-repeat 0 0;
+    background: url("./_images/ic_edit_24px.svg") no-repeat 0 0;
 }
 .jm-button.logout .icon {
-    background: url("./_images/ic_logout.png") no-repeat 0 0;
+    background: url("../../_images/ic_exit_to_app_24px.svg") no-repeat;
 }
 .jm-button.comment .icon {
-    background: url("./_images/ic_comment.png") no-repeat 0 0;
+    background: url("./_images/ic_comment_24px.svg") no-repeat 0 0;
 }
 .jm-input.cell,
 .jm-input.email {

@@ -290,7 +290,7 @@ $.fn.extend({
         if (useRichText === true) {
             rteHTML += `<article class="jm-edit-area jm-article" contenteditable="true" spellcheck="false">${contentToEdit}</article>`
         } else {
-            rteHTML += `<textarea class="jm-edit-area jm-article" resize="false" placeholder="Markdown" spellcheck="false">${contentToEdit}</textarea>`
+            rteHTML += `<textarea class="jm-edit-area jm-article" resize="false" placeholder="Markdown Content" spellcheck="false">${contentToEdit}</textarea>`
         }
 
         rteHTML += `<p class="char-counter"><span class="current">0</span>/<span class="maximum">${maxLength}</span></p>`
