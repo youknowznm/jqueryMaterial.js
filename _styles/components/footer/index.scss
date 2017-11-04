@@ -39,7 +39,7 @@
                     background-repeat: no-repeat;
                     background-position: 0 0;
                     background-size: 24px 24px;
-                    opacity: .6;
+                    opacity: .5;
                     vertical-align: middle;
                     transition: opacity .4s ease;
                     cursor: pointer;
@@ -51,13 +51,13 @@
                         height: 100%;
                     }
                     &.github {
-                        background-image: url("../_images/footer/ic_github.png");
+                        background-image: url("../_images/footer/ic_github.svg");
                     }
                     &.zhihu {
-                        background-image: url("../_images/footer/ic_zhihu.png");
+                        background-image: url("../_images/footer/ic_zhihu.svg");
                     }
                     &.wechat {
-                        background-image: url("../_images/footer/ic_wechat.png");
+                        background-image: url("../_images/footer/ic_wechat.svg");
                         .hover-content {
                             position: absolute;
                             width: 160px;
@@ -72,8 +72,8 @@
                         }
                     }
                     &.mail {
-                        opacity: .5;
-                        background-image: url("../_images/footer/ic_email.png");
+                        // opacity: .5;
+                        background-image: url("../_images/footer/ic_email_24px.svg");
                         .hover-content {
                             position: absolute;
                             background: #fff;

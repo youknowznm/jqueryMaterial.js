@@ -8,7 +8,7 @@
     background: url("./_images/ic_edit_24px.svg") no-repeat 0 0;
 }
 .jm-button.logout .icon {
-    background: url("../../_images/ic_exit_to_app_24px.svg") no-repeat;
+    background: url("./_images/ic_exit_to_app_24px.svg") no-repeat 0 0;
 }
 .jm-button.comment .icon {
     background: url("./_images/ic_comment_24px.svg") no-repeat 0 0;

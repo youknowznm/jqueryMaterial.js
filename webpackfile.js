@@ -47,7 +47,7 @@ module.exports = {
             },
             {
                 // IDEA: webpack 字体打包
-                test: /\.(jpg|png|ttf)$/,
+                test: /\.(jpg|png|ttf|svg)$/,
                 use: {
                     loader: 'url-loader',
                 },
