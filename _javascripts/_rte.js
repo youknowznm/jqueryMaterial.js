@@ -247,7 +247,7 @@ $.fn.extend({
                       注意在内容提交成功后，需使用localStorage.removeItem(`jmRteDraft-${id}`)手动删除草稿
         - contentToEdit {?String} 编辑区域的内容。不提供时用空字符串占位
         - maxLength {?Number} 编辑区域的最大字符数。不提供时为500
-        - useRichText {?Boolean} 是否使用富文本、而不使用markdown。为false时隐藏编辑工具栏。不提供时为true
+        - useRichText {?Boolean} 是否使用富文本、而不使用markdown，在移动端强制为false。为false时隐藏编辑工具栏。不提供时为true
     */
     initRte(options) {
 
@@ -260,6 +260,11 @@ $.fn.extend({
         let contentToEdit = (typeof options.contentToEdit === 'string') ? options.contentToEdit : ''
         let maxLength = (typeof options.maxLength === 'number') ? options.maxLength : 500
         let useRichText = (typeof options.useRichText === 'boolean') ? options.useRichText : true
+
+        // 移动端强制使用markdown
+        if ($('html').is('#mobile')) {
+            useRichText = false
+        }
 
         let $rte = $(this)
 
