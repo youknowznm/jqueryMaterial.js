@@ -290,7 +290,7 @@ $.fn.extend({
         if (useRichText === true) {
             rteHTML += `<article class="jm-edit-area jm-article" contenteditable="true" spellcheck="false">${contentToEdit}</article>`
         } else {
-            rteHTML += `<textarea class="jm-edit-area jm-article" resize="false" spellcheck="false">${contentToEdit}</textarea>`
+            rteHTML += `<textarea class="jm-edit-area jm-article" resize="false" placeholder="Markdown" spellcheck="false">${contentToEdit}</textarea>`
         }
 
         rteHTML += `<p class="char-counter"><span class="current">0</span>/<span class="maximum">${maxLength}</span></p>`
@@ -351,9 +351,7 @@ $.fn.extend({
             )
 
         if (useRichText === true) {
-
             let $currentLength = $rte.find('.current').text($editArea.text().length)
-
             $editArea
                 // 监听输入事件，立即根据输入内容改变元素高度、检查是否超出字数限制
                 .on('input', function() {
