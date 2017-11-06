@@ -27,6 +27,9 @@ $.showJmDialog = function(options) {
     let onDialogReady = (typeof options.onDialogReady === 'function') ? options.onDialogReady : noop
     let promptDataArr = options.promptDataArr
 
+    // IDEA: 根据初始的html是否有垂直溢出内容，判断是否需隐藏滚动条
+    let hasOverflownContent = document.documentElement.scrollHeight > document.documentElement.clientHeight
+
     let jmDialogHTML
 
     switch (dialogType) {
@@ -101,6 +104,9 @@ $.showJmDialog = function(options) {
     let $dialog = $wrap.children('.jm-dialog')
 
     $html.addClass('no-scroll')
+    if (hasOverflownContent) {
+        $html.addClass('hide-scroll-bar')
+    }
     $dialog.css('transform-origin', '0 0')
 
     $dialog.on('click', function(evt) {
@@ -120,7 +126,7 @@ $.showJmDialog = function(options) {
             }
             $wrap.removeClass('show')
             setTimeout(function() {
-                $html.removeClass('no-scroll')
+                $html.removeClass('no-scroll hide-scroll-bar')
                 $wrap.remove()
             }, 250)
         }

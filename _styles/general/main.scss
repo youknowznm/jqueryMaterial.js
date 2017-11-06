@@ -17,12 +17,14 @@ html {
     &#pc {
         &.no-scroll {
             overflow: hidden;
-            body {
-                // 在桌面端则留出右侧滚动条位置，并修改.jm-header的偏移量
-                padding-right: 15px;
-            }
-            .jm-header-content {
-                transform: translateX(-7.5px);
+            &.hide-scroll-bar {
+                body {
+                    // 在桌面端则留出右侧滚动条位置，并修改.jm-header的偏移量
+                    padding-right: 15px;
+                }
+                .jm-header-content {
+                    transform: translateX(-7.5px);
+                }
             }
         }
         .jm-responsive-wrap {
