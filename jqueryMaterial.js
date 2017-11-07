@@ -409,22 +409,22 @@ $.showJmDialog = function (options) {
     $dialog.css('transform-origin', '0 0');
 
     // 热键
-    $(window).on('keyup', function (evt) {
-        if ($dialog.length !== 0) {
-            // esc - 为alert框时点击确认按钮；否则点击取消按钮
-            if (evt.keyCode === 27) {
-                if (dialogType === 'alert') {
-                    clickingConfirm();
-                } else {
-                    clickingCancel();
-                }
-            }
-            // enter - 点击确认按钮
-            if (evt.keyCode === 13) {
-                clickingConfirm();
-            }
-        }
-    });
+    // $(window).on('keyup', function(evt) {
+    //     if ($dialog.length !== 0) {
+    //         // esc - 为alert框时点击确认按钮；否则点击取消按钮
+    //         if (evt.keyCode === 27) {
+    //             if (dialogType === 'alert') {
+    //                 clickingConfirm()
+    //             } else {
+    //                 clickingCancel()
+    //             }
+    //         }
+    //         // enter - 点击确认按钮
+    //         if (evt.keyCode === 13) {
+    //             clickingConfirm()
+    //         }
+    //     }
+    // })
 
     // 为propmt框时，只在所有.prompt-input框内容有效时允许点击confirm按钮
     if (dialogType === 'prompt') {
