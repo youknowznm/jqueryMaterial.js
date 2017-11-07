@@ -48,11 +48,17 @@ $.fn.extend({
 
             $button.html(buttonHTML)
 
-            $('body')
-                .on('mousedown', '.jm-button:not(._disabled)', function(evt) {
+            $button
+                .on('animationstart', function(e) {
+                    let $this = $(this)
+                    let $animatingTarget = $(e.target)
+                    if ($animatingTarget.hasClass('ripple')) {
+                        $this.data('animating', true)
+                    }
+                })
+                .on('mousedown', function(evt) {
                     let $this = $(this)
                     if ($this.data('animating') === false) {
-                        $this.data('clicked', true)
                         let $ripple = $this.find('.ripple')
                         let _x = evt.offsetX
                         let _y = evt.offsetY
@@ -70,26 +76,20 @@ $.fn.extend({
                         })
                         $this.addClass('mousedown')
                     }
+
                 })
-                .on('mouseup mouseout', '.jm-button:not(._disabled)', function() {
+                .on('mouseup mouseleave', function(e) {
                     let $this = $(this)
-                    if ($this.data('animating') === false && $this.data('clicked') === true) {
-
-                        // 设置timeout，避免mousedown事件持续时间过短导致的闪烁
-                        setTimeout(function() {
-
-                            $this.data({
-                                animating: true,
-                                clicked: false
-                            })
-                            $this.removeClass('mousedown').addClass('mouseup')
-                            setTimeout(function() {
-                                $this.removeClass('mouseup')
-                                $this.data('animating', false)
-                            }, 550)
-
-                        }, 250)
-
+                    if ($this.data('animating') === true) {
+                        $this.removeClass('mousedown').addClass('mouseup')
+                    }
+                })
+                .on('animationend', function(e) {
+                    let $this = $(this)
+                    let $animatingTarget = $(e.target)
+                    if ($animatingTarget.hasClass('ripple-container')) {
+                        $this.removeClass('mouseup')
+                        $this.data('animating', false)
                     }
                 })
 

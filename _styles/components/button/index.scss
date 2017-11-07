@@ -11,7 +11,7 @@ $jm-button-warn: rgb(255, 82, 82);
     position: relative;
     margin: 16px 8px;
     padding: 0 6px;
-    min-width: 88px;
+    min-width: 100px;
     height: 36px;
     line-height: 36px;
     cursor: pointer;
@@ -24,7 +24,8 @@ $jm-button-warn: rgb(255, 82, 82);
     background-color: #fff;
     letter-spacing: .01em;
     user-select: none;
-    transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: hidden;
+    transition: all .4s ease-out;
     z-index: 90;
 
     .content {
@@ -45,7 +46,7 @@ $jm-button-warn: rgb(255, 82, 82);
         top: 0;
         left: 0;
         background-color: transparent;
-        transition: all .55s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition: all .4s ease-out;
         overflow: hidden;
 
         .ripple {
@@ -57,7 +58,8 @@ $jm-button-warn: rgb(255, 82, 82);
             left: 0;
             background-color: rgba(0, 0, 0, .15);
             border-radius: 50%;
-            transition: all .55s cubic-bezier(0.25, 0.8, 0.25, 1);
+            transition: all .4s ease-out;
+            transform: scale(1.2);
         }
 
     }
@@ -69,7 +71,8 @@ $jm-button-warn: rgb(255, 82, 82);
         }
         .ripple {
             display: block;
-            animation: rippling .55s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: rippling .4s ease-out;
+            transform: scale(1.2);
         }
         @keyframes rippling {
             0% {
@@ -77,7 +80,7 @@ $jm-button-warn: rgb(255, 82, 82);
                 opacity: 0;
             }
             100% {
-                transform: scale(1);
+                transform: scale(1.2);
                 opacity: 1;
             }
         }
@@ -86,11 +89,11 @@ $jm-button-warn: rgb(255, 82, 82);
     &.mouseup {
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
         .ripple-container {
-            animation: _container .55s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: _container .4s ease-out;
         }
         .ripple {
             display: none;
-            animation: _ripple .55s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation: _ripple .4s ease-out;
         }
         @keyframes _container {
             0% {
@@ -270,7 +273,7 @@ $jm-button-warn: rgb(255, 82, 82);
     text-align: center;
     overflow: hidden;
     z-index: 89;
-    transition: all 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.15s ease-out;
     text-transform: capitalize;
     transform: scale(0);
     font-weight: 500;

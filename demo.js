@@ -99,6 +99,7 @@ $(function() {
     })
 
     $('.to-input').click(function() {
+        console.log(133);
         $('.email-input-label').jmScrollInto()
     })
 
