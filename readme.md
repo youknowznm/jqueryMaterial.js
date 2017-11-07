@@ -1,6 +1,6 @@
 # jQuery Material
 
-一套 Material Design 风格的 jQuery 组件库，适用于桌面端和移动端的快速建站。  
+一套 Material Design 风格的 jQuery 组件库，适用于桌面端和移动端的快速建站，demo 请见[此处](https://youknowznm.github.io/demos/jquery-material/)。  
 
 交互行为和样式参考了 [Google Design 旧站](https://web.archive.org/web/20170516175305/https://design.google.com)、[AngularJS Material](https://material.angularjs.org/latest/) 和 [Material Components](https://material.io/components/web/catalog/) 等 Google 的设计相关站点。
 
@@ -8,7 +8,12 @@
 
 已用于我的另一个项目 [Rhaego](https://github.com/youknowznm/rhaego)。
 
-目前包括：
+#### 提供三种打包方式：
+- `npm run regular` 常规（不分离样式，不压缩，监听改动，用于开发调试）
+- `npm run compressed` 仅压缩（不分离样式，压缩打包的js，命名为min.js，不监听改动）
+- `npm run styleSeparated` 压缩并分离样式（分离样式，压缩打包的js，命名为min.js，不监听改动）
+
+#### 简单的文档：
 - 页面头部
     - [Google Design 旧站](https://web.archive.org/web/20170516175305/https://design.google.com) 的渐变波纹效果样式
     - 渐变的深/浅色系主题

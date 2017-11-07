@@ -1,4 +1,4 @@
-// 压缩 - 不分离样式，压缩打包的js，命名为min.js，不监听改动
+// 仅压缩 - 不分离样式，压缩打包的js，命名为min.js，不监听改动
 const webpack = require('webpack')
 const path = require('path')
 const fs = require('fs')
