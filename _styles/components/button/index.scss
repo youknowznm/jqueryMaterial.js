@@ -25,7 +25,7 @@ $jm-button-warn: rgb(255, 82, 82);
     letter-spacing: .01em;
     user-select: none;
     overflow: hidden;
-    transition: all .4s ease-out;
+    transition: all .3s ease-out;
     z-index: 90;
 
     .content {
@@ -46,7 +46,7 @@ $jm-button-warn: rgb(255, 82, 82);
         top: 0;
         left: 0;
         background-color: transparent;
-        transition: all .4s ease-out;
+        transition: all .3s ease-out;
         overflow: hidden;
 
         .ripple {
@@ -58,7 +58,7 @@ $jm-button-warn: rgb(255, 82, 82);
             left: 0;
             background-color: rgba(0, 0, 0, .15);
             border-radius: 50%;
-            transition: all .4s ease-out;
+            transition: all .3s ease-out;
             transform: scale(1.2);
         }
 
@@ -71,7 +71,7 @@ $jm-button-warn: rgb(255, 82, 82);
         }
         .ripple {
             display: block;
-            animation: rippling .4s ease-out;
+            animation: rippling .3s ease-out;
             transform: scale(1.2);
         }
         @keyframes rippling {
@@ -89,11 +89,11 @@ $jm-button-warn: rgb(255, 82, 82);
     &.mouseup {
         box-shadow: 0 2px 5px 0 rgba(0, 0, 0, .26);
         .ripple-container {
-            animation: _container .4s ease-out;
+            animation: _container .3s ease-out;
         }
         .ripple {
             display: none;
-            animation: _ripple .4s ease-out;
+            animation: _ripple .3s ease-out;
         }
         @keyframes _container {
             0% {
@@ -260,7 +260,6 @@ $jm-button-warn: rgb(255, 82, 82);
 #jm-tooltip {
     display: block;
     position: fixed;
-    // width: 58px;
     top: 0;
     left: 0;
     color: rgba(#fff, .87);
@@ -284,23 +283,15 @@ $jm-button-warn: rgb(255, 82, 82);
         transition-delay: .3s;
     }
     &.to-show-at-top {
-        // margin-left: -33px;
-        // margin-top: -63px;
         transform-origin: bottom;
     }
     &.to-show-at-right {
-        // margin-left: 42px;
-        // margin-top: -9px;
         transform-origin: left;
     }
     &.to-show-at-bottom {
-        // margin-left: -33px;
-        // margin-top: 38px;
         transform-origin: top;
     }
     &.to-show-at-left {
-        // margin-left: -105px;
-        // margin-top: -11px;
         transform-origin: right;
     }
 

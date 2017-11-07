@@ -9,7 +9,7 @@
     background-color: rgba(#000, .4);
     z-index: 200;
     opacity: 0;
-    transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all .2s ease-out;
 
     .jm-dialog {
         position: fixed;
@@ -27,7 +27,7 @@
         padding: 24px 24px 6px;
         opacity: 0;
         box-sizing: border-box;
-        transition: all .4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        transition: all .2s ease-out;
         transform: scale(0) translateX(-50%) translateY(-50%);
     }
 

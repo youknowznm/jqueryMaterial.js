@@ -6,7 +6,7 @@ $.fn.extend({
         - text 按钮内容文字。不提供时，按钮内容为一个.icon元素，需在样式表内自行设置背景url
         - tooltipContent 浮动提示条的内容文字。不提供时，不显示浮动提示条
         - tooltipPosition 浮动提示条的位置。不提供时默认为'top'
-        - clickCallback 点击动作的回调，在mouseup时触发
+        - clickCallback 点击动作的回调，在mouseup时触发，传入$button参数。不提供时为空方法
     */
     initButton(options) {
         this.each(function() {
@@ -57,7 +57,7 @@ $.fn.extend({
                 })
                 .on('mousedown', function(evt) {
                     let $this = $(this)
-                    if ($this.data('animating') === false) {
+                    if (!$this.hasClass('_disabled') && $this.data('animating') === false) {
                         let $ripple = $this.find('.ripple')
                         let _x = evt.offsetX
                         let _y = evt.offsetY
@@ -66,7 +66,7 @@ $.fn.extend({
                         // 根据事件坐标和按钮水平中点的距离，获取波纹的直径
                         let offsetToHorizontalCenter = _width / 2 - _x
                         let offsetToVerticalCenter = _height / 2 - _y
-                        let sideLength = _width + (offsetToHorizontalCenter) * 2 + (_width / 10)
+                        let sideLength = _width + Math.abs(offsetToHorizontalCenter) * 2
                         $ripple.css({
                             width: sideLength,
                             height: sideLength,
@@ -79,9 +79,9 @@ $.fn.extend({
                 })
                 .on('mouseup', function(e) {
                     let $this = $(this)
-                    if ($this.data('animating') === true) {
+                    if (!$this.hasClass('_disabled') && $this.data('animating') === true) {
                         $this.removeClass('mousedown').addClass('mouseup')
-                        clickCallback()
+                        clickCallback($this)
                     }
                 })
                 .on('animationend', function(e) {

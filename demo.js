@@ -22,6 +22,8 @@ $(function() {
         },
     })
 
+    $('.jm-input').initInput()
+
     $('.jm-button:not(.special)').each(function() {
         let $this = $(this)
         $this.initButton({
@@ -31,45 +33,67 @@ $(function() {
         })
     })
 
-    $('.jm-input').initInput()
-
-    $('.show-alert').on('click', function() {
-        $.showJmDialog({
-            dialogType: 'alert',
-            title: 'This is an alert title',
-            content: 'You can specify some description text in here.',
-            confirmButtonText: 'got it!',
-        })
+    $('.show-alert').initButton({
+        text: 'show alert',
+        clickCallback() {
+            $.showJmDialog({
+                dialogType: 'alert',
+                title: 'This is an alert title',
+                content: 'You can specify some description text in here.',
+                confirmButtonText: 'got it!',
+            })
+        }
     })
 
-    $('.show-confirm').on('click', function() {
-        $.showJmDialog({
-            dialogType: 'confirm',
-            title: 'Would you like to delete your debt?',
-            content: 'All of the banks have agreed to forgive you your debts.',
-            cancelButtonText: 'sounds like a scam',
-            confirmButtonText: 'please do it!',
-        })
+    $('.show-confirm').initButton({
+        text: 'show confirm',
+        clickCallback() {
+            $.showJmDialog({
+                dialogType: 'confirm',
+                title: 'Would you like to delete your debt?',
+                content: 'All of the banks have agreed to forgive you your debts.',
+                cancelButtonText: 'sounds like a scam',
+                confirmButtonText: 'please do it!',
+            })
+        }
     })
 
-    $('.show-prompt').on('click', function() {
-        $.showJmDialog({
-            dialogType: 'prompt',
-            title: 'How would you like to name your dogs?',
-            content: 'Bowser is a common name.',
-            cancelButtonText: 'I\'m a cat person',
-            confirmButtonText: 'OK!',
-            promptDataArr: [
-                {
-                    name: 'Dog 1',
-                    value: 'Buddy',
-                },
-                {
-                    name: 'Dog 2',
-                    value: '',
-                },
-            ],
-        })
+    $('.show-prompt').initButton({
+        text: 'show prompt',
+        clickCallback() {
+            $.showJmDialog({
+                dialogType: 'prompt',
+                title: 'How would you like to name your dogs?',
+                content: 'Bowser is a common name.',
+                cancelButtonText: 'I\'m a cat person',
+                confirmButtonText: 'OK!',
+                promptDataArr: [
+                    {
+                        name: 'Dog 1',
+                        value: 'Buddy',
+                    },
+                    {
+                        name: 'Dog 2',
+                        value: '',
+                    },
+                ],
+            })
+        }
+    })
+
+
+    $('.to-top').initButton({
+        text: 'to page top',
+        clickCallback() {
+            $('body').jmScrollInto()
+        }
+    })
+
+    $('.to-input').initButton({
+        text: 'to email input',
+        clickCallback() {
+            $('.email-input-label').jmScrollInto()
+        }
     })
 
     $('.jm-radio-group').initRadio({
@@ -100,15 +124,6 @@ $(function() {
     })
 
     $('.jm-bg').initBackground()
-
-    $('.to-top').click(function() {
-        $('body').jmScrollInto()
-    })
-
-    $('.to-input').click(function() {
-        console.log(133);
-        $('.email-input-label').jmScrollInto()
-    })
 
     $('.jm-rte').initRte({
         id: '133',
