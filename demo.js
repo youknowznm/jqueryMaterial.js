@@ -22,7 +22,14 @@ $(function() {
         },
     })
 
-    $('.jm-button').initButton()
+    $('.jm-button:not(.special)').each(function() {
+        let $this = $(this)
+        $this.initButton({
+            text: $this.data('text'),
+            tooltipContent: $this.data('tooltipContent'),
+            tooltipPosition: $this.data('tooltipPosition'),
+        })
+    })
 
     $('.jm-input').initInput()
 

@@ -257,50 +257,50 @@ $jm-button-warn: rgb(255, 82, 82);
 /*
 ***** 提示条 ****
 */
-.jm-tooltip {
+#jm-tooltip {
     display: block;
-    position: absolute;
-    width: 58px;
-    top: 50%;
-    left: 50%;
+    position: fixed;
+    // width: 58px;
+    top: 0;
+    left: 0;
     color: rgba(#fff, .87);
     background: rgb(97, 97, 97);
     border-radius: 4px;
     line-height: 22px;
     height: 22px;
     font-size: 12px;
-    padding: 0 4px;
+    padding: 0 6px;
     text-align: center;
     overflow: hidden;
-    z-index: 89;
-    transition: all 0.15s ease-out;
+    z-index: 1000;
+    transition: transform .15s ease;
     text-transform: capitalize;
-    transform: scale(0);
     font-weight: 500;
     transition-delay: 0;
+    opacity: .9;
+    transform: scale(0);
     &.show {
         transform: scale(1);
         transition-delay: .3s;
-        opacity: .9;
     }
     &.to-show-at-top {
-        margin-left: -33px;
-        margin-top: -63px;
+        // margin-left: -33px;
+        // margin-top: -63px;
         transform-origin: bottom;
     }
     &.to-show-at-right {
-        margin-left: 42px;
-        margin-top: -9px;
+        // margin-left: 42px;
+        // margin-top: -9px;
         transform-origin: left;
     }
     &.to-show-at-bottom {
-        margin-left: -33px;
-        margin-top: 38px;
+        // margin-left: -33px;
+        // margin-top: 38px;
         transform-origin: top;
     }
     &.to-show-at-left {
-        margin-left: -105px;
-        margin-top: -11px;
+        // margin-left: -105px;
+        // margin-top: -11px;
         transform-origin: right;
     }
 
