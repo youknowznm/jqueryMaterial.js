@@ -88,12 +88,12 @@
     https://material.angularjs.org/latest/demo/dialog
     @param options {Object}
         - dialogType {?String} 对话框类型，可为'alert'、'confirm'或'prompt'。不提供时为'alert'
-        - title {?String} 对话框标题文字。不提供时为'unnamed dialog'
-        - content {?String} 对话框内容文字。不提供时为'default content'
-        - confirmButtonText {?String} 确认按钮的内容文字。不提供时为'confirm'
-        - cancelButtonText {?String} 取消按钮的内容文字。不提供时为'cancel'
-        - onConfirm {?Function} 确认按钮的点击回调。不提供时为一个空方法
-        - onCancel {?Function} 取消按钮的点击回调。不提供时为一个空方法
+        - title {?String} 对话框标题文字。不提供时为'unnamed dialog'
+        - content {?String} 对话框内容文字。不提供时为'default content'
+        - confirmButtonText {?String} 确认按钮的内容文字。不提供时为'confirm'
+        - cancelButtonText {?String} 取消按钮的内容文字。不提供时为'cancel'
+        - onConfirm {?Function} 确认按钮的点击回调。不提供时为一个空方法
+        - onCancel {?Function} 取消按钮的点击回调。不提供时为一个空方法
         - promptDataArr {?Array.<Object>} prompt框的数据对象数组。当dialogType为prompt时必须提供
         - onDialogReady (?Function) 对话框DOM就绪时的回调，可在内部进行样式、监听等的处理。不提供时为一个空方法
     */
@@ -157,8 +157,8 @@
     生成 angular material 风格的toast提示
     https://material.angularjs.org/latest/demo/toast
     @param options {Object}
-        - content {?String} 内容文字。不提供时为'default toast'
-        - duration {?Number} 持续时间。不提供时为3000
+        - content {?String} 内容文字。不提供时为'default toast'
+        - duration {?Number} 持续时间。不提供时为3000
     */
     ```
 - 页面尾部
