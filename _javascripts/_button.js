@@ -2,13 +2,12 @@ $.fn.extend({
     /**
     生成 angular material 风格的按钮
     https://material.angularjs.org/latest/demo/button
-    @param options {Object}
-        - text 按钮内容文字。不提供时，按钮内容为一个.icon元素，需在样式表内自行设置背景url
-        - tooltipContent 浮动提示条的内容文字。不提供时，不显示浮动提示条
-        - tooltipPosition 浮动提示条的位置。不提供时默认为'top'
-        - clickCallback 点击动作的回调，在mouseup时触发，传入$button参数。不提供时为空方法
+    目标元素可配置的属性：
+        - data-text 按钮内容文字。不提供时，按钮内容为一个.icon元素，需在样式表内自行设置背景url
+        - data-tooltipContent 浮动提示条的内容文字。不提供时，不显示浮动提示条
+        - data-tooltipPosition 浮动提示条的位置。不提供时默认为'top'
     */
-    initButton(options) {
+    initButton() {
         this.each(function() {
             let $button = $(this).data('animating', false)
 
@@ -17,7 +16,7 @@ $.fn.extend({
             - 如有有效的text属性则按钮内容为字符
             - 否则内容为一个icon，在样式表内自行定义。这时给按钮元素添加_round类
             */
-            let textContent = options.text || null
+            let textContent = $button.data('text')
             let buttonContentHTML = ''
             if (typeof textContent === 'string' && /\S/.test(textContent)) {
                 buttonContentHTML = `<span class="content">${textContent}</span>`
@@ -30,16 +29,14 @@ $.fn.extend({
             将浮动提示条相关数据写入data
             */
             let tooltipHTML = ''
-            let tooltipContent = options.tooltipContent
+            let tooltipContent = $button.data('tooltipContent')
             if (typeof tooltipContent === 'string') {
                 $button.data({
                     tooltipContent,
-                    tooltipPosition: options.tooltipPosition || 'top'
+                    tooltipPosition: $button.data('tooltipPosition') || 'top'
                 })
                 $button.addClass('show-tooltip')
             }
-
-            let clickCallback = typeof options.clickCallback === 'function' ? options.clickCallback : function() {}
 
             let buttonHTML = `
                 ${buttonContentHTML}
@@ -81,7 +78,6 @@ $.fn.extend({
                     let $this = $(this)
                     if (!$this.hasClass('_disabled') && $this.data('animating') === true) {
                         $this.removeClass('mousedown').addClass('mouseup')
-                        clickCallback($this)
                     }
                 })
                 .on('animationend', function(e) {
@@ -111,6 +107,12 @@ $.fn.extend({
                     if ($this.hasClass('show-tooltip')) {
                         $('#jm-tooltip').removeClass('show').remove()
                     }
+                })
+                .on('click', function(e) {
+                    e.stopPropagation()
+                    console.log(this);
+                    console.log(e.currentTarget);
+                    console.log('cnm');
                 })
 
             // 以目标按钮元素为参照，确定提示条元素的位置
@@ -148,5 +150,6 @@ $.fn.extend({
             }
 
         })
+        return this
     }
 })

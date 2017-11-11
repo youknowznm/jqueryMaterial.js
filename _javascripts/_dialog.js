@@ -40,7 +40,7 @@ $.showJmDialog = function(options) {
                         <h1 class="dialog-title">${title}</h1>
                         <p class="dialog-content">${content}</p>
                         <div class="buttons">
-                            <button id="jm-dialog-confirm" class="jm-button _flat _primary full-width"></button>
+                            <button id="jm-dialog-confirm" class="jm-button _flat _primary full-width" data-text="${confirmButtonText}"></button>
                          </div>
                     </div>
                 </div>`
@@ -52,8 +52,8 @@ $.showJmDialog = function(options) {
                         <h1 class="dialog-title">${title}</h1>
                         <p class="dialog-content">${content}</p>
                         <div class="buttons">
-                            <button id="jm-dialog-cancel" class="jm-button _flat _primary"></button>
-                            <button id="jm-dialog-confirm" class="jm-button _flat _primary"></button>
+                            <button id="jm-dialog-cancel" class="jm-button _flat _primary" data-text="${cancelButtonText}"></button>
+                            <button id="jm-dialog-confirm" class="jm-button _flat _primary" data-text="${confirmButtonText}"></button>
                          </div>
                     </div>
                 </div>`
@@ -76,8 +76,8 @@ $.showJmDialog = function(options) {
                                            spellcheck="false" />`
                         }).join('')}
                         <div class="buttons">
-                            <button id="jm-dialog-cancel" class="jm-button _flat _primary"></button>
-                            <button id="jm-dialog-confirm" class="jm-button _flat _primary"></button>
+                            <button id="jm-dialog-cancel" class="jm-button _flat _primary" data-text="${cancelButtonText}"></button>
+                            <button id="jm-dialog-confirm" class="jm-button _flat _primary" data-text="${confirmButtonText}"></button>
                          </div>
                     </div>
                 </div>`
@@ -90,68 +90,49 @@ $.showJmDialog = function(options) {
     let $cancelButton = $dialog.find('#jm-dialog-cancel')
     let $confirmButton = $dialog.find('#jm-dialog-confirm')
 
-    function clickingConfirm() {
-        if (!$confirmButton.hasClass('_disabled')) {
-            onConfirm()
-            $wrap.removeClass('show')
-            $dialog.on('animationend', function() {
-                $html.removeClass('no-scroll hide-scroll-bar')
-                $wrap.remove()
-            })
-        }
-    }
-
-    function clickingCancel() {
-        if (!$cancelButton.hasClass('_disabled')) {
-            onCancel()
-            $wrap.removeClass('show')
-            $dialog.on('animationend', function() {
-                $html.removeClass('no-scroll hide-scroll-bar')
-                $wrap.remove()
-            })
-        }
-    }
-
-    $cancelButton.initButton({
-        text: cancelButtonText,
-        clickCallback() {
-            clickingCancel()
-        }
-    })
-
-    // alert对话框下没有confirm按钮
-    if ($confirmButton.length > 0) {
-        $confirmButton.initButton({
-            text: confirmButtonText,
-            clickCallback() {
-                clickingConfirm()
-            }
-        })
-    }
-
     $html.addClass('no-scroll')
     if (hasOverflownContent) {
         $html.addClass('hide-scroll-bar')
     }
     $dialog.css('transform-origin', '0 0')
 
+    function clickingTargetButton($button) {
+        if (!$button.hasClass('_disabled')) {
+            if ($button.is('#jm-dialog-cancel')) {
+                onCancel()
+            } else {
+                onConfirm()
+            }
+            $wrap.removeClass('show')
+            $dialog.on('animationend', function() {
+                console.log('1end');
+                $html.removeClass('no-scroll hide-scroll-bar')
+                $wrap.remove()
+            })
+        }
+    }
+
+    $cancelButton.initButton().click((ele) => clickingTargetButton($cancelButton))
+    $confirmButton.initButton().click((ele) => clickingTargetButton($confirmButton))
+
     // 热键
-    // $(window).on('keyup', function(evt) {
-    //     if ($dialog.length !== 0) {
-    //         // esc - 为alert框时点击确认按钮；否则点击取消按钮
-    //         if (evt.keyCode === 27) {
-    //             if (dialogType === 'alert') {
-    //                 clickingConfirm()
-    //             } else {
-    //                 clickingCancel()
-    //             }
-    //         }
-    //         // enter - 点击确认按钮
-    //         if (evt.keyCode === 13) {
-    //             clickingConfirm()
-    //         }
-    //     }
-    // })
+    $(window).on('keyup', function(evt) {
+        console.log($dialog.length);
+        if ($dialog.length !== 0) {
+            // esc - 为alert框时点击确认按钮；否则点击取消按钮
+            if (evt.keyCode === 27) {
+                if (dialogType === 'alert') {
+                    clickingTargetButton($confirmButton)
+                } else {
+                    clickingTargetButton($cancelButton)
+                }
+            }
+            // enter - 点击确认按钮
+            if (evt.keyCode === 13) {
+                clickingTargetButton($confirmButton)
+            }
+        }
+    })
 
     // 为propmt框时，只在所有.prompt-input框内容有效时允许点击confirm按钮
     if (dialogType === 'prompt') {

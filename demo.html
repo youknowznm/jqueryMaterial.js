@@ -44,7 +44,20 @@
 
 <div class="jm-main-wrap">
     <div class="jm-main jm-responsive-wrap">
+        <!-- 滚动 -->
+        <p class="jm-row-label scrolling-label">scrolling</p>
+        <div class="jm-row">
+            <button class="jm-button to-top" data-text="to page top"></button>
+            <button class="jm-button to-input" data-text="to email input"></button>
+        </div>
 
+        <!-- 对话框 -->
+        <p class="jm-row-label">dialog</p>
+        <div class="jm-row">
+            <button class="jm-button _primary show-alert" data-text="show alert"></button>
+            <button class="jm-button _primary show-confirm" data-text="show confirm"></button>
+            <button class="jm-button _primary show-prompt" data-text="show prompt"></button>
+        </div>
         <!-- 背景生成器 -->
         <p class="jm-row-label">background generator</p>
         <div class="jm-row flexed">
@@ -108,9 +121,8 @@
             <div class="jm-input email"
                 data-type="text"
                 data-validator="^([a-zA-Z\d]+)\w*@(\w+)(\.[a-zA-Z]{1,4}){1,2}$"
-                data-label="email"
+                data-label="Email"
                 data-max-length="30"
-                data-status="disabled"
                 data-error-msg="Invalid email format.">
             </div>
         </div>
@@ -120,7 +132,7 @@
             <div class="jm-input cell"
                 data-type="text"
                 data-validator="^1[0-9]{10}$"
-                data-label="cell phone number"
+                data-label="Cell Phone Number"
                 data-max-length="11"
                 data-error-msg="Invalid cell phone format."
                 data-theme="dark"
@@ -140,20 +152,7 @@
             <div class="jm-rte"></div>
         </div>
 
-        <!-- 滚动 -->
-        <p class="jm-row-label scrolling-label">scrolling</p>
-        <div class="jm-row">
-            <button class="jm-button special to-top"></button>
-            <button class="jm-button special to-input"></button>
-        </div>
 
-        <!-- 对话框 -->
-        <p class="jm-row-label">dialog</p>
-        <div class="jm-row">
-            <button class="jm-button _primary show-alert special"></button>
-            <button class="jm-button _primary show-confirm special"></button>
-            <button class="jm-button _primary show-prompt special"></button>
-        </div>
 
         <!-- 标签 -->
         <p class="jm-row-label">tag</p>
@@ -173,8 +172,6 @@
 
 <!-- footer -->
 <footer class="jm-footer"></footer>
-
-
 
 </body>
 </html>
