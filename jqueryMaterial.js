@@ -201,13 +201,15 @@ $.fn.extend({
 
             $button.html(buttonHTML);
 
-            $button.on('animationstart', function (e) {
-                var $this = $(this);
-                var $animatingTarget = $(e.target);
-                if ($animatingTarget.hasClass('ripple')) {
-                    $this.data('animating', true);
-                }
-            }).on('mousedown', function (evt) {
+            $button
+            // .on('animationstart', function(e) {
+            //     let $this = $(this)
+            //     let $animatingTarget = $(e.target)
+            //     if ($animatingTarget.hasClass('ripple')) {
+            //         $this.data('animating', true)
+            //     }
+            // })
+            .on('mousedown', function (evt) {
                 var $this = $(this);
                 if (!$this.hasClass('_disabled') && $this.data('animating') === false) {
                     var $ripple = $this.find('.ripple');
@@ -226,20 +228,23 @@ $.fn.extend({
                         top: (_height - sideLength) / 2 - offsetToVerticalCenter
                     });
                     $this.addClass('mousedown');
+                    $this.data('animating', true);
                 }
             }).on('mouseup', function (e) {
                 var $this = $(this);
                 if (!$this.hasClass('_disabled') && $this.data('animating') === true) {
                     $this.removeClass('mousedown').addClass('mouseup');
                 }
-            }).on('animationend', function (e) {
-                var $this = $(this);
-                var $animatingTarget = $(e.target);
-                if ($animatingTarget.hasClass('ripple-container')) {
-                    $this.removeClass('mouseup');
-                    $this.data('animating', false);
-                }
-            }).on('mouseenter', function (evt) {
+            })
+            // .on('animationend', function(e) {
+            //     let $this = $(this)
+            //     let $animatingTarget = $(e.target)
+            //     if ($animatingTarget.hasClass('ripple-container')) {
+            //         $this.removeClass('mouseup')
+            //         $this.data('animating', false)
+            //     }
+            // })
+            .on('mouseenter', function (evt) {
                 var $this = $(this);
                 if ($this.hasClass('show-tooltip')) {
                     var $tooltip = $('<p id="jm-tooltip" class="to-show-at-' + $this.data('tooltipPosition') + '">\n                                    ' + $this.data('tooltipContent') + '\n                                </p>');
@@ -256,9 +261,9 @@ $.fn.extend({
                     $('#jm-tooltip').removeClass('show').remove();
                 }
             }).on('click', function (e) {
-                e.stopPropagation();
-                console.log(this);
-                console.log(e.currentTarget);
+                // e.stopPropagation()
+                // console.log(this);
+                // console.log(e.currentTarget);
                 console.log('cnm');
             });
 

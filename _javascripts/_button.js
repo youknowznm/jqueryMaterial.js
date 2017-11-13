@@ -45,13 +45,13 @@ $.fn.extend({
             $button.html(buttonHTML)
 
             $button
-                .on('animationstart', function(e) {
-                    let $this = $(this)
-                    let $animatingTarget = $(e.target)
-                    if ($animatingTarget.hasClass('ripple')) {
-                        $this.data('animating', true)
-                    }
-                })
+                // .on('animationstart', function(e) {
+                //     let $this = $(this)
+                //     let $animatingTarget = $(e.target)
+                //     if ($animatingTarget.hasClass('ripple')) {
+                //         $this.data('animating', true)
+                //     }
+                // })
                 .on('mousedown', function(evt) {
                     let $this = $(this)
                     if (!$this.hasClass('_disabled') && $this.data('animating') === false) {
@@ -71,6 +71,7 @@ $.fn.extend({
                             top: (_height - sideLength) / 2 - offsetToVerticalCenter,
                         })
                         $this.addClass('mousedown')
+                        $this.data('animating', true)
                     }
 
                 })
@@ -80,14 +81,14 @@ $.fn.extend({
                         $this.removeClass('mousedown').addClass('mouseup')
                     }
                 })
-                .on('animationend', function(e) {
-                    let $this = $(this)
-                    let $animatingTarget = $(e.target)
-                    if ($animatingTarget.hasClass('ripple-container')) {
-                        $this.removeClass('mouseup')
-                        $this.data('animating', false)
-                    }
-                })
+                // .on('animationend', function(e) {
+                //     let $this = $(this)
+                //     let $animatingTarget = $(e.target)
+                //     if ($animatingTarget.hasClass('ripple-container')) {
+                //         $this.removeClass('mouseup')
+                //         $this.data('animating', false)
+                //     }
+                // })
                 .on('mouseenter', function(evt) {
                     let $this = $(this)
                     if ($this.hasClass('show-tooltip')) {
@@ -109,9 +110,9 @@ $.fn.extend({
                     }
                 })
                 .on('click', function(e) {
-                    e.stopPropagation()
-                    console.log(this);
-                    console.log(e.currentTarget);
+                    // e.stopPropagation()
+                    // console.log(this);
+                    // console.log(e.currentTarget);
                     console.log('cnm');
                 })
 
