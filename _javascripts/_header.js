@@ -96,12 +96,12 @@ $.fn.extend({
             $window.on('scroll', function(evt) {
                 // 桌面端
                 if (!isMobile) {
-                    let scTp = $window.scrollTop()
+                    let pageScrollTop = $window.scrollTop()
                     // 主体的滚动距离大于一定值时渐隐标题
-                    $banner.find('.jm-single-word').toggleClass('hidden', scTp > 30)
+                    $banner.find('.jm-single-word').toggleClass('hidden', pageScrollTop > 30)
                     $banner.css(
                         'height',
-                        (192 - scTp) < 0 ? 0 : (192 - scTp)
+                        (192 - pageScrollTop) < 0 ? 0 : (192 - pageScrollTop)
                     )
                 }
             })

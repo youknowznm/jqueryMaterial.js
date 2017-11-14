@@ -56,10 +56,10 @@ $.fn.extend({
                     $this.siblings().attr('data-checked', 'false')
                         .end().attr('data-checked', 'true')
                     $shadow.addClass('clicked')
-                    setTimeout(function() {
+                    $shadow.on('animationend', function() {
                         $shadow.removeClass('clicked')
                         $this.data('animating', false)
-                    }, 300)
+                    })
                 }
             })
 

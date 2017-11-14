@@ -88,11 +88,15 @@ $.fn.extend({
                     </span>
                     by <a href="${siteInfo.siteAuthorHomepage}" target="_blank" class="info-link">${siteInfo.siteAuthorName}</a>.
                 </p>
-                <a href="${siteInfo.siteSourceLink}" target="_blank" class="jm-button source _warn _flat" data-text="view source"></a>
+                <button class="jm-button source _warn _flat" data-href="${siteInfo.siteSourceLink}" data-text="view source"></button>
             </div>
             </div>`
 
         $footer.html(footerHTML).show()
+
+        $('.source').initButton(function($t) {
+            window.open($t.data('href'))
+        })
 
     }
 })

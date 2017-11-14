@@ -9,8 +9,8 @@ https://material.angularjs.org/latest/demo/dialog
     - content {?String} 对话框内容文字。不提供时为'default content'
     - confirmButtonText {?String} 确认按钮的内容文字。不提供时为'confirm'
     - cancelButtonText {?String} 取消按钮的内容文字。不提供时为'cancel'
-    - onConfirm {?Function} 确认按钮的点击回调。不提供时为一个空方法
-    - onCancel {?Function} 取消按钮的点击回调。不提供时为一个空方法
+    - onConfirm {?Function} 确认按钮的点击回调，传入$dialog参数。不提供时为一个空方法
+    - onCancel {?Function} 取消按钮的点击回调，传入$dialog参数。不提供时为一个空方法
     - promptDataArr {?Array.<Object>} prompt框的数据对象数组。当dialogType为prompt时必须提供
     - onDialogReady (?Function) 对话框DOM就绪时的回调，可在内部进行样式、监听等的处理。不提供时为一个空方法
 */
@@ -98,14 +98,14 @@ $.showJmDialog = function(options) {
 
     function clickingTargetButton($button) {
         if (!$button.hasClass('_disabled')) {
-            if ($button.is('#jm-dialog-cancel')) {
-                onCancel()
-            } else {
-                onConfirm()
-            }
             $wrap.removeClass('show')
             $wrap.on('animationend', function() {
                 $html.removeClass('no-scroll hide-scroll-bar')
+                if ($button.is('#jm-dialog-cancel')) {
+                    onCancel($dialog)
+                } else {
+                    onConfirm($dialog)
+                }
                 $wrap.remove()
             })
         }
@@ -138,6 +138,6 @@ $.showJmDialog = function(options) {
 
     setTimeout(function() {
         $wrap.addClass('show')
-    }, 100)
+    }, 10)
 
 }

@@ -25,7 +25,7 @@ $(function() {
     $('.jm-input').initInput()
 
     $('.jm-button').initButton(function($t) {
-        console.log(`-- ${$t.parent().prev().html()} --`);
+        $.showJmToast(`You clicked one of [${$t.parent().prev().html().toUpperCase()}].`);
     })
 
     $('.show-alert').bindClickListener(function() {
@@ -34,6 +34,9 @@ $(function() {
             title: 'This is an alert title',
             content: 'You can specify some description text in here.',
             confirmButtonText: 'got it!',
+            onConfirm() {
+                $.showJmToast(`You dismissed the alert.`);
+            }
         })
     })
 
@@ -44,6 +47,12 @@ $(function() {
             content: 'All of the banks have agreed to forgive you your debts.',
             cancelButtonText: 'sounds like a scam',
             confirmButtonText: 'please do it!',
+            onCancel() {
+                $.showJmToast(`You were smart enough.`);
+            },
+            onConfirm() {
+                $.showJmToast(`You were cheated.`);
+            },
         })
     })
 
@@ -63,6 +72,12 @@ $(function() {
                     value: '',
                 },
             ],
+            onCancel() {
+                $.showJmToast(`You didn't name your dog.`);
+            },
+            onConfirm($t) {
+                $.showJmToast(`You named your dogs '${$('#jm-prompt-input-1').val()}' and '${$('#jm-prompt-input-2').val()}'.`);
+            }
         })
     })
 
@@ -110,9 +125,7 @@ $(function() {
     })
 
     $('.show-toast').bindClickListener(function() {
-        $.showJmToast({
-            content: 'This is a sample toast.'
-        })
+        $.showJmToast('This is a sample toast.')
     })
 
 })

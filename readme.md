@@ -15,7 +15,7 @@
 
 #### 简单的文档：
 - 页面头部
-    - [Google Design 旧站](https://web.archive.org/web/20170516175305/https://design.google.com) 的渐变波纹效果样式
+    - [Google Design 旧站](https://web.archive.org/web/20170516175305/https://design.google.com) 的波纹效果
     - 渐变的深/浅色系主题
     - 随页面滚动渐变样式的 banner
     - 可配置的站点名和当前活动的导航按钮索引
@@ -43,19 +43,19 @@
     */
     ```
 - 按钮
-    - [AngularJS Material](https://material.angularjs.org/latest/demo/button) 的按钮波纹效果样式
+    - [AngularJS Material](https://material.angularjs.org/latest/demo/button) 的波纹效果
     - 多种形状和颜色主题
     - 可选的按钮说明浮动提示条
     ```javascript
-    $(SELECTOR).initButton(options)
+    $(SELECTOR).initButton(clickCallback)
     /**
     生成 angular material 风格的按钮
     https://material.angularjs.org/latest/demo/button
-    @param options {Object}
-        - text 按钮内容文字。不提供时，按钮内容为一个.icon元素，需在样式表内自行设置背景url
-        - tooltipContent 浮动提示条的内容文字。不提供时，不显示浮动提示条
-        - tooltipPosition 浮动提示条的位置。不提供时默认为'top'
-        - clickCallback 点击动作的回调，在mouseup时触发，传入$button参数。不提供时为空方法
+    @param clickCallback {Function?} 点击事件的回调，在mouseup时触发。不提供时传入空方法
+    目标元素可配置的属性：
+        - data-text 按钮内容文字。不提供时，按钮内容为一个.icon元素，需在样式表内自行设置背景url
+        - data-tooltipContent 浮动提示条的内容文字。不提供时，不显示浮动提示条
+        - data-tooltipPosition 浮动提示条的位置。不提供时默认为'top'
     */
     ```
 - 文字输入
@@ -92,8 +92,8 @@
         - content {?String} 对话框内容文字。不提供时为'default content'
         - confirmButtonText {?String} 确认按钮的内容文字。不提供时为'confirm'
         - cancelButtonText {?String} 取消按钮的内容文字。不提供时为'cancel'
-        - onConfirm {?Function} 确认按钮的点击回调。不提供时为一个空方法
-        - onCancel {?Function} 取消按钮的点击回调。不提供时为一个空方法
+        - onConfirm {?Function} 确认按钮的点击回调，传入$dialog参数。不提供时为一个空方法
+        - onCancel {?Function} 取消按钮的点击回调，传入$dialog参数。不提供时为一个空方法
         - promptDataArr {?Array.<Object>} prompt框的数据对象数组。当dialogType为prompt时必须提供
         - onDialogReady (?Function) 对话框DOM就绪时的回调，可在内部进行样式、监听等的处理。不提供时为一个空方法
     */
@@ -156,9 +156,8 @@
     /**
     生成 angular material 风格的toast提示
     https://material.angularjs.org/latest/demo/toast
-    @param options {Object}
-        - content {?String} 内容文字。不提供时为'default toast'
-        - duration {?Number} 持续时间。不提供时为3000
+    @param content {?String} 内容文字。不提供时为'default toast'
+    @param duration {?Number} 持续时间。不提供时为3000
     */
     ```
 - 页面尾部
