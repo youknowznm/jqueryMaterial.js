@@ -53,8 +53,11 @@ $jm-button-warn: rgb(255, 82, 82);
         .ripple {
             display: none;
             position: absolute;
-            width: 0;
-            height: 0;
+            // IDEA: safari内宽高均为0的元素初始化时有问题
+            // width: 0;
+            // height: 0;
+            width: 1px;
+            height: 1px;
             top: 0;
             left: 0;
             background-color: rgba(0, 0, 0, .15);
@@ -62,7 +65,6 @@ $jm-button-warn: rgb(255, 82, 82);
             transition: all .3s ease-out;
             transform: scale(1.2);
         }
-
     }
 
     &.mousedown {

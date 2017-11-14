@@ -24,7 +24,9 @@ $(function() {
 
     $('.jm-input').initInput()
 
-    $('.jm-button').initButton()
+    $('.jm-button').initButton(function($t) {
+        console.log($t.parent().prev().html());
+    })
 
     $('.show-alert').on('click', function(){
         console.log(123);
@@ -115,5 +117,9 @@ $(function() {
             content: 'This is a sample toast.'
         })
     })
+
+$('#f').bindClickListener(function($t) {
+    console.log($t.attr('id'));
+})
 
 })
