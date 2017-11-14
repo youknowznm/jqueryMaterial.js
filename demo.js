@@ -25,11 +25,10 @@ $(function() {
     $('.jm-input').initInput()
 
     $('.jm-button').initButton(function($t) {
-        console.log($t.parent().prev().html());
+        console.log(`-- ${$t.parent().prev().html()} --`);
     })
 
-    $('.show-alert').on('click', function(){
-        console.log(123);
+    $('.show-alert').bindClickListener(function() {
         $.showJmDialog({
             dialogType: 'alert',
             title: 'This is an alert title',
@@ -38,7 +37,7 @@ $(function() {
         })
     })
 
-    $('.show-confirm').click(function() {
+    $('.show-confirm').bindClickListener(function() {
         $.showJmDialog({
             dialogType: 'confirm',
             title: 'Would you like to delete your debt?',
@@ -48,15 +47,14 @@ $(function() {
         })
     })
 
-    $('.show-prompt').click(function(){
+    $('.show-prompt').bindClickListener(function() {
         $.showJmDialog({
             dialogType: 'prompt',
             title: 'How would you like to name your dogs?',
             content: 'Bowser is a common name.',
             cancelButtonText: 'I\'m a cat person',
             confirmButtonText: 'OK!',
-            promptDataArr: [
-                {
+            promptDataArr: [{
                     name: 'Dog 1',
                     value: 'Buddy',
                 },
@@ -68,17 +66,16 @@ $(function() {
         })
     })
 
-    $('.to-top').click(function(){
+    $('.to-top').bindClickListener(function() {
         $('body').jmScrollInto()
     })
 
-    $('.to-input').click(function(){
+    $('.to-input').bindClickListener(function() {
         $('.email-input-label').jmScrollInto()
     })
 
     $('.jm-radio-group').initRadio({
-        labels: [
-            {
+        labels: [{
                 name: 'apple',
             },
             {
@@ -112,14 +109,10 @@ $(function() {
         // useRichText: false,
     })
 
-    $('.show-toast').click(function() {
+    $('.show-toast').bindClickListener(function() {
         $.showJmToast({
             content: 'This is a sample toast.'
         })
     })
-
-$('#f').bindClickListener(function($t) {
-    console.log($t.attr('id'));
-})
 
 })

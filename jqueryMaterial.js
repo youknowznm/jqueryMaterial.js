@@ -297,7 +297,7 @@ $.fn.extend({
         });
     },
 
-    // 用于重写click监听
+    // 重写click监听
     bindClickListener: function bindClickListener(clickCallback) {
         this.each(function () {
             var $button = $(this);
@@ -386,38 +386,18 @@ $.showJmDialog = function (options) {
                 onConfirm();
             }
             $wrap.removeClass('show');
-            $dialog.on('animationend', function () {
-                console.log('1end');
+            $wrap.on('animationend', function () {
                 $html.removeClass('no-scroll hide-scroll-bar');
                 $wrap.remove();
             });
         }
     }
 
-    $cancelButton.initButton().click(function (ele) {
-        return clickingTargetButton($cancelButton);
+    $cancelButton.initButton(function () {
+        clickingTargetButton($cancelButton);
     });
-    $confirmButton.initButton().click(function (ele) {
-        return clickingTargetButton($confirmButton);
-    });
-
-    // 热键
-    $(window).on('keyup', function (evt) {
-        console.log($dialog.length);
-        if ($dialog.length !== 0) {
-            // esc - 为alert框时点击确认按钮；否则点击取消按钮
-            if (evt.keyCode === 27) {
-                if (dialogType === 'alert') {
-                    clickingTargetButton($confirmButton);
-                } else {
-                    clickingTargetButton($cancelButton);
-                }
-            }
-            // enter - 点击确认按钮
-            if (evt.keyCode === 13) {
-                clickingTargetButton($confirmButton);
-            }
-        }
+    $confirmButton.initButton(function () {
+        clickingTargetButton($confirmButton);
     });
 
     // 为propmt框时，只在所有.prompt-input框内容有效时允许点击confirm按钮
@@ -561,6 +541,7 @@ $.fn.extend({
             }).join('') + '\n                            <li class="nav-indicator"></li>\n                        </ul>\n                    </nav>\n                    <div class="banner">\n                        <h1 class="page-title">\n                            <span class="jm-single-word">' + navContents[activeNavIndex] + '</span>\n                        </h1>\n                    </div>\n                </div>\n                <div class="ripple"></div>';
 
             var $window = $(window).scrollTop(0);
+            var $html = $('html');
             var $body = $('body');
 
             // header 元素主体
@@ -584,7 +565,7 @@ $.fn.extend({
             var $mainWrap = $('.jm-main-wrap');
 
             // .nav-buttons显示多于一行时，隐藏掉按钮底部提示条，并调整.jm-main-wrap的上外边距
-            var isMobile = $('html').is('#mobile');
+            var isMobile = $html.is('#mobile');
 
             setTimeout(function () {
                 var navLineHeight = isMobile ? 50 : 64;
@@ -600,7 +581,7 @@ $.fn.extend({
             $window.on('scroll', function (evt) {
                 // 桌面端
                 if (!isMobile) {
-                    var scTp = document.documentElement.scrollTop;
+                    var scTp = $window.scrollTop();
                     // 主体的滚动距离大于一定值时渐隐标题
                     $banner.find('.jm-single-word').toggleClass('hidden', scTp > 30);
                     $banner.css('height', 192 - scTp < 0 ? 0 : 192 - scTp);
@@ -622,8 +603,7 @@ $.fn.extend({
                         // 直接从鼠标系事件中取得相对于页面的坐标
                         left: evt.pageX - 50,
                         // top 值要减掉窗口的垂直滚动偏移
-                        // IDEA 是documentElement不是body！！！所以$.animate()也坏掉了
-                        top: evt.pageY - 50 - document.documentElement.scrollTop
+                        top: evt.pageY - 50 - $window.scrollTop()
                     }).addClass('noneToCircle');
                 }
             }).on('mouseup', function (evt) {
@@ -633,14 +613,18 @@ $.fn.extend({
                     /*
                     波纹元素的扩大
                     */
-                    $('.jm-main-wrap').jmScrollInto(function () {
+                    // IDEA safari和chrome滚动目标不同 - Document.scrollingElement
+                    // let $scrollTarget = document.documentElement.scrollTop === 0 ? $body : $html
+                    $(document.scrollingElement).animate({
+                        scrollTop: 0
+                    }, 200, function () {
                         $ripple.removeClass('noneToCircle').addClass('toFullscreen');
-                        setTimeout(function () {
-                            // 移除波纹元素的动画类
-                            $ripple.removeClass('noneToCircle toFullscreen');
-                            rippling = false;
-                        }, 670);
-                    }, headerHeight);
+                    });
+                    $ripple.on('animationend', function () {
+                        // 移除波纹元素的动画类
+                        $ripple.removeClass('noneToCircle toFullscreen');
+                        rippling = false;
+                    });
                     // 主题配色
                     changeColorTheme($buttonClicked);
                     // 改变标题文字
@@ -1438,57 +1422,21 @@ $.jmDebounce = function (fn) {
     };
 };
 
-/**
-延迟调用指定函数。一般用于在按钮等元素产生的动画结束后
-@param fn {Function} 延迟结束后执行的函数
-@param timeout {?Number} 延迟的毫秒数。不提供时为400
-*/
-$.jmDelay = function (fn) {
-    var timeout = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 400;
-
-    setTimeout(fn, timeout);
-};
-
 $.fn.extend({
     /**
-    【在使用了本套组件的header的页面中】动画滚动页面至目标元素位置
+    动画滚动页面至目标元素位置。pc端加上header的banner高度
     @param cb {?Function} 滚动完成的回调。不提供时为一个空函数
-    @param amendment {?Number} 滚动高度的修正像素数。不提供时为.jm-header元素的实际高度
     */
-    jmScrollInto: function jmScrollInto(cb, amendment) {
+    jmScrollInto: function jmScrollInto(cb) {
         var $target = $(this);
-        var _body = document.documentElement;
-        var jmHeaderHeight = $('.jm-header').height();
-
-        var _cb = typeof cb === 'function' ? cb : function () {};
-        var _amendment = typeof amendment === 'number' ? amendment : jmHeaderHeight;
-
-        _amendment = $target.is('body') ? jmHeaderHeight : _amendment;
-
-        var targetBodyScrollTop = $target.offset().top - _amendment;
-        var tId = setInterval(function () {
-            var currentBodyScrollTop = _body.scrollTop;
-            var diff = targetBodyScrollTop - currentBodyScrollTop;
-            switch (true) {
-                case diff > 0:
-                    currentBodyScrollTop += Math.ceil(diff / 5);
-                    break;
-                case diff < 0:
-                    currentBodyScrollTop -= Math.ceil(diff / -5);
-                    break;
-                default:
-                    clearIntervalAndCallback(tId);
+        var headerBannerHeight = document.documentElement.getAttribute('id') === 'pc' ? 192 : 0;
+        $(document.scrollingElement).animate({
+            scrollTop: $target[0].offsetTop + headerBannerHeight
+        }, 200, function () {
+            if (typeof cb === 'function') {
+                cb($target);
             }
-            _body.scrollTop = currentBodyScrollTop;
-            // 如果页面滚动到了底部，也停止interval
-            if (_body.scrollHeight - _body.scrollTop === _body.clientHeight) {
-                clearIntervalAndCallback(tId);
-            }
-        }, 10);
-        function clearIntervalAndCallback(n) {
-            clearInterval(n);
-            _cb();
-        }
+        });
     }
 });
 

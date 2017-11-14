@@ -55,6 +55,7 @@ $.fn.extend({
                 <div class="ripple"></div>`
 
             let $window = $(window).scrollTop(0)
+            let $html = $('html')
             let $body = $('body')
 
             // header 元素主体
@@ -79,7 +80,7 @@ $.fn.extend({
             let $mainWrap = $('.jm-main-wrap')
 
             // .nav-buttons显示多于一行时，隐藏掉按钮底部提示条，并调整.jm-main-wrap的上外边距
-            let isMobile = $('html').is('#mobile')
+            let isMobile = $html.is('#mobile')
 
             setTimeout(function() {
                 let navLineHeight = isMobile ? 50 : 64
@@ -95,7 +96,7 @@ $.fn.extend({
             $window.on('scroll', function(evt) {
                 // 桌面端
                 if (!isMobile) {
-                    let scTp = document.documentElement.scrollTop
+                    let scTp = $window.scrollTop()
                     // 主体的滚动距离大于一定值时渐隐标题
                     $banner.find('.jm-single-word').toggleClass('hidden', scTp > 30)
                     $banner.css(
@@ -122,8 +123,7 @@ $.fn.extend({
                                 // 直接从鼠标系事件中取得相对于页面的坐标
                                 left: evt.pageX - 50,
                                 // top 值要减掉窗口的垂直滚动偏移
-                                // IDEA 是documentElement不是body！！！所以$.animate()也坏掉了
-                                top: evt.pageY - 50 - document.documentElement.scrollTop,
+                                top: evt.pageY - 50 - $window.scrollTop(),
                             })
                             .addClass('noneToCircle')
                     }
@@ -135,19 +135,22 @@ $.fn.extend({
                         /*
                         波纹元素的扩大
                         */
-                        $('.jm-main-wrap').jmScrollInto(
-                            function() {
-                                $ripple
-                                    .removeClass('noneToCircle')
-                                    .addClass('toFullscreen')
-                                setTimeout(function() {
-                                    // 移除波纹元素的动画类
-                                    $ripple.removeClass('noneToCircle toFullscreen')
-                                    rippling = false
-                                }, 670)
+                        // IDEA safari和chrome滚动目标不同 - Document.scrollingElement
+                        // let $scrollTarget = document.documentElement.scrollTop === 0 ? $body : $html
+                        $(document.scrollingElement).animate(
+                            {
+                                scrollTop: 0
                             },
-                            headerHeight
+                            200,
+                            function() {
+                                $ripple.removeClass('noneToCircle').addClass('toFullscreen')
+                            }
                         )
+                        $ripple.on('animationend', function() {
+                            // 移除波纹元素的动画类
+                            $ripple.removeClass('noneToCircle toFullscreen')
+                            rippling = false
+                        })
                         // 主题配色
                         changeColorTheme($buttonClicked)
                         // 改变标题文字

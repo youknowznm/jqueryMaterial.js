@@ -32,54 +32,24 @@ $.jmDebounce = function(fn, delay = 500) {
     }
 }
 
-/**
-延迟调用指定函数。一般用于在按钮等元素产生的动画结束后
-@param fn {Function} 延迟结束后执行的函数
-@param timeout {?Number} 延迟的毫秒数。不提供时为400
-*/
-$.jmDelay = function(fn, timeout = 400) {
-    setTimeout(fn, timeout)
-}
-
 $.fn.extend({
     /**
-    【在使用了本套组件的header的页面中】动画滚动页面至目标元素位置
+    动画滚动页面至目标元素位置。pc端加上header的banner高度
     @param cb {?Function} 滚动完成的回调。不提供时为一个空函数
-    @param amendment {?Number} 滚动高度的修正像素数。不提供时为.jm-header元素的实际高度
     */
-    jmScrollInto(cb, amendment) {
+    jmScrollInto(cb) {
         let $target = $(this)
-        let _body = document.documentElement
-        let jmHeaderHeight = $('.jm-header').height()
-
-        let _cb = (typeof cb === 'function') ? cb : function() {}
-        let _amendment = (typeof amendment === 'number') ? amendment : jmHeaderHeight
-
-        _amendment = $target.is('body') ? jmHeaderHeight : _amendment
-
-        let targetBodyScrollTop = $target.offset().top - _amendment
-        let tId = setInterval(function() {
-            let currentBodyScrollTop = _body.scrollTop
-            let diff = targetBodyScrollTop - currentBodyScrollTop
-            switch (true) {
-                case diff > 0:
-                    currentBodyScrollTop += Math.ceil(diff / 5)
-                    break
-                case diff < 0:
-                    currentBodyScrollTop -= Math.ceil(diff / -5)
-                    break
-                default:
-                    clearIntervalAndCallback(tId)
+        let headerBannerHeight = document.documentElement.getAttribute('id') === 'pc' ? 192 : 0
+        $(document.scrollingElement).animate(
+            {
+                scrollTop: $target[0].offsetTop + headerBannerHeight
+            },
+            200,
+            function() {
+                if (typeof cb === 'function') {
+                    cb($target)
+                }
             }
-            _body.scrollTop = currentBodyScrollTop
-            // 如果页面滚动到了底部，也停止interval
-            if (_body.scrollHeight - _body.scrollTop === _body.clientHeight) {
-                clearIntervalAndCallback(tId)
-            }
-        }, 10)
-        function clearIntervalAndCallback(n) {
-            clearInterval(n)
-            _cb()
-        }
+        )
     },
 })

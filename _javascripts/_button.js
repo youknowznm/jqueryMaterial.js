@@ -147,7 +147,7 @@ $.fn.extend({
 
         })
     },
-    // 用于重写click监听
+    // 重写click监听
     bindClickListener(clickCallback) {
         this.each(function() {
             let $button = $(this)

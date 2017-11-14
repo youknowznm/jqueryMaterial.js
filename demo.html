@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <title>jQuery · Material</title>
@@ -37,141 +38,130 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">
 </head>
+
 <body>
 
-<!-- header -->
-<header class="jm-header"></header>
+    <!-- header -->
+    <header class="jm-header"></header>
 
-<div class="jm-main-wrap">
-    <div class="jm-main jm-responsive-wrap">
-
-        <!-- 背景生成器 -->
-        <p class="jm-row-label">background generator</p>
-        <div class="jm-row flexed">
-            <div class="jm-bg"></div>
-            <div class="jm-bg"></div>
-            <div class="jm-bg"></div>
-        </div>
-
-        <!-- 按钮 - 凸起 -->
-        <p class="jm-row-label">button raised</p>
-        <div class="jm-row button-raised">
-            <button id="f" class="jm-button" data-text="general"></button>
-            <button class="jm-button _primary" data-text="primary"></button>
-            <button class="jm-button _warn" data-text="warn"></button>
-            <button class="jm-button _disabled" data-text="disabled"></button>
-        </div>
-        <!-- 按钮 - 凸起 - 小 -->
-        <p class="jm-row-label">button raised small</p>
-        <div class="jm-row">
-            <button class="jm-button _small" data-text="general"></button>
-            <button class="jm-button _small _primary" data-text="primary"></button>
-            <button class="jm-button _small _warn" data-text="warn"></button>
-            <button class="jm-button _small _disabled" data-text="disabled"></button>
-        </div>
-        <!-- 按钮 - 扁平 -->
-        <p class="jm-row-label">button flat</p>
-        <div class="jm-row">
-            <button class="jm-button _flat" data-text="general"></button>
-            <button class="jm-button _flat _primary" data-text="primary"></button>
-            <button class="jm-button _flat _warn" data-text="warn"></button>
-            <button class="jm-button _flat _disabled" data-text="disabled"></button>
-        </div>
-        <!-- 按钮 - 小 -->
-        <p class="jm-row-label">button round</p>
-        <div class="jm-row">
-            <button class="jm-button android"></button>
-            <button class="jm-button _primary edit"></button>
-            <button class="jm-button _warn logout"></button>
-            <button class="jm-button _disabled comment"></button>
-        </div>
-        <!-- 按钮 - 圆 - 小 -->
-        <p class="jm-row-label">button round small</p>
-        <div class="jm-row">
-            <button class="jm-button _small android"></button>
-            <button class="jm-button _small _primary edit"></button>
-            <button class="jm-button _small _warn logout"></button>
-            <button class="jm-button _small _disabled comment"></button>
-        </div>
-        <!-- 按钮 - 带提示条 -->
-        <p class="jm-row-label">button with tooltip</p>
-        <div class="jm-row">
-            <button class="jm-button android" data-tooltip-position="left" data-tooltip-content="tooltip 1"></button>
-            <button class="jm-button _primary edit" data-tooltip-position="top" data-tooltip-content="tooltip 2"></button>
-            <button class="jm-button _warn logout" data-tooltip-position="bottom" data-tooltip-content="tooltip 3"></button>
-            <button class="jm-button _disabled comment" data-tooltip-position="right" data-tooltip-content="tooltip 4"></button>
-        </div>
-
-        <!-- 输入 -->
-        <p class="jm-row-label email-input-label">input</p>
-        <div class="jm-row">
-            <div class="jm-input email"
-                data-type="text"
-                data-validator="^([a-zA-Z\d]+)\w*@(\w+)(\.[a-zA-Z]{1,4}){1,2}$"
-                data-label="Email"
-                data-max-length="30"
-                data-error-msg="Invalid email format.">
+    <div class="jm-main-wrap">
+        <div class="jm-main jm-responsive-wrap">
+            <!-- 对话框 -->
+            <p class="jm-row-label">dialog</p>
+            <div class="jm-row">
+                <button class="jm-button _primary show-alert" data-text="show alert"></button>
+                <button class="jm-button _primary show-confirm" data-text="show confirm"></button>
+                <button class="jm-button _primary show-prompt" data-text="show prompt"></button>
             </div>
-        </div>
-        <!-- 输入 - 暗色 -->
-        <p class="jm-row-label">input - dark</p>
-        <div class="jm-row dark">
-            <div class="jm-input cell"
-                data-type="text"
-                data-validator="^1[0-9]{10}$"
-                data-label="Cell Phone Number"
-                data-max-length="11"
-                data-error-msg="Invalid cell phone format."
-                data-theme="dark"
-                data-value="13426105824">
+
+            <!-- 背景生成器 -->
+            <p class="jm-row-label">background generator</p>
+            <div class="jm-row flexed">
+                <div class="jm-bg"></div>
+                <div class="jm-bg"></div>
+                <div class="jm-bg"></div>
             </div>
-        </div>
 
-        <!-- 单选按钮组 -->
-        <p class="jm-row-label">radio group</p>
-        <div class="jm-row">
-            <div class="jm-radio-group"></div>
-        </div>
+            <!-- 按钮 - 凸起 -->
+            <p class="jm-row-label">button raised</p>
+            <div class="jm-row button-raised">
+                <button id="f" class="jm-button" data-text="general"></button>
+                <button class="jm-button _primary" data-text="primary"></button>
+                <button class="jm-button _warn" data-text="warn"></button>
+                <button class="jm-button _disabled" data-text="disabled"></button>
+            </div>
+            <!-- 按钮 - 凸起 - 小 -->
+            <p class="jm-row-label">button raised small</p>
+            <div class="jm-row">
+                <button class="jm-button _small" data-text="general"></button>
+                <button class="jm-button _small _primary" data-text="primary"></button>
+                <button class="jm-button _small _warn" data-text="warn"></button>
+                <button class="jm-button _small _disabled" data-text="disabled"></button>
+            </div>
+            <!-- 按钮 - 扁平 -->
+            <p class="jm-row-label">button flat</p>
+            <div class="jm-row">
+                <button class="jm-button _flat" data-text="general"></button>
+                <button class="jm-button _flat _primary" data-text="primary"></button>
+                <button class="jm-button _flat _warn" data-text="warn"></button>
+                <button class="jm-button _flat _disabled" data-text="disabled"></button>
+            </div>
+            <!-- 按钮 - 小 -->
+            <p class="jm-row-label">button round</p>
+            <div class="jm-row">
+                <button class="jm-button android"></button>
+                <button class="jm-button _primary edit"></button>
+                <button class="jm-button _warn logout"></button>
+                <button class="jm-button _disabled comment"></button>
+            </div>
+            <!-- 按钮 - 圆 - 小 -->
+            <p class="jm-row-label">button round small</p>
+            <div class="jm-row">
+                <button class="jm-button _small android"></button>
+                <button class="jm-button _small _primary edit"></button>
+                <button class="jm-button _small _warn logout"></button>
+                <button class="jm-button _small _disabled comment"></button>
+            </div>
+            <!-- 按钮 - 带提示条 -->
+            <p class="jm-row-label">button with tooltip</p>
+            <div class="jm-row">
+                <button class="jm-button android" data-tooltip-position="left" data-tooltip-content="tooltip 1"></button>
+                <button class="jm-button _primary edit" data-tooltip-position="top" data-tooltip-content="tooltip 2"></button>
+                <button class="jm-button _warn logout" data-tooltip-position="bottom" data-tooltip-content="tooltip 3"></button>
+                <button class="jm-button _disabled comment" data-tooltip-position="right" data-tooltip-content="tooltip 4"></button>
+            </div>
 
-        <!-- 编辑器 -->
-        <p class="jm-row-label rte-label">rich text editor</p>
-        <div class="jm-row">
-            <div class="jm-rte"></div>
-        </div>
+            <!-- 输入 -->
+            <p class="jm-row-label email-input-label">input</p>
+            <div class="jm-row">
+                <div class="jm-input email" data-type="text" data-validator="^([a-zA-Z\d]+)\w*@(\w+)(\.[a-zA-Z]{1,4}){1,2}$" data-label="Email" data-max-length="30" data-error-msg="Invalid email format.">
+                </div>
+            </div>
+            <!-- 输入 - 暗色 -->
+            <p class="jm-row-label">input - dark</p>
+            <div class="jm-row dark">
+                <div class="jm-input cell" data-type="text" data-validator="^1[0-9]{10}$" data-label="Cell Phone Number" data-max-length="11" data-error-msg="Invalid cell phone format." data-theme="dark" data-value="13426105824">
+                </div>
+            </div>
 
-        <!-- 滚动 -->
-        <p class="jm-row-label scrolling-label">scrolling</p>
-        <div class="jm-row">
-            <button class="jm-button to-top" data-text="to page top"></button>
-            <button class="jm-button to-input" data-text="to email input"></button>
-        </div>
+            <!-- 单选按钮组 -->
+            <p class="jm-row-label">radio group</p>
+            <div class="jm-row">
+                <div class="jm-radio-group"></div>
+            </div>
 
-        <!-- 对话框 -->
-        <p class="jm-row-label">dialog</p>
-        <div class="jm-row">
-            <button class="jm-button _primary show-alert" data-text="show alert"></button>
-            <button class="jm-button _primary show-confirm" data-text="show confirm"></button>
-            <button class="jm-button _primary show-prompt" data-text="show prompt"></button>
-        </div>
+            <!-- 编辑器 -->
+            <p class="jm-row-label rte-label">rich text editor</p>
+            <div class="jm-row">
+                <div class="jm-rte"></div>
+            </div>
 
-        <!-- 标签 -->
-        <p class="jm-row-label">tag</p>
-        <div class="jm-row">
-            <div class="jm-tag"></div>
-        </div>
+            <!-- 滚动 -->
+            <p class="jm-row-label scrolling-label">scrolling</p>
+            <div class="jm-row">
+                <button class="jm-button to-top" data-text="to page top"></button>
+                <button class="jm-button to-input" data-text="to email input"></button>
+            </div>
 
-        <!-- toast -->
-        <p class="jm-row-label">toast</p>
-        <div class="jm-row">
-            <button class="jm-button show-toast _flat _warn" data-text="show toast"></button>
+            <!-- 标签 -->
+            <p class="jm-row-label">tag</p>
+            <div class="jm-row">
+                <div class="jm-tag"></div>
+            </div>
+
+            <!-- toast -->
+            <p class="jm-row-label">toast</p>
+            <div class="jm-row">
+                <button class="jm-button show-toast _flat _warn" data-text="show toast"></button>
+            </div>
+
         </div>
 
     </div>
 
-</div>
-
-<!-- footer -->
-<footer class="jm-footer"></footer>
+    <!-- footer -->
+    <footer class="jm-footer"></footer>
 
 </body>
+
 </html>

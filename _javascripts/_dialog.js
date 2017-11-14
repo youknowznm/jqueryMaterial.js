@@ -16,25 +16,25 @@ https://material.angularjs.org/latest/demo/dialog
 */
 $.showJmDialog = function(options) {
 
-    let dialogType = options.dialogType ? options.dialogType : 'alert'
+        let dialogType = options.dialogType ? options.dialogType : 'alert'
 
-    let title = options.title || 'unnamed dialog'
-    let content = options.content || 'default content'
-    let confirmButtonText = options.confirmButtonText || 'confirm'
-    let cancelButtonText = options.cancelButtonText || 'cancel'
-    let onConfirm = (typeof options.onConfirm === 'function') ? options.onConfirm : noop
-    let onCancel = (typeof options.onCancel === 'function') ? options.onCancel : noop
-    let onDialogReady = (typeof options.onDialogReady === 'function') ? options.onDialogReady : noop
-    let promptDataArr = options.promptDataArr
+        let title = options.title || 'unnamed dialog'
+        let content = options.content || 'default content'
+        let confirmButtonText = options.confirmButtonText || 'confirm'
+        let cancelButtonText = options.cancelButtonText || 'cancel'
+        let onConfirm = (typeof options.onConfirm === 'function') ? options.onConfirm : noop
+        let onCancel = (typeof options.onCancel === 'function') ? options.onCancel : noop
+        let onDialogReady = (typeof options.onDialogReady === 'function') ? options.onDialogReady : noop
+        let promptDataArr = options.promptDataArr
 
-    // IDEA: 根据初始的html是否有垂直溢出内容，判断是否需隐藏滚动条
-    let hasOverflownContent = document.documentElement.scrollHeight > document.documentElement.clientHeight
+        // IDEA: 根据初始的html是否有垂直溢出内容，判断是否需隐藏滚动条
+        let hasOverflownContent = document.documentElement.scrollHeight > document.documentElement.clientHeight
 
-    let jmDialogHTML
+        let jmDialogHTML
 
-    switch (dialogType) {
-        case 'alert':
-            jmDialogHTML = `
+        switch (dialogType) {
+            case 'alert':
+                jmDialogHTML = `
                 <div class="jm-dialog-wrap" id="jm-dialog-removable">
                     <div class="jm-dialog">
                         <h1 class="dialog-title">${title}</h1>
@@ -44,9 +44,9 @@ $.showJmDialog = function(options) {
                          </div>
                     </div>
                 </div>`
-            break;
-        case 'confirm':
-            jmDialogHTML = `
+                break;
+            case 'confirm':
+                jmDialogHTML = `
                 <div class="jm-dialog-wrap" id="jm-dialog-removable">
                     <div class="jm-dialog">
                         <h1 class="dialog-title">${title}</h1>
@@ -57,13 +57,13 @@ $.showJmDialog = function(options) {
                          </div>
                     </div>
                 </div>`
-            break;
-        case 'prompt':
-            // 选择了prompt类型但未提供promptDataArr数组时抛出
-            if (!Array.isArray(promptDataArr)) {
-                throw new TypeError('Expecting parameter "options.promptDataArr" as {Array.<Object>}')
-            }
-            jmDialogHTML = `
+                break;
+            case 'prompt':
+                // 选择了prompt类型但未提供promptDataArr数组时抛出
+                if (!Array.isArray(promptDataArr)) {
+                    throw new TypeError('Expecting parameter "options.promptDataArr" as {Array.<Object>}')
+                }
+                jmDialogHTML = `
                 <div class="jm-dialog-wrap" id="jm-dialog-removable">
                     <div class="jm-dialog">
                         <h1 class="dialog-title">${title}</h1>
@@ -104,34 +104,18 @@ $.showJmDialog = function(options) {
                 onConfirm()
             }
             $wrap.removeClass('show')
-            $dialog.on('animationend', function() {
-                console.log('1end');
+            $wrap.on('animationend', function() {
                 $html.removeClass('no-scroll hide-scroll-bar')
                 $wrap.remove()
             })
         }
     }
 
-    $cancelButton.initButton().click((ele) => clickingTargetButton($cancelButton))
-    $confirmButton.initButton().click((ele) => clickingTargetButton($confirmButton))
-
-    // 热键
-    $(window).on('keyup', function(evt) {
-        console.log($dialog.length);
-        if ($dialog.length !== 0) {
-            // esc - 为alert框时点击确认按钮；否则点击取消按钮
-            if (evt.keyCode === 27) {
-                if (dialogType === 'alert') {
-                    clickingTargetButton($confirmButton)
-                } else {
-                    clickingTargetButton($cancelButton)
-                }
-            }
-            // enter - 点击确认按钮
-            if (evt.keyCode === 13) {
-                clickingTargetButton($confirmButton)
-            }
-        }
+    $cancelButton.initButton(function() {
+        clickingTargetButton($cancelButton)
+    })
+    $confirmButton.initButton(function() {
+        clickingTargetButton($confirmButton)
     })
 
     // 为propmt框时，只在所有.prompt-input框内容有效时允许点击confirm按钮
