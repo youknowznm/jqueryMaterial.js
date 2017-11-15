@@ -144,13 +144,13 @@ $.fn.extend({
                             200,
                             function() {
                                 $ripple.removeClass('noneToCircle').addClass('toFullscreen')
+                                // 稍后移除波纹元素的动画类
+                                setTimeout(function() {
+                                    $ripple.removeClass('noneToCircle toFullscreen')
+                                    rippling = false
+                                }, 670)
                             }
                         )
-                        $ripple.on('animationend', function() {
-                            // 移除波纹元素的动画类
-                            $ripple.removeClass('noneToCircle toFullscreen')
-                            rippling = false
-                        })
                         // 主题配色
                         changeColorTheme($buttonClicked)
                         // 改变标题文字
