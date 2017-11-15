@@ -1,12 +1,15 @@
-/**
-生成 design.google.com 旧站风格的header
-https://web.archive.org/web/20170516175305/https://design.google.com
-@param options {Object}
-    - siteNameWords {Array.<String>} 站名的单词组成的数组，以'·'和'¬'分隔
-    - navContents {Array.<String>} 导航按钮的名称数组
-    - activeNavIndex {?Number} 当前活动的导航按钮索引。不提供时为0
-*/
+// 结合样式表，产生以'·'和'¬'装饰的span元素
+function generateJmSpans(str) {
+    str = str + ''
+    let arr = str.split(/\s+/g)
+    let r = ''
+    arr.forEach(function(item) {
+        r += `<span class="jm-single-word">${item}</span>`
+    })
+    return r
+}
 
+// 主题色
 const COLOR_PALLETE = [
     'gray',
     'silver',
@@ -17,12 +20,24 @@ const COLOR_PALLETE = [
 ]
 
 $.fn.extend({
+    /**
+    生成 design.google.com 旧站风格的header
+    https://web.archive.org/web/20170516175305/https://design.google.com
+    @param options {Object}
+        - pageTitle {String} 当前页面标题
+        - siteNameWords {Array.<String>} 站名的单词组成的数组，以'·'和'¬'分隔
+        - navContents {Array.<String>} 导航按钮的名称数组
+        - activeNavIndex {?Number} 当前活动的导航按钮索引。不提供时为0
+    */
     initHeader(options) {
         this.each(function() {
-            let { siteNameWords, navContents, activeNavIndex = 0 } = options
+            let { pageTitle, siteNameWords, navContents, activeNavIndex = 0 } = options
             /*
             参数检查
             */
+            if (typeof pageTitle !== 'string') {
+                throw new TypeError('Expecting parameter "pageTitle" as {String}')
+            }
             if (typeof siteNameWords[0] !== 'string') {
                 throw new TypeError('Expecting parameter "siteNameWords" as {Array.<String>}')
             }
@@ -48,7 +63,7 @@ $.fn.extend({
                     </nav>
                     <div class="banner">
                         <h1 class="page-title">
-                            <span class="jm-single-word">${navContents[activeNavIndex]}</span>
+                            ${generateJmSpans(pageTitle)}
                         </h1>
                     </div>
                 </div>
@@ -153,8 +168,6 @@ $.fn.extend({
                         )
                         // 主题配色
                         changeColorTheme($buttonClicked)
-                        // 改变标题文字
-                        $pageTitle.text($buttonClicked.text())
                         // 按钮提示条动画
                         indicate($buttonClicked)
                     }

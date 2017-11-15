@@ -3,6 +3,7 @@ let siteNameWords = ['jQuery', 'Material']
 $(function() {
 
     $('.jm-header').initHeader({
+        pageTitle: 'jQuery Material',
         siteNameWords,
         navContents: ['articles', 'resources', 'events', 'jobs', 'news', 'about'],
     })

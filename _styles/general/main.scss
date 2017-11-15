@@ -32,12 +32,12 @@ html {
             min-width: 900px;
             margin-left: auto;
             margin-right: auto;
-            @media (min-width: 1280px) and (max-width: 1900px) {
+            @media (min-width: 1280px) {
                 width: 1200px;
             }
-            @media (min-width: 1900px) {
-                width: 1440px;
-            }
+            // @media (min-width: 1900px) {
+            //     width: 1440px;
+            // }
         }
     }
     &#mobile {
@@ -47,13 +47,13 @@ html {
     }
 }
 body {
-    background: #fff;
     position: relative;
     // 字体库参考 http://element.eleme.io/#/zh-CN/component/typography 建议的集合
     font-family: "Roboto Mono", "Helvetica Neue",
                  "PingFang SC", "Microsoft YaHei",
                  "微软雅黑", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
+    background: #fafafa;
     // 在桌面端进行响应式的宽度控制，参考 design.google.com
     &.no-scroll {
         overflow: hidden;

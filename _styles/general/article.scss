@@ -8,96 +8,109 @@
 .jm-article {
     text-align: left;
     font-family: "Roboto";
-    font-size: 14px !important;
-    line-height: 20px !important;
-    color: rgb(33, 23, 11);
+    font-size: 16px !important;
+    line-height: 24px !important;
+    color: rgb(33, 33, 33);
     b {
-
+        font-size: 500;
     }
     i {
 
     }
     u {
         text-decoration: none;
-        border-bottom: 2px solid rgb(33, 23, 11);
+        border-bottom: 2px solid rgb(33, 33, 33);
         padding-bottom: 0;
     }
     strike {
         text-decoration: strike-through;
     }
-    code {
-        background-color: rgba(0, 0, 0, .1);
-        font-family: "Roboto Mono";
-        margin: 0 .3em;
-        padding: 0 .3em;
+    h1, h2, h3, h4, h5, h6 {
+        color: rgb(33, 33, 33);
+        line-height: 32px;
+        &:first-child {
+            margin-top: 0 !important;
+        }
     }
     h1 {
-        font-family: "Roboto Mono";
+        border-bottom: 1px solid #ebebeb;
         font-size: 24px;
-        line-height: 32px;
-        color: rgb(33, 23, 11);
-        margin: 24px 0;
-        border-bottom: 1px solid #ccc;
-        padding-bottom: 6px;
-        // &:after {
-        //     opacity: .4;
-        //     content: '¬';
-        // }
+        font-family: "Roboto Mono";
+        letter-spacing: -.01em;
+        margin: 40px 0 20px;
+        padding-bottom: 3px;
+    }
+    h2, h3, h4, h5, h6 {
+        font-size: 20px;
+        margin: 32px 0 16px;
     }
     p {
         font-family: "Roboto";
-        color: rgb(33, 23, 11);
-        font-size: 14px;
-        line-height: 20px;
-        margin: 4px 0 16px;
+        margin: 16px 0;
+        padding: 0;
+        font-size: 16px;
+        line-height: 24px;
     }
     blockquote {
-        border-left: 4px solid rgb(207, 216, 230);
-        padding-left: 10px;
+        padding-left: 12px;
         box-sizing: border-box;
         font-family: "Roboto";
-        color: rgb(107, 122, 140);
-        font-size: 14px;
+        font-size: 13px;
         line-height: 20px;
-        margin: 4px 0 16px;
+        margin: 16px 0;
+        border-left: 4px solid rgb(207, 216, 230);
+        color: #757575;
+
+    }
+    code {
+        font-weight: 500;
+        font-size: .9em;
+        line-height: 1em;
+        word-break: break-word;
+        font-family: "Roboto Mono";
+        background-color: #f7f7f7;
+        color: #37474f;
     }
     pre {
-        width: auto;
-        color: #000;
-        font-family: 'Roboto Mono';
-        font-size: 12px;
+        font-size: 14px;
         line-height: 20px;
-        background-color: rgb(242, 242, 242);
-        padding: 8px 12px;
-        margin-bottom: 30px;
+        font-family: 'Roboto Mono';
+        background-color: #f7f7f7;
+        color: #37474f;
+        margin: 16px 0;
         overflow-x: auto;
+        padding: 8px;
+        position: relative;
     }
     li {
         font-size: 14px;
         font-family: "Roboto";
     }
-    ul {
-        padding-left: 18px;
-        box-sizing: border-box;
+    ul, ol {
+        margin: 0;
+        padding-left: 40px;
         li {
-            list-style-type: disc;
+            margin: 8px 0;
+            padding: 0;
+            list-style-position: outside;
         }
     }
-    ol {
-        padding-left: 18px;
-        box-sizing: border-box;
-        li {
-            list-style-type: decimal;
-        }
+    ul > li {
+        list-style-type: disc;
+    }
+    ol > li {
+        list-style-type: decimal;
     }
     a {
         color: #039be5;
+        box-sizing: border-box;
         border-bottom: 2px solid transparent;
-        padding-bottom: 1px;
-        transition: all .2s;
+        padding-bottom: 4px;
+        transition: all .2s ease-out;
+        outline: 0;
         &:hover {
             border-bottom-color: #039be5;
-            padding-bottom: 0;
+            padding-bottom: 2px;
         }
     }
     img {
